@@ -357,6 +357,11 @@ body {
   height: 43px;
 }
 
+.number {
+  color: #545454;
+  cursor: default;
+}
+
 .legal-disclaimer {
   color: #b2b2b2;
   font-style: italic;
@@ -369,6 +374,55 @@ body {
 .footer {
   height: 350px;
   background-image: radial-gradient(549.89% 73.65% at 5.73% 50%, rgb(81, 61, 47) 0%, rgb(26, 26, 28) 100%);
+  display: flex;
+  justify-content: center;
+}
+
+.footer-container {
+  display: flex;
+  padding: 40px 40px 0px 40px;
+  flex-direction: row;
+  width: 1280px;
+  justify-content: space-between;
+}
+
+.footer-contact-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 16px 0px 60px 0px;
+}
+
+.contact-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  text-decoration: none;
+}
+
+.contact-link {
+  color: #f1cdb3;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 115%;
+  letter-spacing: 0.06em;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  text-decoration: none;
+  transition: 0.5s;
+}
+
+.contact-link:hover {
+  color: #fafafa;
+}
+
+.section-title.footer-title {
+  max-width: 279px;
+  color: #f1cdb3;
+}
+
+.footer-puppy {
+  padding-left: 10px;
 }
 
 .card-container:hover .button {
