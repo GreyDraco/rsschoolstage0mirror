@@ -164,15 +164,30 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 20px;
+}
+
+.button-hollow.round.disabled {
+  border: 2px solid #cdcdcd;
+  cursor: default;
+  background: none;
+}
+
+.button-hollow.round.current {
+  cursor: default;
+  background-color: #fddcc4;
+  border: #fddcc4 2px solid;
 }
 
 .button-hollow:hover {
   background-color: #fddcc4;
   border: #fddcc4 2px solid;
+  cursor: pointer;
 }
 
 .button:hover {
   background-color: #fddcc4;
+  cursor: pointer;
 }
 
 .about {
@@ -360,6 +375,7 @@ body {
 .number {
   color: #545454;
   cursor: default;
+  cursor: pointer;
 }
 
 .legal-disclaimer {
@@ -428,4 +444,58 @@ body {
 .card-container:hover .button {
   background-color: #fddcc4;
   cursor: pointer;
+}
+
+.pets-selection {
+  background-color: #f6f6f6;
+}
+
+.pets-selection-container {
+  padding: 80px 40px 100px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+}
+
+.pets-grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 30px;
+  column-gap: 40px;
+  justify-content: center;
+  padding: 15px 0px;
+}
+
+.pets-page-navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+}
+
+.header-pets {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-pets .header .logo .logo-name {
+  color: #545454;
+}
+
+.header-pets .header .logo .logo-description {
+  color: #292929;
+}
+
+.header-pets .header .nav-list .nav-link {
+  color: #545454;
+}
+
+.header-pets .header .nav-list .nav-link:hover {
+  color: #292929;
+}
+
+.header-pets .header .nav-list .nav-item.active .nav-link {
+  color: #292929;
 }
