@@ -72,6 +72,10 @@ body {
   transition: 0.5s;
 }
 
+.nav-link:hover {
+  color: #fafafa;
+}
+
 .nav-link.disabled {
   color: #fafafa;
   cursor: not-allowed;
