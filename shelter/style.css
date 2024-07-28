@@ -7,8 +7,75 @@ body {
 }
 
 .top-section {
+  display: flex;
+  justify-content: center;
   height: 908px;
   background-image: radial-gradient(237.5% 111.8% at 0% 0%, rgb(91, 72, 58) 0%, rgb(38, 36, 37) 100%);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 1280px;
+  height: 120px;
+  padding: 30px 40px;
+}
+
+.logo {
+  flex-direction: column;
+  display: flex;
+  width: 184px;
+  height: 60px;
+  text-align: center;
+}
+
+.logo-name {
+  color: #f1cdb3;
+  font-size: 32px;
+  line-height: 110%;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+.logo-description {
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0.135em;
+  line-height: 80%;
+  color: #ffffff;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  list-style: none;
+  text-align: center;
+  margin: 0;
+  gap: 35px;
+  padding: 0;
+}
+
+.nav-item.active {
+  border-bottom: #f1cdb3 3px solid;
+}
+
+.nav-link {
+  color: #cdcdcd;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 170%;
+  letter-spacing: 0.05em;
+  transition: 0.5s;
+}
+
+.nav-link.disabled {
+  color: #fafafa;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .about {
