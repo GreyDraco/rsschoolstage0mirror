@@ -316,7 +316,54 @@ body {
 
 .in-addition {
   height: 462px;
-  background-color: #b2b2b2;
+  background-color: #f6f6f6;
+  display: flex;
+  justify-content: center;
+}
+
+.in-addition-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 80px 182.5px 100px 182.5px;
+  gap: 30px;
+}
+
+.donation-description-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  width: 380px;
+  gap: 20px;
+}
+
+.donation-paragraph {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0.06em;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.button.donation-button {
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 15px;
+  font-size: 20px;
+  height: 43px;
+}
+
+.legal-disclaimer {
+  color: #b2b2b2;
+  font-style: italic;
+  font-size: 12px;
+  line-height: 150%;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
 }
 
 .footer {
@@ -324,6 +371,7 @@ body {
   background-image: radial-gradient(549.89% 73.65% at 5.73% 50%, rgb(81, 61, 47) 0%, rgb(26, 26, 28) 100%);
 }
 
-.card:hover .button {
+.card-container:hover .button {
   background-color: #fddcc4;
+  cursor: pointer;
 }
