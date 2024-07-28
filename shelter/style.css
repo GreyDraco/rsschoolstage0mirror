@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
 }
@@ -30,6 +34,11 @@ body {
   width: 184px;
   height: 60px;
   text-align: center;
+  text-decoration: none;
+}
+
+.logo:hover .logo-name {
+  color: #fddcc4;
 }
 
 .logo-name {
@@ -137,6 +146,12 @@ body {
   font-family: Georgia, "Times New Roman", Times, serif;
   border: 0;
   height: 52px;
+  text-decoration: none;
+}
+
+.button-link {
+  color: #292929;
+  text-decoration: none;
 }
 
 .button-hollow {
@@ -274,6 +289,7 @@ body {
   background-color: #fafafa;
   border-radius: 9px;
   width: 270px;
+  cursor: pointer;
 }
 
 .card-container-info {
@@ -374,7 +390,7 @@ body {
 
 .number {
   color: #545454;
-  cursor: default;
+  text-decoration: none;
   cursor: pointer;
 }
 
@@ -484,6 +500,10 @@ body {
   color: #545454;
 }
 
+.header-pets .header .logo:hover .logo-name {
+  color: #292929;
+}
+
 .header-pets .header .logo .logo-description {
   color: #292929;
 }
@@ -498,4 +518,9 @@ body {
 
 .header-pets .header .nav-list .nav-item.active .nav-link {
   color: #292929;
+}
+
+.card-container:hover .button-hollow {
+  background-color: #fddcc4;
+  border: #fddcc4 2px solid;
 }
