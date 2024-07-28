@@ -1,7 +1,37 @@
 * {
   box-sizing: border-box;
 }
+
+body {
+  margin: 0;
+}
+
 .top-section {
   height: 908px;
   background-image: radial-gradient(237.5% 111.8% at 0% 0%, rgb(91, 72, 58) 0%, rgb(38, 36, 37) 100%);
+}
+
+.about {
+  height: 588px;
+  background-color: #ffffff;
+}
+
+.our-friends {
+  height: 877px;
+  background-color: #fafafa;
+}
+
+.help {
+  height: 611px;
+  background-color: #ffffff;
+}
+
+.in-addition {
+  height: 462px;
+  background-color: #b2b2b2;
+}
+
+.footer {
+  height: 350px;
+  background-image: radial-gradient(549.89% 73.65% at 5.73% 50%, rgb(81, 61, 47) 0%, rgb(26, 26, 28) 100%);
 }
