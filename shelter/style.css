@@ -135,6 +135,11 @@ body {
   line-height: 130%;
   letter-spacing: 0.058em;
   color: #292929;
+  transition: 0.5s;
+}
+
+.button:hover {
+  background-color: #fddcc4;
 }
 
 .about {
