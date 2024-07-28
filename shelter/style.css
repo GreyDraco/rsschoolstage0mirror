@@ -141,17 +141,21 @@ body {
 
 .button-hollow {
   border-radius: 100px;
-  padding: 15px 45px;
+  padding: 15px 43px;
   border: 2px solid #f1cdb3;
   background: none;
   font-weight: 400;
   font-size: 17px;
   line-height: 130%;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   color: #292929;
   transition: 0.5s;
   font-family: Georgia, "Times New Roman", Times, serif;
   height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
 }
 
 .button-hollow.round {
@@ -254,6 +258,7 @@ body {
   align-items: center;
   background-color: #fafafa;
   border-radius: 9px;
+  width: 270px;
 }
 
 .card-container-info {
