@@ -270,11 +270,43 @@ body {
   margin: 0;
   letter-spacing: 0.06em;
   font-weight: 400;
+  color: #545454;
 }
 
 .help {
   height: 611px;
   background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+}
+
+.help-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 60px;
+  padding: 80px 40px 100px 40px;
+  width: 1280px;
+}
+
+.help-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 55px;
+  column-gap: 120px;
+  justify-content: center;
+}
+
+.help-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.card-icon {
+  width: 60px;
+  height: 60px;
 }
 
 .in-addition {
