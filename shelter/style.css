@@ -1,0 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+.top-section {
+  height: 908px;
+  background-image: radial-gradient(237.5% 111.8% at 0% 0%, rgb(91, 72, 58) 0%, rgb(38, 36, 37) 100%);
+}
