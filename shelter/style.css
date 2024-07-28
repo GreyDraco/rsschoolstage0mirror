@@ -44,9 +44,10 @@ body {
 .logo-description {
   font-weight: 400;
   font-size: 13px;
-  letter-spacing: 0.135em;
+  letter-spacing: 0.1em;
   line-height: 80%;
   color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .nav-list {
@@ -70,8 +71,8 @@ body {
   font-size: 15px;
   font-weight: 400;
   line-height: 170%;
-  letter-spacing: 0.05em;
   transition: 0.5s;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .nav-link:hover {
@@ -110,8 +111,8 @@ body {
   line-height: 130%;
   color: #ffffff;
   margin: 0;
-  letter-spacing: 0.04em;
   width: 310px;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .title-description {
@@ -120,8 +121,7 @@ body {
   line-height: 160%;
   color: #cdcdcd;
   margin: 0px;
-  text-align: justify;
-  letter-spacing: 0.03em;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .button {
@@ -133,9 +133,10 @@ body {
   font-weight: 400;
   font-size: 17px;
   line-height: 130%;
-  letter-spacing: 0.058em;
+  letter-spacing: 0.05em;
   color: #292929;
   transition: 0.5s;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .button:hover {
@@ -145,6 +146,44 @@ body {
 .about {
   height: 588px;
   background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+}
+
+.about-container {
+  display: flex;
+  flex-direction: row;
+  gap: 120px;
+  justify-content: center;
+  width: 1280px;
+  padding: 80px 40px 100px 40px;
+  align-items: center;
+}
+
+.about-description-container {
+  width: 430px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.section-title {
+  margin: 0;
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 130%;
+  letter-spacing: 0.06em;
+  color: #545454;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.section-paragraph {
+  margin: 0;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 160%;
+  color: #4c4c4c;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .our-friends {
