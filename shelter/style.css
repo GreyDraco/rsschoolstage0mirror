@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
 }
@@ -30,6 +34,11 @@ body {
   width: 184px;
   height: 60px;
   text-align: center;
+  text-decoration: none;
+}
+
+.logo:hover .logo-name {
+  color: #fddcc4;
 }
 
 .logo-name {
@@ -483,6 +492,10 @@ body {
 
 .header-pets .header .logo .logo-name {
   color: #545454;
+}
+
+.header-pets .header .logo:hover .logo-name {
+  color: #292929;
 }
 
 .header-pets .header .logo .logo-description {
