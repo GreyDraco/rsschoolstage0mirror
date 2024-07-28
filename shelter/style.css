@@ -146,6 +146,12 @@ body {
   font-family: Georgia, "Times New Roman", Times, serif;
   border: 0;
   height: 52px;
+  text-decoration: none;
+}
+
+.button-link {
+  color: #292929;
+  text-decoration: none;
 }
 
 .button-hollow {
@@ -384,7 +390,7 @@ body {
 
 .number {
   color: #545454;
-  cursor: default;
+  text-decoration: none;
   cursor: pointer;
 }
 
