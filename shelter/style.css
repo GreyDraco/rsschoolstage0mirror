@@ -290,6 +290,7 @@ body {
   border-radius: 9px;
   width: 270px;
   cursor: pointer;
+  transition: 0.5s;
 }
 
 .card-container-info {
@@ -523,4 +524,8 @@ body {
 .card-container:hover .button-hollow {
   background-color: #fddcc4;
   border: #fddcc4 2px solid;
+}
+
+.card-container:hover {
+  background-color: #ffffff;
 }
