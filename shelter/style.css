@@ -190,8 +190,8 @@ body {
 
 .button-hollow.round.current {
   cursor: default;
-  background-color: #fddcc4;
-  border: #fddcc4 2px solid;
+  background-color: #f1cdb3;
+  border: #f1cdb3 2px solid;
 }
 
 .button-hollow:hover {
