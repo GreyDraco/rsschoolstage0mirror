@@ -189,6 +189,7 @@ body {
 }
 
 .button-hollow.round.current {
+  cursor: default;
   background-color: #fddcc4;
   border: #fddcc4 2px solid;
 }
