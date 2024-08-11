@@ -246,10 +246,6 @@ body {
   gap: 25px;
 }
 
-.title-description {
-  text-align: center;
-}
-
 .section-title {
   margin: 0;
   font-weight: 400;
@@ -681,6 +677,17 @@ body {
 }
 
 @media (max-width: 530px) {
+  .title {
+    text-align: center;
+    font-size: 25px;
+    padding: 0 40px;
+    letter-spacing: 0.06em;
+  }
+
+  .title-description {
+    text-align: center;
+  }
+
   .about-container {
     padding: 42px 10px;
   }
