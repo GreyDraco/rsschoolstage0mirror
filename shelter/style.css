@@ -725,6 +725,11 @@ body {
     padding: 0 15px;
   }
 
+  .our-friends-container {
+    padding: 42px 10px;
+    gap: 40px;
+  }
+
   .number {
     font-size: 15px;
   }
@@ -736,6 +741,7 @@ body {
   .cards-selection {
     flex-wrap: wrap;
     justify-content: center;
+    gap: 22px 80px;
   }
   .cards-selection > :first-child {
     order: 2;
