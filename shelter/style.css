@@ -577,6 +577,20 @@ body {
     gap: 78px;
   }
 
+  .our-friends-container {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .help-card {
+    max-width: 170px;
+    width: 100%;
+  }
+
+  .help-card-container {
+    column-gap: 60px;
+  }
+
   .main-woody-card {
     display: none;
   }
@@ -586,11 +600,22 @@ body {
   }
   .in-addition-container {
     gap: 60px;
+    padding-top: 82px;
   }
 
   .footer-container {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 65px 60px;
+    gap: 66px 60px;
+    padding: 30px 30px 0px 30px;
+  }
+
+  .footer-contact-container {
+    padding: 0px;
+    gap: 32px;
+  }
+
+  .footer-puppy {
+    padding: 0px;
   }
 }
