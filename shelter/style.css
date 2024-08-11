@@ -756,14 +756,6 @@ body {
     line-height: 110%;
   }
 
-  .number {
-    font-size: 15px;
-  }
-
-  .donation-paragraph {
-    line-height: 160%;
-  }
-
   .cards-selection {
     flex-wrap: wrap;
     justify-content: center;
@@ -774,5 +766,27 @@ body {
   }
   .cards-selection > :nth-child(3) {
     order: 3;
+  }
+
+  .in-addition-container {
+    padding-top: 42px;
+    gap: 42px;
+    padding-bottom: 42px;
+  }
+
+  .number {
+    font-size: 15px;
+    letter-spacing: 0.06em;
+  }
+
+  .donation-paragraph {
+    line-height: 160%;
+    letter-spacing: 0;
+  }
+  .legal-disclaimer {
+    padding: 0 10px;
+  }
+  .donation-dog {
+    max-width: calc(100% - 60px);
   }
 }
