@@ -95,6 +95,18 @@ body {
   pointer-events: none;
 }
 
+.burger-menu {
+  width: 30px;
+  height: 30px;
+  display: none;
+}
+
+.burger-menu p {
+  width: 30px;
+  border-bottom: 2px #f1cdb3 solid;
+  margin: 8px 0px;
+}
+
 .not-only {
   display: flex;
   flex-direction: row;
@@ -228,10 +240,14 @@ body {
 }
 
 .about-description-container {
-  width: 430px;
+  max-width: 430px;
   display: flex;
   flex-direction: column;
   gap: 25px;
+}
+
+.title-description {
+  text-align: center;
 }
 
 .section-title {
@@ -374,7 +390,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: start;
-  width: 380px;
+  max-width: 380px;
   gap: 20px;
 }
 
@@ -395,7 +411,7 @@ body {
   padding: 10px 15px;
   font-size: 20px;
   height: 43px;
-  width: 350px;
+  max-width: 350px;
 }
 
 .number {
@@ -561,11 +577,13 @@ body {
   .not-only {
     flex-direction: column;
     gap: 20px;
+    padding: 0 30px;
+    transition: 0.5s;
   }
   .not-only img {
     max-width: 738px;
     max-height: 593.4px;
-    padding: 0 0 0 140px;
+    align-self: end;
   }
 
   .not-only-content .button {
@@ -617,5 +635,80 @@ body {
 
   .footer-puppy {
     padding: 0px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-list {
+    display: none;
+  }
+
+  .not-only {
+    padding: 0 10px;
+  }
+
+  .not-only img {
+    max-width: calc(100% - 40px);
+  }
+
+  .burger-menu {
+    display: block;
+  }
+}
+
+@media (max-width: 730px) {
+  .main-jen-card {
+    display: none;
+  }
+
+  .our-friends-cards {
+    justify-content: center;
+  }
+
+  .donation-description-container {
+    align-items: center;
+    text-align: center;
+    padding: 0 10px;
+  }
+  .legal-disclaimer {
+    text-align: justify;
+  }
+
+  .donation-dog {
+    max-width: calc(100% - 20px);
+    min-width: 260px;
+  }
+}
+
+@media (max-width: 530px) {
+  .about-container {
+    padding: 42px 10px;
+  }
+
+  .section-title {
+    font-size: 25px;
+  }
+
+  .section-paragraph {
+    text-align: justify;
+  }
+
+  .number {
+    font-size: 15px;
+  }
+
+  .donation-paragraph {
+    line-height: 160%;
+  }
+
+  .cards-selection {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .cards-selection > :first-child {
+    order: 2;
+  }
+  .cards-selection > :nth-child(3) {
+    order: 3;
   }
 }
