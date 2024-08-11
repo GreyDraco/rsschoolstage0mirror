@@ -10,11 +10,6 @@ body {
   margin: 0;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-}
-
 .top-section {
   display: flex;
   flex-direction: column;
@@ -549,7 +544,7 @@ img {
 
 @media (max-width: 1120px) {
   .in-addition-container {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 }
 
@@ -577,6 +572,11 @@ img {
   .cards-selection {
     gap: 12px;
   }
+  .in-addition-container {
+    padding: 80px 132px 100px 132px;
+    gap: 60px;
+  }
+
   .footer-container {
     flex-wrap: wrap;
     justify-content: center;
