@@ -20,7 +20,7 @@ img {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 908px;
+  row-gap: 60px;
   background-image: radial-gradient(237.5% 111.8% at 0% 0%, rgb(91, 72, 58) 0%, rgb(38, 36, 37) 100%);
 }
 
@@ -213,7 +213,6 @@ img {
 }
 
 .about {
-  height: 588px;
   background-color: #ffffff;
   display: flex;
   justify-content: center;
@@ -260,7 +259,6 @@ img {
 }
 
 .our-friends {
-  height: 877px;
   background-color: #f6f6f6;
   display: flex;
   justify-content: center;
@@ -274,6 +272,7 @@ img {
   padding: 80px 40px 100px 40px;
   max-width: 1280px;
   width: 100%;
+  row-gap: 60px;
 }
 
 .cards-selection {
@@ -287,7 +286,9 @@ img {
 .our-friends-cards {
   display: flex;
   flex-direction: row;
-  gap: 90px;
+  max-width: 990px;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .card-container {
@@ -319,7 +320,6 @@ img {
 }
 
 .help {
-  height: 611px;
   background-color: #ffffff;
   display: flex;
   justify-content: center;
@@ -356,7 +356,6 @@ img {
 }
 
 .in-addition {
-  height: 462px;
   background-color: #f6f6f6;
   display: flex;
   justify-content: center;
@@ -396,6 +395,7 @@ img {
   padding: 10px 15px;
   font-size: 20px;
   height: 43px;
+  width: 350px;
 }
 
 .number {
@@ -414,7 +414,6 @@ img {
 }
 
 .footer {
-  height: 350px;
   background-image: radial-gradient(549.89% 73.65% at 5.73% 50%, rgb(81, 61, 47) 0%, rgb(26, 26, 28) 100%);
   display: flex;
   justify-content: center;
@@ -542,4 +541,10 @@ img {
 
 .card-container:hover {
   background-color: #ffffff;
+}
+
+@media (max-width: 1120px) {
+  .in-addition-container {
+    flex-direction: column;
+  }
 }
