@@ -118,6 +118,7 @@ img {
   gap: 42px;
   align-items: start;
   padding-bottom: 80px;
+  max-width: 460px;
 }
 
 .title {
