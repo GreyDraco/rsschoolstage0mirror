@@ -116,9 +116,13 @@ img {
   justify-content: space-between;
   flex-direction: column;
   gap: 42px;
-  align-items: start;
+  align-items: flex-start;
   padding-bottom: 80px;
   max-width: 460px;
+}
+
+.not-only img {
+  max-width: calc(100% - 42px - 460px);
 }
 
 .title {
@@ -546,5 +550,36 @@ img {
 @media (max-width: 1120px) {
   .in-addition-container {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 985px) {
+  .top-section {
+    gap: 30px;
+  }
+
+  .not-only {
+    flex-direction: column;
+  }
+  .not-only img {
+    max-width: 738px;
+    padding: 0 0 0 169px;
+  }
+
+  .about-container {
+    flex-direction: column-reverse;
+  }
+
+  .main-woody-card {
+    display: none;
+  }
+
+  .cards-selection {
+    gap: 12px;
+  }
+  .footer-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 65px 60px;
   }
 }
