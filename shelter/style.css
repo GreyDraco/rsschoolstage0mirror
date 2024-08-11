@@ -730,6 +730,32 @@ body {
     gap: 40px;
   }
 
+  .help-container {
+    padding: 42px 15px;
+    gap: 42px;
+  }
+
+  .help-card-container {
+    gap: 30px;
+    justify-content: start;
+  }
+
+  .help-card {
+    width: 130px;
+    height: 87px;
+    gap: 20px;
+  }
+
+  .card-icon {
+    height: 50px;
+    width: 50px;
+  }
+
+  .help-card-container .card-nickname {
+    font-size: 15px;
+    line-height: 110%;
+  }
+
   .number {
     font-size: 15px;
   }
