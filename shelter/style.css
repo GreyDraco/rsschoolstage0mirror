@@ -99,6 +99,13 @@ body {
   width: 30px;
   height: 30px;
   display: none;
+  transition: 0.5s;
+}
+
+.burger-menu:hover {
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background-color: #2929291e;
 }
 
 .burger-menu p {
