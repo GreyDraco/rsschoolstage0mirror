@@ -620,7 +620,7 @@ body {
   .footer-container {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 66px 60px;
+    gap: 66px 40px;
     padding: 30px 30px 0px 30px;
   }
 
@@ -631,6 +631,11 @@ body {
 
   .footer-puppy {
     padding: 0px;
+  }
+
+  .section-title.footer-title {
+    max-width: 300px;
+    width: 100%;
   }
 }
 

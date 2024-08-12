@@ -1,0 +1,14 @@
+@media (max-width: 985px) {
+  .pets-selection-container {
+    gap: 15px;
+    padding-bottom: 76px;
+  }
+
+  .pets-grid-container .card-container:nth-last-child(1),
+  .pets-grid-container .card-container:nth-last-child(2) {
+    display: none;
+  }
+  .pets-page-navigation {
+    padding-top: 12px;
+  }
+}
