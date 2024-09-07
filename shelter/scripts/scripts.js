@@ -10,6 +10,7 @@ const body = document.body;
 const currentFriendsCards = document.querySelector(".our-friends-cards.current");
 const prevFriendsCards = document.querySelector(".our-friends-cards.prev");
 const nextFriendsCards = document.querySelector(".our-friends-cards.next");
+let direction = null;
 
 let nextIndexes = [];
 let currentIndexes = [];
@@ -72,10 +73,10 @@ console.log(pets);
 const arrowRight = document.getElementById("btnRight");
 const arrowLeft = document.getElementById("btnLeft");
 
-arrowRight.addEventListener("click", () => {
+/* arrowRight.addEventListener("click", () => {
   console.log("pressed");
 });
-
+ */
 function cardGenerator(id, data = pets) {
   const { img, name, type } = data[id];
   const cardContainer = document.createElement("div");
@@ -99,7 +100,7 @@ function cardGenerator(id, data = pets) {
   return cardContainer;
 }
 
-function cardsAppender(parent, forbidIndexes = []) {
+function cardsAppenderGen(parent, forbidIndexes = []) {
   parent.innerHTML = "";
   const indexes = cardIndexGen(3, forbidIndexes);
   indexes.forEach((element) => {
@@ -108,22 +109,82 @@ function cardsAppender(parent, forbidIndexes = []) {
   return indexes;
 }
 
-currentIndexes = cardsAppender(currentFriendsCards);
-prevIndexes = cardsAppender(prevFriendsCards, currentIndexes);
-nextIndexes = cardsAppender(nextFriendsCards, currentIndexes);
+function cardsAppender(parent, indexes) {
+  parent.innerHTML = "";
+  indexes.forEach((element) => {
+    parent.append(cardGenerator(element));
+  });
+  return indexes;
+}
+
+currentIndexes = cardsAppenderGen(currentFriendsCards);
+prevIndexes = cardsAppenderGen(prevFriendsCards, currentIndexes);
+nextIndexes = cardsAppenderGen(nextFriendsCards, currentIndexes);
 
 console.log(prevIndexes, currentIndexes, nextIndexes);
+const caruselContainer = document.querySelector(".carusel-container");
 
 function setCaruselWidth() {
-  const carusel = document.querySelector(".carusel");
-
   const cardContainers = document.querySelectorAll(".our-friends-cards");
 
-  const caruselWidth = carusel.offsetWidth;
-
-  cardContainers.forEach((el) => (el.style.minWidth = `${caruselWidth}px`));
+  cardContainers.forEach((el) => (el.style.minWidth = `${getCaruselWidth()}px`));
+  caruselContainer.style.transform = `translateX(-${getCaruselWidth()}px)`;
 }
 setCaruselWidth();
+caruselContainer.style.transform = `translateX(-${getCaruselWidth()}px)`;
 window.addEventListener("resize", () => {
   setCaruselWidth();
+});
+
+function getCaruselWidth() {
+  const carusel = document.querySelector(".carusel");
+  const caruselWidth = carusel.offsetWidth;
+  return caruselWidth;
+}
+
+arrowRight.addEventListener("click", () => {
+  console.log("pressed");
+  caruselContainer.style.transform = `translateX(-${getCaruselWidth() * 2}px)`;
+  caruselContainer.style.transition = "transform 3s";
+  arrowLeft.disabled = true;
+  arrowRight.disabled = true;
+  direction = "right";
+});
+
+arrowLeft.addEventListener("click", () => {
+  console.log("pressed");
+  caruselContainer.style.transform = `translateX(0)`;
+  caruselContainer.style.transition = "transform 3s";
+  arrowLeft.disabled = true;
+  arrowRight.disabled = true;
+  direction = "left";
+});
+
+caruselContainer.addEventListener("transitionend", (event) => {
+  if (event.propertyName === "transform") {
+    console.log("trans end", event.propertyName);
+
+    arrowLeft.disabled = "";
+    arrowRight.disabled = "";
+    caruselContainer.style.transition = "";
+
+    if (direction === "right") {
+      prevIndexes = cardsAppender(prevFriendsCards, currentIndexes);
+      currentIndexes = cardsAppender(currentFriendsCards, nextIndexes);
+      nextIndexes = cardsAppenderGen(nextFriendsCards, currentIndexes);
+
+      caruselContainer.style.transform = `translateX(-${getCaruselWidth()}px)`;
+    } else {
+      nextIndexes = cardsAppender(nextFriendsCards, currentIndexes);
+      currentIndexes = cardsAppender(currentFriendsCards, prevIndexes);
+      prevIndexes = cardsAppenderGen(prevFriendsCards, currentIndexes);
+
+      //   caruselContainer.style.transform = `translateX(${getCaruselWidth()}px)`;
+    }
+    caruselContainer.style.transform = `translateX(-${getCaruselWidth()}px)`;
+
+    console.log(prevIndexes, currentIndexes, nextIndexes);
+  }
+
+  //  console.log("trans end", event.propertyName);
 });
