@@ -1,7 +1,5 @@
 import pets from "../data/pets.js";
 
-console.log("Script is connected!");
-
 const overlay = document.querySelector(".overlay");
 const burgerMenuBtn = document.querySelector(".burger-menu-btn");
 const burgerMenu = document.querySelector(".burger-menu");
@@ -23,26 +21,26 @@ burgerMenuBtn.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-overlay.addEventListener("click", () => {
+function hideBurgerOverlay() {
   burgerMenuBtn.classList.remove("burger-menu-btn_active");
   overlay.classList.remove("overlay_active");
   burgerMenu.classList.remove("burger-menu_active");
   body.classList.remove("no-scroll");
+  overlay.innerHTML = "";
+  setCaruselWidth();
+}
+
+overlay.addEventListener("click", (event) => {
+  if (!event.target.closest(".popup-container")) hideBurgerOverlay();
 });
 
 burgerMenuList.addEventListener("click", () => {
-  burgerMenuBtn.classList.remove("burger-menu-btn_active");
-  overlay.classList.remove("overlay_active");
-  burgerMenu.classList.remove("burger-menu_active");
-  body.classList.remove("no-scroll");
+  hideBurgerOverlay();
 });
 
 function handleResize() {
   if (window.innerWidth > 767) {
-    burgerMenuBtn.classList.remove("burger-menu-btn_active");
-    overlay.classList.remove("overlay_active");
-    burgerMenu.classList.remove("burger-menu_active");
-    body.classList.remove("no-scroll");
+    hideBurgerOverlay();
   }
 }
 
@@ -55,7 +53,6 @@ function cardIndexGen(cardVisible, forbidIndexes = [], data = pets) {
   const cardIndexes = [];
   const initIndexes = Array.from({ length: petsSize }, (_, i) => i);
   const availableIndexes = initIndexes.filter((item) => !forbidIndexes.includes(item));
-  console.log(availableIndexes);
 
   while (cardIndexes.length < cardVisible) {
     const randomIndex = Math.floor(Math.random() * availableIndexes.length);
@@ -64,19 +61,13 @@ function cardIndexGen(cardVisible, forbidIndexes = [], data = pets) {
     cardIndexes.push(cardIndex);
     availableIndexes.splice(randomIndex, 1);
   }
-  console.log(cardIndexes);
+
   return cardIndexes;
 }
-
-console.log(pets);
 
 const arrowRight = document.getElementById("btnRight");
 const arrowLeft = document.getElementById("btnLeft");
 
-/* arrowRight.addEventListener("click", () => {
-  console.log("pressed");
-});
- */
 function cardGenerator(id, data = pets) {
   const { img, name, type } = data[id];
   const cardContainer = document.createElement("div");
@@ -96,6 +87,11 @@ function cardGenerator(id, data = pets) {
 
   cardContainerInfo.append(cardNickname, cardButton);
   cardContainer.append(petImage, cardContainerInfo);
+
+  cardContainer.addEventListener("click", () => {
+    showPopup(id, data);
+    setCaruselWidth();
+  });
 
   return cardContainer;
 }
@@ -121,7 +117,6 @@ currentIndexes = cardsAppenderGen(currentFriendsCards);
 prevIndexes = cardsAppenderGen(prevFriendsCards, currentIndexes);
 nextIndexes = cardsAppenderGen(nextFriendsCards, currentIndexes);
 
-console.log(prevIndexes, currentIndexes, nextIndexes);
 const caruselContainer = document.querySelector(".carusel-container");
 
 function setCaruselWidth() {
@@ -143,18 +138,16 @@ function getCaruselWidth() {
 }
 
 arrowRight.addEventListener("click", () => {
-  console.log("pressed");
   caruselContainer.style.transform = `translateX(-${getCaruselWidth() * 2}px)`;
-  caruselContainer.style.transition = "transform 3s";
+  caruselContainer.style.transition = "transform 1s";
   arrowLeft.disabled = true;
   arrowRight.disabled = true;
   direction = "right";
 });
 
 arrowLeft.addEventListener("click", () => {
-  console.log("pressed");
   caruselContainer.style.transform = `translateX(0)`;
-  caruselContainer.style.transition = "transform 3s";
+  caruselContainer.style.transition = "transform 1s";
   arrowLeft.disabled = true;
   arrowRight.disabled = true;
   direction = "left";
@@ -162,8 +155,6 @@ arrowLeft.addEventListener("click", () => {
 
 caruselContainer.addEventListener("transitionend", (event) => {
   if (event.propertyName === "transform") {
-    console.log("trans end", event.propertyName);
-
     arrowLeft.disabled = "";
     arrowRight.disabled = "";
     caruselContainer.style.transition = "";
@@ -178,13 +169,71 @@ caruselContainer.addEventListener("transitionend", (event) => {
       nextIndexes = cardsAppender(nextFriendsCards, currentIndexes);
       currentIndexes = cardsAppender(currentFriendsCards, prevIndexes);
       prevIndexes = cardsAppenderGen(prevFriendsCards, currentIndexes);
-
-      //   caruselContainer.style.transform = `translateX(${getCaruselWidth()}px)`;
     }
     caruselContainer.style.transform = `translateX(-${getCaruselWidth()}px)`;
-
-    console.log(prevIndexes, currentIndexes, nextIndexes);
   }
-
-  //  console.log("trans end", event.propertyName);
 });
+
+// <---------------------- popup  ------------------------->
+
+function showPopup(id, data = pets) {
+  overlay.innerHTML = "";
+
+  overlay.classList.toggle("overlay_active");
+  body.classList.toggle("no-scroll");
+
+  const popupWrapper = document.createElement("div");
+  popupWrapper.classList.add("popupWrapper");
+
+  const closePopupBtn = document.createElement("button");
+  closePopupBtn.className = "button-hollow round close-popup";
+  closePopupBtn.textContent = "×";
+
+  const popupContainer = document.createElement("div");
+  popupContainer.classList.add("popup-container");
+
+  const popupImage = document.createElement("img");
+  popupImage.classList.add("popup-img");
+  popupImage.src = data[id].img;
+  popupImage.alt = `${data[id].type} ${data[id].name}`;
+
+  const popupInfo = document.createElement("div");
+  popupInfo.classList.add("popup-info");
+
+  const popupTitle = document.createElement("h2");
+  popupTitle.classList.add("popup-title");
+  popupTitle.textContent = data[id].name;
+
+  const popupBreed = document.createElement("h3");
+  popupBreed.classList.add("popup-breed");
+  popupBreed.textContent = `${data[id].type} - ${data[id].breed}`;
+
+  const popupParagraph = document.createElement("p");
+  popupParagraph.classList.add("popup-paragraph");
+  popupParagraph.textContent = data[id].description;
+
+  const popupInfoList = document.createElement("ul");
+  popupInfoList.classList.add("popup-info-list");
+
+  const popupInfoAge = document.createElement("li");
+  popupInfoAge.classList.add("popup-info-list-item");
+  popupInfoAge.innerHTML = `<strong>Age:</strong> ${data[id].age}`;
+
+  const popupInfoIno = document.createElement("li");
+  popupInfoIno.classList.add("popup-info-list-item");
+  popupInfoIno.innerHTML = `<strong>Inoculations:</strong> ${data[id].inoculations.join(", ")}`;
+
+  const popupInfoDiseases = document.createElement("li");
+  popupInfoDiseases.classList.add("popup-info-list-item");
+  popupInfoDiseases.innerHTML = `<strong>Diseases:</strong> ${data[id].diseases.join(", ")}`;
+
+  const popupInfoParasites = document.createElement("li");
+  popupInfoParasites.classList.add("popup-info-list-item");
+  popupInfoParasites.innerHTML = `<strong>Parasites:</strong> ${data[id].parasites.join(", ")}`;
+
+  popupInfoList.append(popupInfoAge, popupInfoIno, popupInfoDiseases, popupInfoParasites);
+  popupInfo.append(popupTitle, popupBreed, popupParagraph, popupInfoList);
+  popupContainer.append(popupImage, popupInfo);
+  popupWrapper.append(popupContainer, closePopupBtn);
+  overlay.append(popupWrapper);
+}

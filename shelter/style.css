@@ -4,7 +4,7 @@
 
 html {
   scroll-behavior: smooth;
-  scrollbar-gutter: stable;
+  /* scrollbar-gutter: stable; */
 }
 
 body {
@@ -629,7 +629,83 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 2;
-  display: none;
+}
+
+.popupWrapper {
+  position: relative;
+}
+
+.popup-container {
+  display: flex;
+  background-color: #fafafa;
+  align-items: center;
+  width: 630px;
+  height: 350px;
+  border-radius: 9px;
+  gap: 10px;
+}
+
+.popup-img {
+  height: 100%;
+  border-radius: 9px;
+}
+
+.popup-info {
+  max-width: 265px;
+  height: 100%;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #000;
+}
+
+.popup-title {
+  font-size: 35px;
+  line-height: 130%;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  margin: 0;
+  margin-top: 13px;
+}
+
+.popup-breed {
+  font-size: 20px;
+  line-height: 115%;
+  font-weight: 400;
+  margin-top: 10px;
+  letter-spacing: 0.06em;
+}
+
+.popup-paragraph {
+  font-size: 13px;
+  line-height: 110%;
+  letter-spacing: 0.06em;
+  font-weight: 400;
+}
+
+.popup-info-list {
+  padding-left: 15px;
+}
+
+.popup-info-list-item::marker {
+  color: #f1cdb3;
+  font-size: 12px;
+}
+
+.popup-info-list-item {
+  font-size: 15px;
+  line-height: 110%;
+  padding-bottom: 7px;
+}
+
+.close-popup {
+  position: absolute;
+  top: -51px;
+  right: -43px;
+}
+
+.button-hollow.round.close-popup {
+  font-size: 30px;
 }
 
 .carusel {
@@ -651,7 +727,7 @@ body {
   }
 }
 
-@media (max-width: 1010px) {
+@media (max-width: 1050px) {
   .our-friends-cards > :nth-child(3) {
     display: none;
   }
@@ -746,11 +822,58 @@ body {
   }
 
   .overlay_active {
-    display: block;
+    display: flex;
   }
 }
 
 @media (max-width: 730px) {
+  .popup-img {
+    display: none;
+  }
+
+  .popup-container {
+    width: 240px;
+    min-height: 341px;
+    height: auto;
+  }
+
+  .popup-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 10px;
+    gap: 10px;
+  }
+
+  .popup-title {
+    margin-top: 0;
+    padding-top: 4px;
+  }
+
+  .popup-info-list {
+    margin-right: 45px;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  .popup-breed {
+    margin-bottom: 0px;
+    margin-top: 0px;
+    text-align: center;
+    padding-bottom: 7px;
+  }
+
+  .popup-paragraph {
+    text-align: justify;
+    margin-bottom: 10px;
+    margin-top: 0px;
+  }
+
+  .close-popup {
+    top: -52px;
+    right: -30px;
+  }
+
   .our-friends-cards > :nth-child(2) {
     display: none;
   }
