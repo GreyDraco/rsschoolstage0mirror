@@ -632,6 +632,16 @@ body {
   display: none;
 }
 
+.carusel {
+  overflow: hidden;
+  max-width: 990px;
+}
+
+.carusel-container {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
 @media (max-width: 1120px) {
   .in-addition-container {
     flex-direction: column-reverse;
@@ -682,7 +692,7 @@ body {
     column-gap: 60px;
   }
 
-  .main-woody-card {
+  .our-friends-cards > :nth-child(3) {
     display: none;
   }
 
@@ -739,7 +749,7 @@ body {
 }
 
 @media (max-width: 730px) {
-  .main-jen-card {
+  .our-friends-cards > :nth-child(2) {
     display: none;
   }
 

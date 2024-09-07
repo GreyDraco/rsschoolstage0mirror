@@ -7,10 +7,13 @@ const burgerMenuBtn = document.querySelector(".burger-menu-btn");
 const burgerMenu = document.querySelector(".burger-menu");
 const burgerMenuList = document.querySelector(".burger-menu-list");
 const body = document.body;
+const currentFriendsCards = document.querySelector(".our-friends-cards.current");
+const prevFriendsCards = document.querySelector(".our-friends-cards.prev");
+const nextFriendsCards = document.querySelector(".our-friends-cards.next");
+
 let nextIndexes = [];
 let currentIndexes = [];
 let prevIndexes = [];
-
 burgerMenuBtn.addEventListener("click", () => {
   burgerMenuBtn.classList.toggle("burger-menu-btn_active");
   overlay.classList.toggle("overlay_active");
@@ -96,8 +99,31 @@ function cardGenerator(id, data = pets) {
   return cardContainer;
 }
 
-const ourFriendsCards = document.querySelector(".our-friends-cards.current");
-ourFriendsCards.innerHTML = "";
-cardIndexGen(3).forEach((element) => {
-  ourFriendsCards.append(cardGenerator(element));
+function cardsAppender(parent, forbidIndexes = []) {
+  parent.innerHTML = "";
+  const indexes = cardIndexGen(3, forbidIndexes);
+  indexes.forEach((element) => {
+    parent.append(cardGenerator(element));
+  });
+  return indexes;
+}
+
+currentIndexes = cardsAppender(currentFriendsCards);
+prevIndexes = cardsAppender(prevFriendsCards, currentIndexes);
+nextIndexes = cardsAppender(nextFriendsCards, currentIndexes);
+
+console.log(prevIndexes, currentIndexes, nextIndexes);
+
+function setCaruselWidth() {
+  const carusel = document.querySelector(".carusel");
+
+  const cardContainers = document.querySelectorAll(".our-friends-cards");
+
+  const caruselWidth = carusel.offsetWidth;
+
+  cardContainers.forEach((el) => (el.style.minWidth = `${caruselWidth}px`));
+}
+setCaruselWidth();
+window.addEventListener("resize", () => {
+  setCaruselWidth();
 });
