@@ -68,31 +68,12 @@
             are looking for a house
           </h2>
           <div class="cards-selection">
-            <button class="button-hollow round"><img src="assets/Arrow.png" alt="&#8592;" /></button>
-            <div class="our-friends-cards">
-              <div class="card-container">
-                <img src="assets/pets-katrine.png" alt="Katrine-cat" />
-                <div class="card-container-info">
-                  <h3 class="card-nickname">Katrine</h3>
-                  <button class="button-hollow">Learn more</button>
-                </div>
-              </div>
-              <div class="card-container main-jen-card">
-                <img src="assets/pets-jennifer.png" alt="Jennifer-dog" />
-                <div class="card-container-info">
-                  <h3 class="card-nickname">Jennifer</h3>
-                  <button class="button-hollow">Learn more</button>
-                </div>
-              </div>
-              <div class="card-container main-woody-card">
-                <img src="assets/pets-woody.png" alt="Woody-dog" />
-                <div class="card-container-info">
-                  <h3 class="card-nickname">Woody</h3>
-                  <button class="button-hollow">Learn more</button>
-                </div>
-              </div>
-            </div>
-            <button class="button-hollow round"><img src="assets/Arrow.png" alt="&#8594;" style="transform: rotate(180deg)" /></button>
+            <button class="button-hollow round" id="btnLeft"><img src="assets/Arrow.png" alt="&#8592;" /></button>
+            <div class="our-friends-cards prev"></div>
+            <div class="our-friends-cards current"></div>
+
+            <div class="our-friends-cards next"></div>
+            <button class="button-hollow round" id="btnRight"><img src="assets/Arrow.png" alt="&#8594;" style="transform: rotate(180deg)" /></button>
           </div>
           <a class="button" href="pets.html">Get to know the rest</a>
         </div>
@@ -183,6 +164,6 @@
       </div>
     </footer>
     <section class="overlay"></section>
-    <script src="./scripts/scripts.js"></script>
+    <script src="./scripts/scripts.js" type="module"></script>
   </body>
 </html>
