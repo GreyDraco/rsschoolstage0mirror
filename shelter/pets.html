@@ -22,12 +22,22 @@
             <li class="nav-item"><a href="index.html#help" class="nav-link">Help the shelter</a></li>
             <li class="nav-item"><a href="#footer" class="nav-link">Contacts</a></li>
           </ul>
-          <div class="burger-menu">
+          <div class="burger-menu-btn">
             <p></p>
             <p></p>
             <p></p>
           </div>
         </nav>
+        <div class="burger-menu">
+          <div class="burger-menu-wrapper">
+            <ul class="burger-menu-list">
+              <li class="burger-nav-item"><a href="index.html" class="nav-link">About the shelter</a></li>
+              <li class="burger-nav-item active"><a href="pets.html" class="nav-link disabled">Our pets</a></li>
+              <li class="burger-nav-item"><a href="index.html#help" class="nav-link">Help the shelter</a></li>
+              <li class="burger-nav-item"><a href="#footer" class="nav-link">Contacts</a></li>
+            </ul>
+          </div>
+        </div>
       </header>
     </div>
     <main>
@@ -37,70 +47,13 @@
             Our friends who<br />
             are looking for a house
           </h2>
-          <div class="pets-grid-container">
-            <div class="card-container">
-              <img src="assets/pets-katrine.png" alt="Katrine-cat" />
-              <div class="card-container-info">
-                <h3 class="card-nickname">Katrine</h3>
-                <button class="button-hollow">Learn more</button>
-              </div>
-            </div>
-            <div class="card-container">
-              <img src="assets/pets-jennifer.png" alt="Jennifer-dog" />
-              <div class="card-container-info">
-                <h3 class="card-nickname">Jennifer</h3>
-                <button class="button-hollow">Learn more</button>
-              </div>
-            </div>
-            <div class="card-container">
-              <img src="assets/pets-woody.png" alt="Woody-dog" />
-              <div class="card-container-info">
-                <h3 class="card-nickname">Woody</h3>
-                <button class="button-hollow">Learn more</button>
-              </div>
-            </div>
-            <div class="card-container">
-              <img src="assets/pets-sophia.png" alt="sophia-dog" />
-              <div class="card-container-info">
-                <h3 class="card-nickname">Sophia</h3>
-                <button class="button-hollow">Learn more</button>
-              </div>
-            </div>
-            <div class="card-container">
-              <img src="assets/pets-timmy.png" alt="Timmy-cat" />
-              <div class="card-container-info">
-                <h3 class="card-nickname">Timmy</h3>
-                <button class="button-hollow">Learn more</button>
-              </div>
-            </div>
-            <div class="card-container">
-              <img src="assets/pets-charly.png" alt="Charly-dog" />
-              <div class="card-container-info">
-                <h3 class="card-nickname">Charly</h3>
-                <button class="button-hollow">Learn more</button>
-              </div>
-            </div>
-            <div class="card-container">
-              <img src="assets/pets-scarlet.png" alt="Scarlet-dog" />
-              <div class="card-container-info">
-                <h3 class="card-nickname">Scarlett</h3>
-                <button class="button-hollow">Learn more</button>
-              </div>
-            </div>
-            <div class="card-container">
-              <img src="assets/pets-freddie.png" alt="Freddie-cat" />
-              <div class="card-container-info">
-                <h3 class="card-nickname">Freddie</h3>
-                <button class="button-hollow">Learn more</button>
-              </div>
-            </div>
-          </div>
+          <div class="pets-grid-container"></div>
           <div class="pets-page-navigation">
-            <button class="button-hollow round disabled"><img src="assets/douple-left-icon.png" alt="double-left-icon" /></button>
-            <button class="button-hollow round disabled"><img src="assets/left-icon.png" alt="left-icon" /></button>
+            <button class="button-hollow round first-page" disabled><img src="assets/double-right-icon.png" alt="double-left-icon" /></button>
+            <button class="button-hollow round prev-page" disabled><img src="assets/right-icon.png" alt="left-icon" /></button>
             <button class="button-hollow round current">1</button>
-            <button class="button-hollow round"><img src="assets/right-icon.png" alt="right-icon" /></button>
-            <button class="button-hollow round"><img src="assets/double-right-icon.png" alt="double-right-icon" /></button>
+            <button class="button-hollow round next-page"><img src="assets/right-icon.png" alt="right-icon" /></button>
+            <button class="button-hollow round last-page"><img src="assets/double-right-icon.png" alt="double-right-icon" /></button>
           </div>
         </div>
       </section>
@@ -125,5 +78,7 @@
         <img src="assets/footer-puppy.png" alt="footer-puppy-icon" class="footer-puppy" />
       </div>
     </footer>
+    <section class="overlay"></section>
+    <script src="./scripts/petsScripts.js" type="module"></script>
   </body>
 </html>
