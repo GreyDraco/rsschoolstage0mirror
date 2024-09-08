@@ -4,7 +4,6 @@
 
 html {
   scroll-behavior: smooth;
-  /* scrollbar-gutter: stable; */
 }
 
 body {
@@ -259,10 +258,14 @@ body {
   font-size: 20px;
 }
 
-.button-hollow.round.disabled {
+.button-hollow.round:disabled {
   border: 2px solid #cdcdcd;
   cursor: default;
   background: none;
+}
+
+.button-hollow.round:disabled img {
+  filter: invert(1);
 }
 
 .button-hollow.round.current {

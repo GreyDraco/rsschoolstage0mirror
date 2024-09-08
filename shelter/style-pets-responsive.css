@@ -2,16 +2,17 @@
   border-bottom: 2px solid black;
 }
 
+.prev-page,
+.first-page {
+  transform: rotate(180deg);
+}
+
 @media (max-width: 985px) {
   .pets-selection-container {
     gap: 15px;
     padding: 80px 25px 76px 25px;
   }
 
-  .pets-grid-container .card-container:nth-last-child(1),
-  .pets-grid-container .card-container:nth-last-child(2) {
-    display: none;
-  }
   .pets-page-navigation {
     padding-top: 12px;
   }
@@ -31,10 +32,5 @@
     min-width: 300px;
     gap: 10px;
     padding-top: 2px;
-  }
-  .pets-grid-container .card-container:nth-last-child(3),
-  .pets-grid-container .card-container:nth-last-child(4),
-  .pets-grid-container .card-container:nth-last-child(5) {
-    display: none;
   }
 }
