@@ -18,7 +18,6 @@ function hideBurgerOverlay() {
   burgerMenu.classList.remove("burger-menu_active");
   body.classList.remove("no-scroll");
   overlay.innerHTML = "";
-  //  setCaruselWidth();
 }
 
 overlay.addEventListener("click", (event) => {

@@ -23,7 +23,6 @@ export default function cardGenerator(id, data = pets) {
 
   cardContainer.addEventListener("click", () => {
     showPopup(id, data);
-    // setCaruselWidth();
   });
 
   return cardContainer;
