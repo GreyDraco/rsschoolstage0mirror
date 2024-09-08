@@ -21,12 +21,22 @@
             <li class="nav-item"><a href="#help" class="nav-link">Help the shelter</a></li>
             <li class="nav-item"><a href="#footer" class="nav-link">Contacts</a></li>
           </ul>
-          <div class="burger-menu">
+          <div class="burger-menu-btn">
             <p></p>
             <p></p>
             <p></p>
           </div>
         </nav>
+        <div class="burger-menu">
+          <div class="burger-menu-wrapper">
+            <ul class="burger-menu-list">
+              <li class="burger-nav-item active"><a href="#" class="nav-link disabled">About the shelter</a></li>
+              <li class="burger-nav-item"><a href="pets.html" class="nav-link">Our pets</a></li>
+              <li class="burger-nav-item"><a href="#help" class="nav-link">Help the shelter</a></li>
+              <li class="burger-nav-item"><a href="#footer" class="nav-link">Contacts</a></li>
+            </ul>
+          </div>
+        </div>
       </header>
       <section class="not-only">
         <div class="not-only-content">
@@ -58,31 +68,17 @@
             are looking for a house
           </h2>
           <div class="cards-selection">
-            <button class="button-hollow round"><img src="assets/Arrow.png" alt="&#8592;" /></button>
-            <div class="our-friends-cards">
-              <div class="card-container">
-                <img src="assets/pets-katrine.png" alt="Katrine-cat" />
-                <div class="card-container-info">
-                  <h3 class="card-nickname">Katrine</h3>
-                  <button class="button-hollow">Learn more</button>
-                </div>
-              </div>
-              <div class="card-container main-jen-card">
-                <img src="assets/pets-jennifer.png" alt="Jennifer-dog" />
-                <div class="card-container-info">
-                  <h3 class="card-nickname">Jennifer</h3>
-                  <button class="button-hollow">Learn more</button>
-                </div>
-              </div>
-              <div class="card-container main-woody-card">
-                <img src="assets/pets-woody.png" alt="Woody-dog" />
-                <div class="card-container-info">
-                  <h3 class="card-nickname">Woody</h3>
-                  <button class="button-hollow">Learn more</button>
-                </div>
+            <button class="button-hollow round" id="btnLeft"><img src="assets/Arrow.png" alt="&#8592;" /></button>
+            <div class="carusel">
+              <div class="carusel-container">
+                <div class="our-friends-cards prev"></div>
+                <div class="our-friends-cards current"></div>
+
+                <div class="our-friends-cards next"></div>
               </div>
             </div>
-            <button class="button-hollow round"><img src="assets/Arrow.png" alt="&#8594;" style="transform: rotate(180deg)" /></button>
+
+            <button class="button-hollow round" id="btnRight"><img src="assets/Arrow.png" alt="&#8594;" style="transform: rotate(180deg)" /></button>
           </div>
           <a class="button" href="pets.html">Get to know the rest</a>
         </div>
@@ -172,5 +168,7 @@
         <img src="assets/footer-puppy.png" alt="footer-puppy-icon" class="footer-puppy" />
       </div>
     </footer>
+    <section class="overlay"></section>
+    <script src="./scripts/mainScripts.js" type="module"></script>
   </body>
 </html>
