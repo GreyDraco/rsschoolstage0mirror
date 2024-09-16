@@ -1,14 +1,18 @@
+import data from "./data.js";
+
 const playBtn = document.querySelector(".play");
 const pauseBtn = document.querySelector(".pause");
 const prevBtn = document.querySelector(".prev");
 const nextBtn = document.querySelector(".next");
-const volumeBtn = document.querySelectorAll(".volume-btn");
+const volumeControl = document.querySelector(".volume-control");
+const volumeBtn = document.querySelector(".volume-mute");
+const volumeBar = document.querySelector(".volume");
 const duration = document.querySelector(".duration");
 const currentTime = document.querySelector(".current-time");
 const progressBar = document.querySelector(".progress-bar");
 
-const audio = new Audio("./assets/audio/beyonce.mp3");
-let audioDuration = 0;
+let currentTrack = 0;
+const audio = new Audio(data[currentTrack].src);
 
 playBtn.addEventListener("click", () => {
   if (!playBtn.classList.contains("pause")) {
@@ -20,17 +24,49 @@ playBtn.addEventListener("click", () => {
 });
 
 audio.addEventListener("loadeddata", () => {
-  console.log(formatTime(audio.duration));
   duration.textContent = formatTime(audio.duration);
 });
 
 nextBtn.addEventListener("click", () => {
-  console.log(audio.currentTime);
+  currentTrack++;
+  if (currentTrack >= data.length) {
+    currentTrack = 0;
+  }
+  updateTrack(currentTrack);
+});
+
+prevBtn.addEventListener("click", () => {
+  currentTrack -= 1;
+  if (currentTrack < 0) {
+    currentTrack = data.length - 1;
+  }
+  updateTrack(currentTrack);
 });
 
 progressBar.addEventListener("change", () => {
   audio.currentTime = Math.floor((progressBar.value * audio.duration) / 100);
 });
+
+volumeBar.addEventListener("change", () => {
+  if (volumeBtn.classList.contains("mute")) {
+    volumeBtn.classList.remove("mute");
+    audio.volume = volumeBar.value / 100;
+  } else {
+    audio.volume = volumeBar.value / 100;
+  }
+});
+
+volumeBtn.addEventListener("click", () => {
+  volumeBtn.classList.toggle("mute");
+  volumeControl.classList.toggle("mute");
+  audio.volume = volumeBtn.classList.contains("mute") ? 0 : volumeBar.value / 100;
+});
+
+function updateTrack(id = currentTrack) {
+  audio.src = data[currentTrack].src;
+  if (playBtn.classList.contains("pause")) audio.play();
+  audio.volume = volumeBtn.classList.contains("mute") ? 0 : volumeBar.value / 100;
+}
 
 function formatTime(time) {
   const minutes = Math.floor(time / 60);

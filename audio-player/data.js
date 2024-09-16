@@ -1,4 +1,4 @@
-export default data = [
+const data = [
   {
     src: "./assets/audio/beyonce.mp3",
     img: "./assets/img/lemonade.png",
@@ -14,3 +14,4 @@ export default data = [
     label: "Future Nostalgia",
   },
 ];
+export default data;
