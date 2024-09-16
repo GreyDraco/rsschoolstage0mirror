@@ -1,7 +1,6 @@
 import data from "./data.js";
 
 const playBtn = document.querySelector(".play");
-const pauseBtn = document.querySelector(".pause");
 const prevBtn = document.querySelector(".prev");
 const nextBtn = document.querySelector(".next");
 const volumeControl = document.querySelector(".volume-control");
@@ -10,6 +9,9 @@ const volumeBar = document.querySelector(".volume");
 const duration = document.querySelector(".duration");
 const currentTime = document.querySelector(".current-time");
 const progressBar = document.querySelector(".progress-bar");
+const singerName = document.querySelector(".singer");
+const trackName = document.querySelector(".track");
+const labelName = document.querySelector(".label");
 
 let currentTrack = 0;
 const audio = new Audio(data[currentTrack].src);
@@ -64,6 +66,9 @@ volumeBtn.addEventListener("click", () => {
 
 function updateTrack(id = currentTrack) {
   audio.src = data[currentTrack].src;
+  singerName.textContent = data[currentTrack].singer;
+  trackName.textContent = data[currentTrack].title;
+  labelName.textContent = data[currentTrack].label;
   if (playBtn.classList.contains("pause")) audio.play();
   audio.volume = volumeBtn.classList.contains("mute") ? 0 : volumeBar.value / 100;
 }
