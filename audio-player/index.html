@@ -8,9 +8,34 @@
     <title>Audio Player</title>
   </head>
   <body>
-    <main></main>
+    <main>
+      <div class="player-container">
+        <img src="./assets/img/lemonade.png" alt="label picture" />
+        <div class="player">
+          <div class="running-info">
+            <p class="track-info"><span class="singer">Dua Lipa</span> - <span class="track">"Don't Start Now"</span> - <span class="label">Future Nostalgia</span></p>
+          </div>
+          <div class="progress-wrapper">
+            <p class="current-time">00:00</p>
+            <input type="range" class="progress-bar" min="0" max="100" step="1" value="0" />
+            <p class="duration">00:00</p>
+          </div>
+          <div class="player-controls">
+            <button class="control-btn prev"></button>
+            <button class="control-btn play"></button>
+            <button class="control-btn next"></button>
+            <div class="volume-dropdown">
+              <button class="control-btn volume-btn"></button>
+              <ul class="dropdown-content">
+                <li><input type="range" min="0" max="100" value="40" class="volume" /> <button class="control-btn volume-btn"></button></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
     <footer class="footer">
-      <div class="container footer-container">
+      <div class="footer-container">
         <ul class="footer-list">
           <li><p>© 2024</p></li>
           <li><a href="https://github.com/GreyDraco" class="contacts-link">grey_draco</a></li>
@@ -18,6 +43,7 @@
         <a href="https://rs.school/courses/javascript-ru" class="footer-rss-logo"></a>
       </div>
     </footer>
+
     <script src="script.js"></script>
   </body>
 </html>
