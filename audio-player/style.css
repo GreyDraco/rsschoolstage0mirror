@@ -1,0 +1,40 @@
+.contacts-link {
+  padding: 0 15px;
+  line-height: 50px;
+  transition: 0.3s;
+  text-decoration: none;
+  color: black;
+}
+
+.contacts-link:hover {
+  color: rgb(47, 206, 255);
+  text-decoration: underline;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 25px;
+}
+
+.footer-rss-logo {
+  width: 120px;
+  height: 50px;
+  background-image: url(./assets//svg/rs-school-logo.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: 0.5s;
+}
+
+.footer-rss-logo:hover {
+  filter: drop-shadow(2px 4px 6px rgb(240, 233, 29));
+}
+
+.footer-list {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+}
