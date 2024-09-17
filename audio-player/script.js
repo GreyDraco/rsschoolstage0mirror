@@ -3,6 +3,8 @@ import data from "./data.js";
 const playBtn = document.querySelector(".play");
 const prevBtn = document.querySelector(".prev");
 const nextBtn = document.querySelector(".next");
+const forwardBtn = document.querySelector(".forward");
+const backwardBtn = document.querySelector(".backward");
 const volumeControl = document.querySelector(".volume-control");
 const volumeBtn = document.querySelector(".volume-mute-btn");
 const volumeBar = document.querySelector(".volume");
@@ -15,7 +17,6 @@ const labelName = document.querySelector(".label");
 const runningInfo = document.querySelector(".track-info");
 const trackInfoContainer = document.querySelector(".running-info");
 const miniImg = document.querySelector(".mini-img");
-const bigImg = document.querySelector(".back-img");
 const equalizer = document.querySelector(".equalizer");
 
 const maxTrackInfoWidth = trackInfoContainer.offsetWidth + 280;
@@ -75,34 +76,73 @@ prevBtn.addEventListener("click", () => {
   }
 });
 
+backwardBtn.addEventListener("click", () => {
+  if (audio.currentTime < 10) {
+    audio.currentTime = 0;
+  } else {
+    audio.currentTime -= 10;
+  }
+});
+
+forwardBtn.addEventListener("click", () => {
+  if (audio.currentTime > audio.duration - 10) {
+    audio.currentTime = audio.duration;
+  } else {
+    audio.currentTime += 10;
+  }
+});
+
 progressBar.addEventListener("change", () => {
   audio.currentTime = Math.floor((progressBar.value * audio.duration) / 100);
   isProgressBarFocused = false;
 });
 
 volumeBar.addEventListener("input", () => {
-  if (volumeBar.value < 1) {
+  const currentVolume = volumeBar.value;
+  if (currentVolume < 1) {
     volumeBtn.classList.add("mute");
     volumeControl.classList.add("mute");
+    equalizer.classList.add("off");
     audio.volume = 0;
-  } else if (volumeBtn.classList.contains("mute") && volumeBar.value > 0) {
+  } else if (volumeBtn.classList.contains("mute") && currentVolume > 0) {
     volumeBtn.classList.remove("mute");
     volumeControl.classList.remove("mute");
-    audio.volume = volumeBar.value / 100;
+    equalizer.classList.remove("off");
+    audio.volume = currentVolume / 100;
   } else {
-    audio.volume = volumeBar.value / 100;
+    audio.volume = currentVolume / 100;
   }
+  equalizer.style.height = `${(currentVolume * 130) / 100}px`;
 });
 
 volumeBtn.addEventListener("click", () => {
   if (volumeBtn.classList.contains("mute")) {
     volumeBar.value = 40;
+    equalizer.classList.remove("off");
+    equalizer.style.height = `${(40 * 130) / 100}px`;
   } else {
     volumeBar.value = 0;
+    equalizer.classList.add("off");
   }
   volumeBtn.classList.toggle("mute");
   volumeControl.classList.toggle("mute");
   audio.volume = volumeBtn.classList.contains("mute") ? 0 : volumeBar.value / 100;
+});
+
+window.addEventListener("keyup", (e) => {
+  if (e.code === "ArrowRight") {
+    if (audio.currentTime > audio.duration - 10) {
+      audio.currentTime = audio.duration;
+    } else {
+      audio.currentTime += 10;
+    }
+  } else if (e.code === "ArrowLeft") {
+    if (audio.currentTime < 10) {
+      audio.currentTime = 0;
+    } else {
+      audio.currentTime -= 10;
+    }
+  }
 });
 
 function updateTrack(id = currentTrack) {
@@ -111,7 +151,7 @@ function updateTrack(id = currentTrack) {
   trackName.textContent = data[currentTrack].title;
   labelName.textContent = data[currentTrack].label;
   miniImg.src = data[currentTrack].img;
-  bigImg.src = data[currentTrack].img;
+  document.body.style.backgroundImage = `url(${data[currentTrack].img})`;
 
   if (playBtn.classList.contains("pause")) audio.play();
 
@@ -144,7 +184,7 @@ function updateCurrentState() {
     progressBar.value = Math.floor((audio.currentTime / audio.duration) * 100);
     progressBar.style.background = `linear-gradient(to right, #434343 0%, #82CFD0 ${progressBar.value}%, #fff ${progressBar.value}%, white 100%)`;
   }
-  if (audio.currentTime === audio.duration) {
+  if (audio.currentTime === audio.duration && playBtn.classList.contains("pause")) {
     currentTrack++;
     if (currentTrack >= data.length) {
       currentTrack = 0;
