@@ -119,7 +119,7 @@ volumeBtn.addEventListener("click", () => {
   if (volumeBtn.classList.contains("mute")) {
     volumeBar.value = 40;
     equalizer.classList.remove("off");
-    equalizer.style.height = `${(40 * 130) / 100}px`;
+    equalizer.style.height = `${(volumeBar.value * 130) / 100}px`;
   } else {
     volumeBar.value = 0;
     equalizer.classList.add("off");
