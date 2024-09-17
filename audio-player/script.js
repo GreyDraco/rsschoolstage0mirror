@@ -16,8 +16,17 @@ const runningInfo = document.querySelector(".track-info");
 const trackInfoContainer = document.querySelector(".running-info");
 const miniImg = document.querySelector(".mini-img");
 const bigImg = document.querySelector(".back-img");
+const equalizer = document.querySelector(".equalizer");
 
 const maxTrackInfoWidth = trackInfoContainer.offsetWidth + 280;
+
+let isProgressBarFocused = false;
+
+progressBar.addEventListener("input", () => {
+  progressBar.style.background = `linear-gradient(to right, #434343 0%, #82CFD0 ${progressBar.value}%, #fff ${progressBar.value}%, white 100%)`;
+  isProgressBarFocused = true;
+  // console.log("focus");
+});
 
 let currentTrack = 0;
 const audio = new Audio(data[currentTrack].src);
@@ -26,8 +35,10 @@ updateTrack();
 playBtn.addEventListener("click", () => {
   if (!playBtn.classList.contains("pause")) {
     audio.play();
+    equalizer.classList.remove("off");
   } else {
     audio.pause();
+    equalizer.classList.add("off");
   }
   playBtn.classList.toggle("pause");
   miniImg.classList.toggle("magnified");
@@ -55,9 +66,11 @@ prevBtn.addEventListener("click", () => {
 
 progressBar.addEventListener("change", () => {
   audio.currentTime = Math.floor((progressBar.value * audio.duration) / 100);
+  // progressBar.style.background = `linear-gradient(to right, #82CFD0 0%, #82CFD0 ${progressBar.value}%, #fff ${progressBar.value}%, white 100%)`;
+  isProgressBarFocused = false;
 });
 
-volumeBar.addEventListener("change", () => {
+volumeBar.addEventListener("input", () => {
   if (volumeBar.value < 1) {
     volumeBtn.classList.add("mute");
     volumeControl.classList.add("mute");
@@ -115,7 +128,11 @@ function checkRunningAnim() {
 
 function updateCurrentState() {
   currentTime.textContent = formatTime(audio.currentTime);
-  progressBar.value = Math.floor((audio.currentTime / audio.duration) * 100);
+  // console.log(isProgressBarFocused);
+  if (!isProgressBarFocused) {
+    progressBar.value = Math.floor((audio.currentTime / audio.duration) * 100);
+    progressBar.style.background = `linear-gradient(to right, #434343 0%, #82CFD0 ${progressBar.value}%, #fff ${progressBar.value}%, white 100%)`;
+  }
   if (audio.currentTime === audio.duration) {
     currentTrack++;
     if (currentTrack >= data.length) {
