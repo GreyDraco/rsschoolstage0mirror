@@ -58,7 +58,6 @@ li {
 
 .player {
   z-index: 2;
-  /*  background-color: #ccc; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,24 +78,8 @@ li {
 }
 
 .track-info span {
-  /*   color: darkgreen; */
   font-family: cursive;
 }
-
-/* .singer {
-  color: rgb(44, 226, 232);
-  font-family: cursive;
-}
-
-.track {
-  color: darkgreen;
-  font-family: cursive;
-}
-
-.label {
-  color: cornflowerblue;
-  font-family: cursive;
-} */
 
 .progress-wrapper {
   display: flex;
@@ -126,6 +109,12 @@ li {
   height: 30px;
   cursor: pointer;
   border: none;
+  filter: invert(80%) sepia(56%) saturate(240%) hue-rotate(127deg) brightness(87%) contrast(92%);
+  transition: 0.5s;
+}
+
+.control-btn:hover {
+  filter: invert(1);
 }
 
 .volume-btn {
@@ -154,7 +143,6 @@ li {
 
 .contacts-link {
   padding: 0 15px;
-  line-height: 50px;
   transition: 0.3s;
   text-decoration: none;
   color: black;
@@ -169,7 +157,6 @@ li {
   justify-content: space-between;
   align-items: center;
   padding: 0 25px;
-  /*   background: linear-gradient(0deg, rgb(18 18 18) 0%, rgb(47 47 47 / 85%) 50%, rgb(255 255 255 / 0%) 100%); */
   background: linear-gradient(to top, #ffffff4f 0%, #9696968f 25%, #ffffff40 50%, #ffffff24 80%, #ffffff00 100%);
 }
 
@@ -180,11 +167,11 @@ li {
   background-size: contain;
   background-repeat: no-repeat;
   transition: 0.5s;
-  filter: drop-shadow(2px 3px 3px rgb(200, 200, 200));
+  filter: drop-shadow(1px 1px 3px rgb(200, 200, 200));
 }
 
 .footer-rss-logo:hover {
-  filter: drop-shadow(2px 3px 6px rgb(240, 233, 29));
+  filter: drop-shadow(1px 1px 6px #82cfd0);
 }
 
 .footer-list {
@@ -193,7 +180,25 @@ li {
   align-items: center;
   list-style: none;
   padding: 0;
-  text-shadow: rgb(200, 200, 200) 1px 0 6px;
+  text-shadow: rgb(200, 200, 200) 1px 0 6px, rgb(255, 255, 255) 1px 0 6px;
+}
+
+.footer-list li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.gh-link {
+  max-height: 40px;
+  transition: 0.5s;
+  filter: drop-shadow(1px 1px 3px rgb(200, 200, 200));
+}
+
+.gh-link:hover {
+  filter: drop-shadow(1px 1px 6px #82cfd0);
 }
 
 /*---dropdown-----*/
@@ -229,17 +234,20 @@ li {
   height: 20px;
 }
 
+.volume-mute-btn {
+  filter: invert(40%) sepia(56%) saturate(240%) hue-rotate(127deg) brightness(87%) contrast(92%);
+}
+
 input {
   cursor: pointer;
 }
-/*<-------------------- running thingy ----------------*/
+/*<-------------------- running string ----------------*/
 
 .running-info {
-  width: var(--running-width); /* макс ширина названия */
+  width: var(--running-width);
   overflow: hidden;
   white-space: nowrap;
   box-sizing: border-box;
-  /*   border: 1px solid #ccc; */
   border-radius: 5px;
 }
 
@@ -261,7 +269,7 @@ input {
   10%,
   90%,
   100% {
-    transform: translateX(calc(var(--running-padding) - var(--running-width))); /* макс ширина названия running-info */
+    transform: translateX(calc(var(--running-padding) - var(--running-width)));
   }
   40%,
   60% {
@@ -272,13 +280,10 @@ input {
 .progress-bar {
   cursor: pointer;
   background: linear-gradient(to right, #82cfd0 0%, #82cfd0 0%, #fff 0%, #fff 100%);
-  /*  oninput="this.style.background = `linear-gradient(to right, green ${this.value}%, red ${this.value}%)`;"  */
   border: solid 2px #82cfd0;
   border-radius: 8px;
   height: 7px;
-  /*  width: 400px; */
   outline: none;
-  /*   transition: 450ms ease-in; */
   -webkit-appearance: none;
   appearance: none;
 }
@@ -308,7 +313,7 @@ input {
   rotate: 180deg;
 }
 .col {
-  background-image: linear-gradient(#73a9aa, #709d9d, #4c7576b4, #4c75766b, #616c6c20);
+  background-image: linear-gradient(#78dddf, #709d9d, #4c7576b4, #4c75766b, #616c6c20);
   width: 12px;
   height: 3px;
 }

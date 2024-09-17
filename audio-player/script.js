@@ -4,7 +4,7 @@ const playBtn = document.querySelector(".play");
 const prevBtn = document.querySelector(".prev");
 const nextBtn = document.querySelector(".next");
 const volumeControl = document.querySelector(".volume-control");
-const volumeBtn = document.querySelector(".volume-mute");
+const volumeBtn = document.querySelector(".volume-mute-btn");
 const volumeBar = document.querySelector(".volume");
 const duration = document.querySelector(".duration");
 const currentTime = document.querySelector(".current-time");
@@ -25,7 +25,6 @@ let isProgressBarFocused = false;
 progressBar.addEventListener("input", () => {
   progressBar.style.background = `linear-gradient(to right, #434343 0%, #82CFD0 ${progressBar.value}%, #fff ${progressBar.value}%, white 100%)`;
   isProgressBarFocused = true;
-  // console.log("focus");
 });
 
 let currentTrack = 0;
@@ -54,6 +53,12 @@ nextBtn.addEventListener("click", () => {
     currentTrack = 0;
   }
   updateTrack(currentTrack);
+  if (!playBtn.classList.contains("pause")) {
+    audio.play();
+    equalizer.classList.remove("off");
+    playBtn.classList.add("pause");
+    miniImg.classList.add("magnified");
+  }
 });
 
 prevBtn.addEventListener("click", () => {
@@ -62,11 +67,16 @@ prevBtn.addEventListener("click", () => {
     currentTrack = data.length - 1;
   }
   updateTrack(currentTrack);
+  if (!playBtn.classList.contains("pause")) {
+    audio.play();
+    equalizer.classList.remove("off");
+    playBtn.classList.add("pause");
+    miniImg.classList.add("magnified");
+  }
 });
 
 progressBar.addEventListener("change", () => {
   audio.currentTime = Math.floor((progressBar.value * audio.duration) / 100);
-  // progressBar.style.background = `linear-gradient(to right, #82CFD0 0%, #82CFD0 ${progressBar.value}%, #fff ${progressBar.value}%, white 100%)`;
   isProgressBarFocused = false;
 });
 
@@ -85,8 +95,10 @@ volumeBar.addEventListener("input", () => {
 });
 
 volumeBtn.addEventListener("click", () => {
-  if (volumeBar.value < 1 && volumeBtn.classList.contains("mute")) {
-    volumeBar.value = 15;
+  if (volumeBtn.classList.contains("mute")) {
+    volumeBar.value = 40;
+  } else {
+    volumeBar.value = 0;
   }
   volumeBtn.classList.toggle("mute");
   volumeControl.classList.toggle("mute");
@@ -128,7 +140,6 @@ function checkRunningAnim() {
 
 function updateCurrentState() {
   currentTime.textContent = formatTime(audio.currentTime);
-  // console.log(isProgressBarFocused);
   if (!isProgressBarFocused) {
     progressBar.value = Math.floor((audio.currentTime / audio.duration) * 100);
     progressBar.style.background = `linear-gradient(to right, #434343 0%, #82CFD0 ${progressBar.value}%, #fff ${progressBar.value}%, white 100%)`;
