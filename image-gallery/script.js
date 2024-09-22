@@ -1,4 +1,4 @@
-import { fakeData, fakeDataLandscape, fakeDataLandscape2, fakeDataPort, fakeDataRandom, fakeDataSquar } from "./fake-data.js";
+import { data1, fakeData, fakeDataLandscape, fakeDataLandscape2, fakeDataPort, fakeDataRandom, fakeDataSquar } from "./fake-data.js";
 
 const main = document.querySelector(".main");
 const searchBtn = document.querySelector(".search-btn");
@@ -7,24 +7,7 @@ const searchBar = document.querySelector(".search-bar");
 
 let lastRequest = "";
 
-fakeData.forEach((res, index) => {
-  const url = res.urls.small;
-
-  const oldW = res.width;
-  const oldH = res.height;
-  const newW = 400;
-  const newH = (newW * oldH) / oldW;
-
-  const img = document.createElement("img");
-  const imgContainer = document.createElement("div");
-  imgContainer.className = "img-container";
-  img.src = url;
-
-  imgContainer.append(img);
-  main.append(imgContainer);
-
-  imgContainer.style.gridRowEnd = `span ${Math.ceil(newH / 10)} `;
-});
+getData("random");
 
 searchBar.addEventListener("input", () => {
   if (searchBar.value) {
@@ -40,15 +23,48 @@ clearBtn.addEventListener("click", () => {
 });
 
 searchBtn.addEventListener("click", () => {
-  if (searchBar.value) {
-    console.log("searching....");
-  }
+  getData(searchBar.value);
 });
 
 searchBar.addEventListener("keydown", (e) => {
   if (e.code === "Enter") {
-    if (searchBar.value) {
-      console.log("searching....");
-    }
+    console.log("searching....");
+    getData(searchBar.value);
   }
 });
+
+async function getData(request) {
+  if (request === lastRequest) {
+    return;
+  }
+  if (request) {
+    lastRequest = request;
+    main.textContent = "loading";
+    const url = `https://api.unsplash.com/photos/random?count=30&client_id=GRcpYRjhXlNl9WyVbfQ3rdCJTsCEyyJugwBqQYJ6kWA&query=${request}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    display(data);
+  }
+}
+
+function display(data) {
+  main.innerHTML = "";
+  data.forEach((res) => {
+    const url = res.urls.small;
+
+    const oldW = res.width;
+    const oldH = res.height;
+    const newW = 400;
+    const newH = (newW * oldH) / oldW;
+
+    const img = document.createElement("img");
+    const imgContainer = document.createElement("div");
+    imgContainer.className = "img-container";
+    img.src = url;
+
+    imgContainer.append(img);
+    main.append(imgContainer);
+
+    imgContainer.style.gridRowEnd = `span ${Math.ceil(newH / 10)} `;
+  });
+}
