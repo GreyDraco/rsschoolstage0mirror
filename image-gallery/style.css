@@ -28,18 +28,66 @@ footer {
 .search-wrapper {
   display: flex;
   align-items: center;
+  background: rgb(255, 255, 255);
+  border: black solid 2px;
+  border-radius: 12px;
+  justify-content: space-evenly;
+  position: relative;
+}
+.search-bar {
+  border-radius: 12px;
+  padding: 5px 28px 2px 8px;
+  height: 32px;
+  font-size: 18px;
+  border: 0;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-right: 2px solid rgb(201, 199, 199);
+}
+
+.search-bar:focus {
+  outline: none;
 }
 
 .search-btn {
   background: url(./assets/icons/search-icon.png) no-repeat;
-  background-size: cover;
-  width: 30px;
-  height: 30px;
+  background-size: 25px;
+  width: 35px;
+  height: 32px;
   border: none;
+  background-position: center;
+  cursor: pointer;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  transition: background-color 0.3s;
+}
+
+.search-btn:hover {
+  background-color: aqua;
 }
 .search-btn:active {
-  scale: 0.9;
+  background-size: 22px;
 }
+
+.clear-btn {
+  font-size: 12px;
+  font-weight: 800;
+  position: absolute;
+  right: 42px;
+  border: none;
+  background: none;
+  padding: 0;
+  color: #d4d4d4;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+.clear-btn:hover {
+  background-color: #4f4f4f;
+}
+
 .main {
   max-width: 1280px;
   width: 100%;
@@ -51,6 +99,7 @@ footer {
   grid-template-rows: repeat(auto-fill, minmax(10px, 1fr));
   gap: 10px;
   grid-auto-flow: dense;
+  padding: 0 25px;
 }
 
 .img-container {
@@ -64,4 +113,8 @@ footer {
 
 img {
   width: 100%;
+}
+
+.hidden {
+  visibility: hidden;
 }
