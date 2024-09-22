@@ -1,5 +1,3 @@
-import { data1, fakeData, fakeDataLandscape, fakeDataLandscape2, fakeDataPort, fakeDataRandom, fakeDataSquar } from "./fake-data.js";
-
 const main = document.querySelector(".main");
 const searchBtn = document.querySelector(".search-btn");
 const clearBtn = document.querySelector(".clear-btn");
@@ -39,7 +37,6 @@ async function getData(request) {
   }
   if (request) {
     lastRequest = request;
-    main.textContent = "loading";
     const url = `https://api.unsplash.com/photos/random?count=30&client_id=GRcpYRjhXlNl9WyVbfQ3rdCJTsCEyyJugwBqQYJ6kWA&query=${request}`;
     const res = await fetch(url);
     const data = await res.json();

@@ -118,3 +118,12 @@ img {
 .hidden {
   visibility: hidden;
 }
+
+.main:empty {
+  background: url(./assets/icons/loading-gif.gif) no-repeat;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 0 auto;
+}
