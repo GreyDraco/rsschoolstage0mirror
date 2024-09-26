@@ -37,15 +37,28 @@ async function getData(request) {
   }
   if (request) {
     lastRequest = request;
-    const url = `https://api.unsplash.com/photos/random?count=30&client_id=GRcpYRjhXlNl9WyVbfQ3rdCJTsCEyyJugwBqQYJ6kWA&query=${request}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    display(data);
+    console.log(request);
+    const url = `https://api.unsplash.com/search/photos?page=1&per_page=30&query=${encodeURIComponent(request)}&client_id=GRcpYRjhXlNl9WyVbfQ3rdCJTsCEyyJugwBqQYJ6kWA`;
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      console.log(data);
+      if (data.errors) {
+        main.textContent = data.errors[0];
+        return;
+      }
+      display(data.results);
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
 
 function display(data) {
   main.innerHTML = "";
+  if (data.length === 0) {
+    main.textContent = "no photo";
+  }
   data.forEach((res) => {
     const url = res.urls.small;
 
