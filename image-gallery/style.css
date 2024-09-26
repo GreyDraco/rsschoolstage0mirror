@@ -111,6 +111,13 @@ footer {
   height: fit-content;
 }
 
+.main:not(:has(.img-container)) {
+  display: block;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 400;
+}
+
 img {
   width: 100%;
 }
