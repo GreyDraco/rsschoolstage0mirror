@@ -8,7 +8,7 @@
     <title>Image gallery</title>
   </head>
   <body>
-    <header class="header">
+    <header class="header" id="header">
       <h1>Unsplash API</h1>
       <div class="search-wrapper">
         <input type="text" class="search-bar" placeholder="search..." autocomplete="off" autofocus />
@@ -16,7 +16,10 @@
         <button class="clear-btn hidden">╳</button>
       </div>
     </header>
-    <main class="main flex-container"></main>
+    <main class="main">
+      <div class="flex-container"></div>
+      <div class="btn-up-container"><a class="btn-up" href="#header"></a></div>
+    </main>
     <footer class="footer">
       <div class="footer-container">
         <ul class="footer-list">
@@ -28,6 +31,7 @@
         <a href="https://rs.school/courses/javascript-ru" class="footer-rss-logo"></a>
       </div>
     </footer>
+    <div class="overlay"></div>
     <script type="module" src="./script.js"></script>
   </body>
 </html>
