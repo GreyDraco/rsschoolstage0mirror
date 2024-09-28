@@ -31,7 +31,6 @@ export default function showPopup(data) {
 
   const popupTitle = document.createElement("h4");
   popupTitle.classList.add("popup-title");
-  // popupTitle.textContent = data.alt_description;
 
   if (data.description) {
     popupTitle.textContent = data.description;
@@ -44,6 +43,7 @@ export default function showPopup(data) {
   const popupInfoName = document.createElement("a");
   popupInfoName.classList.add("popup-info-name");
   popupInfoName.innerHTML = `${data.user.name}`;
+  popupInfoName.href = `${data.user.links.html}`;
 
   const popupInfoImg = document.createElement("img");
   popupInfoImg.classList.add("popup-info-img");

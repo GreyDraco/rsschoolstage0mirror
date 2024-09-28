@@ -101,8 +101,13 @@ h1 {
 .main {
   max-width: 1280px;
   width: 100%;
+  height: 100%;
   position: relative;
   padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1 0 auto;
 }
 
 .flex-container {
@@ -116,6 +121,7 @@ h1 {
 
 .img-container {
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: stretch;
   justify-content: end;
@@ -125,13 +131,16 @@ h1 {
   cursor: pointer;
 }
 
-.main:not(:has(.img-container)) {
+.flex-container:not(:has(.img-container)) {
   display: block;
   text-align: center;
   font-size: 24px;
   font-weight: 400;
 }
-
+.main:has(.flex-container:not(:has(.img-container))) {
+  justify-content: center;
+  background-color: #4f4f4f;
+}
 .img-container img {
   transition: 0.5s;
   scale: 1;
@@ -148,7 +157,8 @@ img {
   visibility: hidden;
 }
 
-.main:empty {
+.flex-container:empty {
+  height: 100%;
   background: url(./assets/icons/loading-gif.gif) no-repeat;
   background-position: center;
   display: flex;
