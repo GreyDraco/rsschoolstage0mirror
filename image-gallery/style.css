@@ -1,4 +1,9 @@
 @import url(./footer.css);
+@import url(./popup.css);
+
+html {
+  scroll-behavior: smooth;
+}
 
 * {
   box-sizing: border-box;
@@ -10,7 +15,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
 }
 .header,
 footer {
@@ -19,12 +23,18 @@ footer {
 
 .header {
   display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
   justify-content: space-between;
   align-items: center;
-  padding: 0 25px;
+  padding: 15px 25px;
   background: #95a0b0;
 }
 
+h1 {
+  margin: 0;
+  margin-right: 10px;
+}
 .search-wrapper {
   display: flex;
   align-items: center;
@@ -91,6 +101,8 @@ footer {
 .main {
   max-width: 1280px;
   width: 100%;
+  position: relative;
+  padding-bottom: 10px;
 }
 
 .flex-container {
@@ -99,7 +111,7 @@ footer {
   grid-template-rows: repeat(auto-fill, minmax(10px, 1fr));
   gap: 10px;
   grid-auto-flow: dense;
-  padding: 0 25px;
+  padding: 10px 25px;
 }
 
 .img-container {
@@ -109,6 +121,8 @@ footer {
   justify-content: end;
   overflow: hidden;
   height: fit-content;
+  transition: 0.5s;
+  cursor: pointer;
 }
 
 .main:not(:has(.img-container)) {
@@ -118,6 +132,14 @@ footer {
   font-weight: 400;
 }
 
+.img-container img {
+  transition: 0.5s;
+  scale: 1;
+}
+
+.img-container:hover img {
+  scale: 1.2;
+}
 img {
   width: 100%;
 }
@@ -133,4 +155,38 @@ img {
   align-items: center;
   justify-content: center;
   flex: 1 0 auto;
+}
+
+.btn-up-container {
+  position: sticky;
+  width: 100%;
+  height: 40px;
+  bottom: 0px;
+  display: flex;
+  justify-content: end;
+  padding-right: 75px;
+}
+
+.btn-up {
+  padding-top: 10px;
+  border-radius: 50%;
+  width: 40px;
+  height: 100%;
+  background-image: url(./assets/icons/double-arrow.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  filter: drop-shadow(1px 1px 3px rgb(200, 200, 200));
+  transition: 0.5s;
+}
+
+.btn-up:hover {
+  filter: drop-shadow(1px 1px 3px rgb(255, 255, 255));
+  scale: 1.1;
+}
+
+@media (max-width: 600px) {
+  .header {
+    justify-content: space-around;
+  }
 }
