@@ -7,10 +7,19 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 canvas {
   width: 750px;
   background: aliceblue;
   margin: 0;
+}
+
+.actionMenuContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 750px;
+  width: 100%;
 }
