@@ -1,6 +1,9 @@
 import { ctx } from "./scripts/canvasSetup.js";
 import { MovingSprite, Sprite } from "./scripts/classes/Sprites.js";
 import { CANVAS_HEIGHT, CANVAS_WIDTH, CASTLE_PROPS, HP_CASTLE_POS, HP_ENEMIES_POS, HP_HEIGHT, HP_MAX_WIDTH, HP_Y_POS, MAX_CASTLE_HP, MAX_ENEMY_HP, START_ENEMIES_PROPS, STOP_ENEMY_POS } from "./scripts/consts.js";
+import { showPopup } from "./scripts/showPopup.js";
+
+const repairBtn = document.querySelector(".repairBtn");
 
 const castle = new Sprite(CASTLE_PROPS);
 const enemyCount = 20;
@@ -130,3 +133,7 @@ function getRandomColorWithOpacity() {
 
   return `rgba(${r}, ${g}, ${b}, 0.5)`;
 }
+
+repairBtn.addEventListener("click", () => {
+  showPopup();
+});
