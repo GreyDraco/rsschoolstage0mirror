@@ -1,5 +1,6 @@
 @import url(./styles/popup.css);
 @import url(./styles/footer.css);
+@import url(./styles/repairPopup.css);
 
 * {
   box-sizing: border-box;

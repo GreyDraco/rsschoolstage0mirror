@@ -1,7 +1,7 @@
 import { ctx } from "./scripts/canvasSetup.js";
 import { MovingSprite, Sprite } from "./scripts/classes/Sprites.js";
 import { CANVAS_HEIGHT, CANVAS_WIDTH, CASTLE_PROPS, HP_CASTLE_POS, HP_ENEMIES_POS, HP_HEIGHT, HP_MAX_WIDTH, HP_Y_POS, MAX_CASTLE_HP, MAX_ENEMY_HP, START_ENEMIES_PROPS, STOP_ENEMY_POS } from "./scripts/consts.js";
-import { showPopup } from "./scripts/showPopup.js";
+import { hidePopup, showPopup } from "./scripts/showPopup.js";
 
 const repairBtn = document.querySelector(".repairBtn");
 
@@ -11,6 +11,8 @@ const castleHitCount = 4;
 const castleRange = 300;
 let damageRecived = 0;
 let gold = 100;
+let targetgold = gold;
+const cost = 0.1;
 
 let enemies = [];
 
@@ -136,4 +138,66 @@ function getRandomColorWithOpacity() {
 
 repairBtn.addEventListener("click", () => {
   showPopup();
+  const popupContent = document.querySelector(".popup-content");
+  popupContent.classList.add("repair-popup");
+
+  const repairButtonsContainer = document.createElement("div");
+  repairButtonsContainer.classList.add("repair-btns-container");
+
+  const fullRepairBtn = document.createElement("button");
+  fullRepairBtn.className = "full-repair-btn button";
+  if (Math.floor((MAX_CASTLE_HP - Math.floor(castle.hp)) * cost) > gold) {
+    fullRepairBtn.disabled = true;
+  }
+
+  const okRepairBtn = document.createElement("button");
+  okRepairBtn.className = "button ok-repair-btn";
+
+  const repairBarContainer = document.createElement("div");
+  repairBarContainer.classList.add("repair-bar-container");
+  const repairBar = document.createElement("input");
+  repairBar.classList.add("repair-bar");
+  const repairHp = document.createElement("span");
+  repairHp.className = "repair-hp";
+  const repairCost = document.createElement("span");
+  repairCost.className = "repair-cost";
+
+  repairBar.type = "range";
+  repairBar.value = Math.floor(castle.hp);
+  repairBar.min = Math.floor(castle.hp);
+  repairBar.max = MAX_CASTLE_HP;
+
+  repairCost.textContent = "0$";
+  repairHp.textContent = `${Math.floor(castle.hp)}/${MAX_CASTLE_HP}`;
+
+  fullRepairBtn.textContent = `full repair: ${Math.floor((MAX_CASTLE_HP - Math.floor(castle.hp)) * cost)}$`;
+  okRepairBtn.textContent = "repair";
+
+  repairBar.addEventListener("input", () => {
+    repairHp.textContent = `${repairBar.value}/${MAX_CASTLE_HP}`;
+    repairCost.textContent = `${Math.floor((repairBar.value - Math.floor(castle.hp)) * cost)}$`;
+    if (Math.floor((repairBar.value - Math.floor(castle.hp)) * cost) > gold) {
+      okRepairBtn.disabled = true;
+    } else {
+      okRepairBtn.disabled = false;
+    }
+  });
+
+  okRepairBtn.addEventListener("click", () => {
+    hidePopup();
+    gold -= Math.floor((repairBar.value - Math.floor(castle.hp)) * cost);
+    castle.hp = repairBar.value;
+    castleHP.width = (repairBar.value * HP_MAX_WIDTH) / MAX_CASTLE_HP;
+  });
+
+  fullRepairBtn.addEventListener("click", () => {
+    hidePopup();
+    gold -= Math.floor((MAX_CASTLE_HP - Math.floor(castle.hp)) * cost);
+    castle.hp = MAX_CASTLE_HP;
+    castleHP.width = HP_MAX_WIDTH;
+  });
+
+  repairButtonsContainer.append(fullRepairBtn, okRepairBtn);
+  repairBarContainer.append(repairBar, repairCost, repairHp);
+  popupContent.append(repairBarContainer, repairButtonsContainer);
 });

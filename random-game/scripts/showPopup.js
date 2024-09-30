@@ -7,8 +7,8 @@ export function showPopup() {
   overlay.classList.toggle("overlay_active");
   body.classList.toggle("no-scroll");
 
-  // const popupWrapper = document.createElement("div");
-  // popupWrapper.classList.add("popupWrapper");
+  const popupContent = document.createElement("div");
+  popupContent.classList.add("popup-content");
 
   const closePopupBtn = document.createElement("button");
   closePopupBtn.className = "close-popup";
@@ -21,7 +21,7 @@ export function showPopup() {
   popupContainer.classList.add("popup-container");
 
   // popupWrapper.append(popupContainer, closePopupBtn);
-  popupContainer.append(closePopupBtn);
+  popupContainer.append(popupContent, closePopupBtn);
   overlay.append(popupContainer);
 }
 
