@@ -7,17 +7,31 @@
     <title>Document</title>
   </head>
   <body>
-    <canvas id="game">Your browser does not support canvas</canvas>
-    <div class="actionMenuContainer civilBar">
-      <button class="button repairBtn">repair</button>
-      <button class="button upgradeBtn">upgrade</button>
-      <button class="button mapBtn">map</button>
-    </div>
-    <div class="actionMenuContainer combatBar">
-      <button class="button fireballBtn">Fireball</button>
-      <button class="button lightningBtn">Ligthtning</button>
-      <button class="button bribeBtn">bribe</button>
-    </div>
+    <main class="main">
+      <canvas id="game">Your browser does not support canvas</canvas>
+      <div class="actionMenuContainer civilBar">
+        <button class="button repairBtn">repair</button>
+        <button class="button upgradeBtn">upgrade</button>
+        <button class="button mapBtn">map</button>
+      </div>
+      <div class="actionMenuContainer combatBar">
+        <button class="button fireballBtn">Fireball</button>
+        <button class="button lightningBtn">Ligthtning</button>
+        <button class="button bribeBtn">bribe</button>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="footer-container">
+        <ul class="footer-list">
+          <li><p>© 2024</p></li>
+          <li>
+            <a href="https://github.com/GreyDraco" class="contacts-link"><img class="gh-link" src="./assets/icons/github-logo.png" alt="GreyDraco" height="40px" width="40px" /></a>
+          </li>
+        </ul>
+        <a href="https://rs.school/courses/javascript-ru" class="footer-rss-logo"></a>
+      </div>
+    </footer>
+
     <div class="overlay"></div>
     <script type="module" src="script.js"></script>
   </body>
