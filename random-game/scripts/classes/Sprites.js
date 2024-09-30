@@ -2,13 +2,15 @@ import { ctx } from "../canvasSetup.js";
 import { STOP_ENEMY_POS } from "../consts.js";
 
 export class Sprite {
-  constructor({ x, y, width, height, color }) {
+  constructor({ x, y, width, height, color, hp, power }) {
     this.xPos = x;
     this.yPos = y - height;
     this.color = color;
     this.width = width;
     this.height = height;
     this.xPosR = x + width;
+    this.hp = hp;
+    this.power = power;
   }
 
   display() {
@@ -26,6 +28,7 @@ export class MovingSprite extends Sprite {
   move() {
     if (this.xPos > this.stopPos) {
       this.xPos -= this.velocity;
+    } else {
     }
     super.display();
   }
