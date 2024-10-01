@@ -13,3 +13,5 @@ export const HP_Y_POS = 50;
 export const HP_CASTLE_POS = 20;
 export const HP_ENEMIES_POS = CANVAS_WIDTH - HP_MAX_WIDTH - HP_CASTLE_POS;
 export const BASE_COST = 0.1;
+
+export const gameParams = { cost: BASE_COST, gold: 1000, discount: 1 };

@@ -20,7 +20,6 @@ export function showPopup() {
   const popupContainer = document.createElement("div");
   popupContainer.classList.add("popup-container");
 
-  // popupWrapper.append(popupContainer, closePopupBtn);
   popupContainer.append(popupContent, closePopupBtn);
   overlay.append(popupContainer);
 }
