@@ -1,15 +1,16 @@
 import { ctx } from "./scripts/canvasSetup.js";
 import { castle, castleHP, enemiesHP } from "./scripts/characters.js";
-import { MovingSprite } from "./scripts/classes/Sprites.js";
-import { CANVAS_HEIGHT, CANVAS_WIDTH, CASTLE_PROPS, gameParams, HP_CASTLE_POS, HP_ENEMIES_POS, HP_HEIGHT, HP_MAX_WIDTH, HP_Y_POS, MAX_CASTLE_HP, MAX_ENEMY_HP, START_ENEMIES_PROPS, STOP_ENEMY_POS } from "./scripts/consts.js";
+import { CANVAS_HEIGHT, CANVAS_WIDTH, CASTLE_PROPS, gameEnemyWave, gameParams, HP_CASTLE_POS, HP_ENEMIES_POS, HP_HEIGHT, HP_MAX_WIDTH, HP_Y_POS, MAX_CASTLE_HP, MAX_ENEMY_HP, STOP_ENEMY_POS } from "./scripts/consts.js";
 import "./scripts/popUps/repairPopUp.js";
+import { hitClosestEnemies, spawnEnemies } from "./scripts/spawnEnemy.js";
 
-const enemyCount = 20;
+const pushEnemyWave = document.querySelector(".DEBUG-wave");
+
+/* const enemyCount = 20;
 const castleHitCount = 4;
-const castleRange = 300;
+const castleRange = 300; */
 let damageRecived = 0;
-
-let enemies = [];
+let totalEnemyHp = 0;
 
 function displayGold() {
   ctx.beginPath();
@@ -29,23 +30,25 @@ function displayGold() {
   ctx.fillText(gameParams.gold, CANVAS_WIDTH / 2 - 70, HP_Y_POS);
 }
 
-function spawnEnemy(count = enemyCount) {
-  let counter = 0;
-  const intervalId = setInterval(function () {
-    const enemy = new MovingSprite(1.5 + Math.random() * 0.5, { ...START_ENEMIES_PROPS, color: getRandomColorWithOpacity() });
-    enemies.push(enemy);
-    counter++;
-    if (counter === count) {
-      clearInterval(intervalId);
-    }
-  }, 300);
+function getReserveEnemyHp() {
+  let totalHp = 0;
+  for (let i = 0; i < gameEnemyWave.incomingEnemies.length; i++) {
+    totalHp += gameEnemyWave.incomingEnemies[i] * MAX_ENEMY_HP * (i + 1);
+  }
+  return totalHp;
 }
 
 function getEnemyMaxHp() {
-  return enemyCount * MAX_ENEMY_HP;
+  return getReserveEnemyHp();
 }
 
-spawnEnemy(enemyCount);
+function getEnemyHp() {
+  let currentHp = getReserveEnemyHp();
+  gameEnemyWave.onScreenEnemies.forEach((enemy) => {
+    currentHp += enemy.hp;
+  });
+  return currentHp;
+}
 
 function displayHP() {
   ctx.fillStyle = "red";
@@ -57,23 +60,10 @@ function displayHP() {
   enemiesHP.display();
 }
 
-function hitClosestEnemies(damage) {
-  let damageRecived1 = 0;
-  enemies.sort((a, b) => a.xPos - b.xPos);
-  const closestEnemies = enemies.slice(0, Math.min(castleHitCount, enemies.length));
-  closestEnemies.forEach((enemy) => {
-    if (enemy.xPos < STOP_ENEMY_POS + castleRange) {
-      enemy.hp = Math.max(0, enemy.hp - damage);
-      damageRecived1 += damage;
-    }
-  });
-  enemies = enemies.filter((enemy) => enemy.hp > 0);
-  return damageRecived1;
-}
-
 function updateEnemyHp(damage) {
   damageRecived += hitClosestEnemies(damage);
-  const currentEnemHPWidth = (1 - (getEnemyMaxHp() - damageRecived) / getEnemyMaxHp()) * HP_MAX_WIDTH;
+  const currentEnemHPWidth = (1 - getEnemyHp() / totalEnemyHp) * HP_MAX_WIDTH;
+  console.log(getEnemyHp(), totalEnemyHp);
   enemiesHP.width = Math.min(currentEnemHPWidth, HP_MAX_WIDTH);
 }
 
@@ -91,7 +81,7 @@ function animate() {
   displayHP();
   castle.display("green");
 
-  enemies.forEach((enemy) => {
+  gameEnemyWave.onScreenEnemies.forEach((enemy) => {
     if (enemy.xPos > enemy.stopPos) {
       enemy.move();
     } else {
@@ -100,7 +90,7 @@ function animate() {
     }
   });
 
-  if (enemies.length) {
+  if (gameEnemyWave.onScreenEnemies.length) {
     updateEnemyHp(castle.power);
   }
 
@@ -114,10 +104,9 @@ function animate() {
 
 animate();
 
-function getRandomColorWithOpacity() {
-  const r = Math.floor(Math.random() * 256);
-  const g = Math.floor(Math.random() * 256);
-  const b = Math.floor(Math.random() * 256);
-
-  return `rgba(${r}, ${g}, ${b}, 0.5)`;
-}
+pushEnemyWave.addEventListener("click", () => {
+  gameEnemyWave.incomingEnemies[0] = 10;
+  gameEnemyWave.incomingEnemies[1] = 3;
+  totalEnemyHp = getEnemyMaxHp();
+  spawnEnemies(gameEnemyWave);
+});
