@@ -1,4 +1,4 @@
-import { DIE_SIZE } from "../consts.js";
+import { DIE_SIZE, gameParams } from "../consts.js";
 import { gameEventsData } from "../data/gameEventsData.js";
 import { hidePopup, showPopup } from "./showPopup.js";
 
@@ -34,6 +34,7 @@ fireEventBtn.addEventListener("click", () => {
       eventText.textContent = gameEvent.text;
       if (gameEvent.die) {
         const comb = Math.floor(Math.random() * DIE_SIZE);
+        console.log(comb);
 
         gameEvent = comb > 3 ? vars.varw : vars.varl;
         displayEventFrame();
@@ -56,10 +57,15 @@ fireEventBtn.addEventListener("click", () => {
       }
     } else {
       const okBtn = document.createElement("button");
+
+      if (gameEvent.rewards) {
+        buttonContainer.prepend(giveRewards(gameEvent));
+      }
+
+      console.log(gameParams);
       okBtn.textContent = "OK";
 
       buttonContainer.append(okBtn);
-
       eventText.textContent = gameEvent.text;
       okBtn.addEventListener("click", () => {
         hidePopup();
@@ -68,3 +74,25 @@ fireEventBtn.addEventListener("click", () => {
     }
   }
 });
+
+function giveRewards(gameEvent) {
+  const rewardList = document.createElement("ul");
+  console.log(Object.entries(gameEvent.rewards));
+  Object.entries(gameEvent.rewards).forEach(([key, value]) => {
+    if (value !== null) {
+      const rewardItem = document.createElement("li");
+      if (key !== "abilities") {
+        gameParams[key] = Math.max(gameParams[key] + value, 0);
+
+        rewardItem.textContent = value > 0 ? `${key}: +${value}` : `${key}: ${value}`;
+      } else {
+        Object.entries(value).forEach(([key, value]) => {
+          gameParams.abilities[key] += value;
+          rewardItem.textContent = `ability leveled up: ${key}`;
+        });
+      }
+      rewardList.append(rewardItem);
+    }
+  });
+  return rewardList;
+}
