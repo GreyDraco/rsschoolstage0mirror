@@ -1,6 +1,6 @@
 import { ctx } from "./scripts/canvasSetup.js";
 import { MovingSprite, Sprite } from "./scripts/classes/Sprites.js";
-import { CANVAS_HEIGHT, CANVAS_WIDTH, CASTLE_PROPS, HP_CASTLE_POS, HP_ENEMIES_POS, HP_HEIGHT, HP_MAX_WIDTH, HP_Y_POS, MAX_CASTLE_HP, MAX_ENEMY_HP, START_ENEMIES_PROPS, STOP_ENEMY_POS } from "./scripts/consts.js";
+import { BASE_COST, CANVAS_HEIGHT, CANVAS_WIDTH, CASTLE_PROPS, HP_CASTLE_POS, HP_ENEMIES_POS, HP_HEIGHT, HP_MAX_WIDTH, HP_Y_POS, MAX_CASTLE_HP, MAX_ENEMY_HP, START_ENEMIES_PROPS, STOP_ENEMY_POS } from "./scripts/consts.js";
 import { hidePopup, showPopup } from "./scripts/showPopup.js";
 
 const repairBtn = document.querySelector(".repairBtn");
@@ -12,7 +12,8 @@ const castleRange = 300;
 let damageRecived = 0;
 let gold = 100;
 let targetgold = gold;
-const cost = 0.1;
+
+let discount = 1;
 
 let enemies = [];
 
@@ -137,6 +138,7 @@ function getRandomColorWithOpacity() {
 }
 
 repairBtn.addEventListener("click", () => {
+  let cost = BASE_COST * discount;
   showPopup();
   const popupContent = document.querySelector(".popup-content");
   popupContent.classList.add("repair-popup");
@@ -153,6 +155,98 @@ repairBtn.addEventListener("click", () => {
   const okRepairBtn = document.createElement("button");
   okRepairBtn.className = "button ok-repair-btn";
 
+  //-----------------bargain start----------------
+
+  const bargainWinStart = 50;
+  const bargainWinEnd = bargainWinStart + 30;
+
+  let isBargainRun = false;
+
+  const discountText = document.createElement("p");
+  discountText.className = "discount-text hidden";
+
+  const bargainBtn = document.createElement("button");
+  //if(isBargainRun){
+  bargainBtn.disabled = isBargainRun;
+  //}
+  bargainBtn.className = "button bargain-btn";
+  bargainBtn.textContent = "bargain";
+  const bargainContainer = document.createElement("div");
+  bargainContainer.className = "bargain-container hidden";
+  const bargainBar = document.createElement("input");
+  bargainBar.classList.add("bargain-bar");
+  bargainBar.type = "range";
+  bargainBar.min = 0;
+  bargainBar.max = 100;
+  bargainBar.value = 0;
+  bargainBar.step = 1;
+
+  bargainBar.style.background = `linear-gradient(to right,white 0%, white ${bargainWinStart - 1}%, #434343 ${bargainWinStart}%, #82CFD0 ${bargainWinEnd}%, #fff ${bargainWinEnd}%, white ${bargainWinEnd + 1}%)`;
+  let intervalId = null;
+
+  const stopBargainBtn = document.createElement("button");
+  stopBargainBtn.className = "button stop-bargain-btn";
+  stopBargainBtn.textContent = "stop bargain";
+
+  stopBargainBtn.addEventListener("click", () => {
+    isBargainRun = false;
+    bargainBtn.disabled = isBargainRun;
+    if (bargainBar.value <= bargainWinEnd && bargainBar.value >= bargainWinStart) {
+      discount = 0.7;
+    } else {
+      discount = 1.25;
+    }
+    cost = BASE_COST * discount;
+    console.log(discount);
+    repairCost.textContent = `${Math.floor((repairBar.value - Math.floor(castle.hp)) * cost)}$`;
+    if (Math.floor((MAX_CASTLE_HP - Math.floor(castle.hp)) * cost) > gold) {
+      fullRepairBtn.disabled = true;
+    }
+
+    if (Math.floor((repairBar.value - Math.floor(castle.hp)) * cost) > gold) {
+      okRepairBtn.disabled = true;
+    } else {
+      okRepairBtn.disabled = false;
+    }
+    fullRepairBtn.textContent = `full repair: ${Math.floor((MAX_CASTLE_HP - Math.floor(castle.hp)) * cost)}$`;
+    bargainContainer.classList.add("hidden");
+    // barga
+    //   console.log(bargainContainer, discount);
+    /*   bargainContainer.innerHTML = "";*/
+    //   bargainContainer.textContent = `Your discount `; //is ${discount}. ${discount > 1 ? "You looser" : "Well done!"}`;
+    discountText.textContent = `Your discount is ${discount}. ${discount > 1 ? "You looser" : "Well done!"}`;
+    discountText.classList.remove("hidden");
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+  });
+  /*   bargainContainer.innerHTML = "";
+  bargainContainer.textContent = `Your discount is ${discount}. ${discount > 1 ? "You looser" : "Well done!"}`;
+ */
+  bargainContainer.append(bargainBar, stopBargainBtn);
+
+  let direction = 1;
+  function runBargain() {
+    if (isBargainRun) {
+      if (bargainBar.value === bargainBar.min || bargainBar.value === bargainBar.max) {
+        direction = -direction;
+      }
+      if (direction > 0) {
+        bargainBar.value++;
+      } else {
+        bargainBar.value--;
+      }
+    }
+  }
+  bargainBtn.addEventListener("click", () => {
+    isBargainRun = true;
+    bargainContainer.classList.remove("hidden");
+    bargainBar.value = 1;
+    bargainBtn.disabled = isBargainRun;
+    //    runBargain();
+    intervalId = setInterval(runBargain, 5);
+  });
+  //----------------bargain end--------------------------------
   const repairBarContainer = document.createElement("div");
   repairBarContainer.classList.add("repair-bar-container");
   const repairBar = document.createElement("input");
@@ -197,7 +291,7 @@ repairBtn.addEventListener("click", () => {
     castleHP.width = HP_MAX_WIDTH;
   });
 
-  repairButtonsContainer.append(fullRepairBtn, okRepairBtn);
+  repairButtonsContainer.append(fullRepairBtn, bargainBtn, okRepairBtn);
   repairBarContainer.append(repairBar, repairCost, repairHp);
-  popupContent.append(repairBarContainer, repairButtonsContainer);
+  popupContent.append(repairBarContainer, bargainContainer, discountText, repairButtonsContainer);
 });
