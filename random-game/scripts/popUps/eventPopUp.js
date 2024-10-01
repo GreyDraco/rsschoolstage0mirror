@@ -19,7 +19,7 @@ fireEventBtn.addEventListener("click", () => {
   dieContainer.append(dieMinigame);
   popupContent.append(eventText, buttonContainer, dieContainer);
 
-  const eventName = "village";
+  const eventName = "city1"; // "village";
 
   let gameEvent = gameEventsData[eventName];
 
@@ -47,7 +47,7 @@ fireEventBtn.addEventListener("click", () => {
           buttonContainer.append(choiceBtn);
 
           choiceBtn.addEventListener("click", () => {
-            const varId = choiceBtn.id;
+            //  const varId = choiceBtn.id;
 
             gameEvent = variant;
             setTimeout(() => {
@@ -69,8 +69,7 @@ fireEventBtn.addEventListener("click", () => {
       eventText.textContent = gameEvent.text;
       okBtn.addEventListener("click", () => {
         if (gameEvent.battle) {
-          gameEnemyWave.incomingEnemies.guard = gameEvent.battle.guard;
-          gameEnemyWave.incomingEnemies.knight = gameEvent.battle.knight;
+          gameEnemyWave.incomingEnemies = { ...gameEvent.battle };
 
           startBattle();
         }
@@ -83,7 +82,6 @@ fireEventBtn.addEventListener("click", () => {
 
 function giveRewards(gameEvent) {
   const rewardList = document.createElement("ul");
-  console.log(Object.entries(gameEvent.rewards));
   Object.entries(gameEvent.rewards).forEach(([key, value]) => {
     if (value !== null) {
       const rewardItem = document.createElement("li");

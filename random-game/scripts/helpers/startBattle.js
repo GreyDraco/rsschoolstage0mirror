@@ -10,6 +10,5 @@ import { getReserveEnemyHp } from "./calcHp.js";
 export default function startBattle() {
   gameState.totalEnemyHp = getReserveEnemyHp();
   gameState.isCombat = true;
-  console.log(gameEnemyWave);
   spawnEnemies(gameEnemyWave);
 }

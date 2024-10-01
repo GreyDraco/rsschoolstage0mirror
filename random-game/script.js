@@ -66,7 +66,6 @@ function displayHP() {
 function updateEnemyHp(damage) {
   hitClosestEnemies(damage);
   const currentEnemHPWidth = (1 - getEnemyHp() / gameState.totalEnemyHp) * HP_MAX_WIDTH;
-  console.log(getEnemyHp(), gameState.totalEnemyHp);
   enemiesHP.width = Math.min(currentEnemHPWidth, HP_MAX_WIDTH);
   if (currentEnemHPWidth >= HP_MAX_WIDTH) {
     gameState.isCombat = false;
