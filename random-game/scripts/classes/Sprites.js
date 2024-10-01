@@ -20,9 +20,9 @@ export class Sprite {
 }
 
 export class MovingSprite extends Sprite {
-  constructor(velocity, props) {
+  constructor(props) {
     super(props);
-    this.velocity = velocity;
+    this.velocity = props.velocity + Math.random() * 0.5;
     this.stopPos = STOP_ENEMY_POS + Math.random() * 50;
   }
   move() {

@@ -1,15 +1,12 @@
 import { ctx } from "./scripts/canvasSetup.js";
 import { castle, castleHP, enemiesHP } from "./scripts/characters.js";
-import { CANVAS_HEIGHT, CANVAS_WIDTH, CASTLE_PROPS, gameEnemyWave, gameParams, HP_CASTLE_POS, HP_ENEMIES_POS, HP_HEIGHT, HP_MAX_WIDTH, HP_Y_POS, MAX_CASTLE_HP, MAX_ENEMY_HP, STOP_ENEMY_POS } from "./scripts/consts.js";
+import { CANVAS_HEIGHT, CANVAS_WIDTH, CASTLE_PROPS, gameEnemyWave, gameParams, gameState, HP_CASTLE_POS, HP_ENEMIES_POS, HP_HEIGHT, HP_MAX_WIDTH, HP_Y_POS, MAX_CASTLE_HP, MAX_ENEMY_HP, STOP_ENEMY_POS } from "./scripts/consts.js";
 import "./scripts/popUps/repairPopUp.js";
+import "./scripts/popUps/eventPopUp.js";
 import { hitClosestEnemies, spawnEnemies } from "./scripts/spawnEnemy.js";
 
 const pushEnemyWave = document.querySelector(".DEBUG-wave");
 
-/* const enemyCount = 20;
-const castleHitCount = 4;
-const castleRange = 300; */
-let damageRecived = 0;
 let totalEnemyHp = 0;
 
 function displayGold() {
@@ -54,18 +51,23 @@ function getEnemyHp() {
 function displayHP() {
   ctx.fillStyle = "red";
   ctx.fillRect(HP_CASTLE_POS, HP_Y_POS - HP_HEIGHT, HP_MAX_WIDTH, HP_HEIGHT);
-  ctx.fillStyle = "green";
-  ctx.fillRect(HP_ENEMIES_POS, HP_Y_POS - HP_HEIGHT, HP_MAX_WIDTH, HP_HEIGHT);
 
   castleHP.display();
-  enemiesHP.display();
+  if (gameState.isCombat) {
+    ctx.fillStyle = "green";
+    ctx.fillRect(HP_ENEMIES_POS, HP_Y_POS - HP_HEIGHT, HP_MAX_WIDTH, HP_HEIGHT);
+
+    enemiesHP.display();
+  }
 }
 
 function updateEnemyHp(damage) {
-  damageRecived += hitClosestEnemies(damage);
+  hitClosestEnemies(damage);
   const currentEnemHPWidth = (1 - getEnemyHp() / totalEnemyHp) * HP_MAX_WIDTH;
-  //console.log(getEnemyHp(), totalEnemyHp);
   enemiesHP.width = Math.min(currentEnemHPWidth, HP_MAX_WIDTH);
+  if (currentEnemHPWidth >= HP_MAX_WIDTH) {
+    gameState.isCombat = false;
+  }
 }
 
 function updateCastleHp(damage) {
@@ -106,6 +108,7 @@ function animate() {
 animate();
 
 pushEnemyWave.addEventListener("click", () => {
+  gameState.isCombat = true;
   gameEnemyWave.incomingEnemies.gurad = 10;
   gameEnemyWave.incomingEnemies.knight = 3;
   totalEnemyHp = getEnemyMaxHp();
