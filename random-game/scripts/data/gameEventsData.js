@@ -48,7 +48,7 @@ export const gameEventsData = {
             rewards: { playerLvl: -1, abilities: null, gold: null },
             die: null,
             bargain: false,
-            battle: { hasBattle: true, guard: 10, knight: null },
+            battle: { hasBattle: true, guard: 10, knight: 0 },
           },
         },
         rewards: null,

@@ -1,5 +1,6 @@
-import { DIE_SIZE, gameParams } from "../consts.js";
+import { DIE_SIZE, gameEnemyWave, gameParams } from "../consts.js";
 import { gameEventsData } from "../data/gameEventsData.js";
+import startBattle from "../helpers/startBattle.js";
 import { hidePopup, showPopup } from "./showPopup.js";
 
 const fireEventBtn = document.querySelector(".DEBUG-event");
@@ -62,12 +63,17 @@ fireEventBtn.addEventListener("click", () => {
         buttonContainer.prepend(giveRewards(gameEvent));
       }
 
-      console.log(gameParams);
       okBtn.textContent = "OK";
 
       buttonContainer.append(okBtn);
       eventText.textContent = gameEvent.text;
       okBtn.addEventListener("click", () => {
+        if (gameEvent.battle) {
+          gameEnemyWave.incomingEnemies.guard = gameEvent.battle.guard;
+          gameEnemyWave.incomingEnemies.knight = gameEvent.battle.knight;
+
+          startBattle();
+        }
         hidePopup();
       });
       return;
@@ -94,5 +100,8 @@ function giveRewards(gameEvent) {
       rewardList.append(rewardItem);
     }
   });
+  if (gameEvent.battle) {
+    rewardList.append("Враги на подходе!");
+  }
   return rewardList;
 }

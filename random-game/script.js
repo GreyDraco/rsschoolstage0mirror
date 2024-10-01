@@ -4,10 +4,12 @@ import { CANVAS_HEIGHT, CANVAS_WIDTH, CASTLE_PROPS, gameEnemyWave, gameParams, g
 import "./scripts/popUps/repairPopUp.js";
 import "./scripts/popUps/eventPopUp.js";
 import { hitClosestEnemies, spawnEnemies } from "./scripts/spawnEnemy.js";
+import { getEnemyHp, getReserveEnemyHp } from "./scripts/helpers/calcHp.js";
+import startBattle from "./scripts/helpers/startBattle.js";
 
 const pushEnemyWave = document.querySelector(".DEBUG-wave");
 
-let totalEnemyHp = 0;
+/* let totalEnemyHp = 0; */
 
 function displayGold() {
   ctx.beginPath();
@@ -26,7 +28,7 @@ function displayGold() {
   ctx.fillStyle = "purple";
   ctx.fillText(gameParams.gold, CANVAS_WIDTH / 2 - 70, HP_Y_POS);
 }
-
+/* 
 function getReserveEnemyHp() {
   let totalHp = 0;
   const reserveEnemies = Object.values(gameEnemyWave.incomingEnemies);
@@ -46,7 +48,7 @@ function getEnemyHp() {
     currentHp += enemy.hp;
   });
   return currentHp;
-}
+} */
 
 function displayHP() {
   ctx.fillStyle = "red";
@@ -63,7 +65,8 @@ function displayHP() {
 
 function updateEnemyHp(damage) {
   hitClosestEnemies(damage);
-  const currentEnemHPWidth = (1 - getEnemyHp() / totalEnemyHp) * HP_MAX_WIDTH;
+  const currentEnemHPWidth = (1 - getEnemyHp() / gameState.totalEnemyHp) * HP_MAX_WIDTH;
+  console.log(getEnemyHp(), gameState.totalEnemyHp);
   enemiesHP.width = Math.min(currentEnemHPWidth, HP_MAX_WIDTH);
   if (currentEnemHPWidth >= HP_MAX_WIDTH) {
     gameState.isCombat = false;
@@ -108,9 +111,7 @@ function animate() {
 animate();
 
 pushEnemyWave.addEventListener("click", () => {
-  gameState.isCombat = true;
-  gameEnemyWave.incomingEnemies.gurad = 10;
+  gameEnemyWave.incomingEnemies.guard = 10;
   gameEnemyWave.incomingEnemies.knight = 3;
-  totalEnemyHp = getEnemyMaxHp();
-  spawnEnemies(gameEnemyWave);
+  startBattle();
 });

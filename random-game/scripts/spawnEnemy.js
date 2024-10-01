@@ -24,7 +24,7 @@ export function spawnEnemies(gameEnemyWave) {
 
 function spawnEnemy(enemySelector, enemyProperties) {
   const reserveEnemies = Object.keys(gameEnemyWave.incomingEnemies);
-  const enemy = new MovingSprite(/* 1.5 + Math.random() * 0.5 - enemySelector * 0.3, */ { ...gameEnemies[enemyProperties[enemySelector]], color: getRandomColorWithOpacity() });
+  const enemy = new MovingSprite({ ...gameEnemies[enemyProperties[enemySelector]], color: getRandomColorWithOpacity() });
   gameEnemyWave.onScreenEnemies.push(enemy);
   gameEnemyWave.incomingEnemies[reserveEnemies[enemySelector]] -= 1;
 }
