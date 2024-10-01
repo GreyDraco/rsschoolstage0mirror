@@ -1,28 +1,17 @@
 import { MovingSprite } from "./classes/Sprites.js";
 import { gameEnemyWave, gameEnemies, gameParams, STOP_ENEMY_POS } from "./consts.js";
 
-/* export function spawnEnemy(gameEnemyWave) {
-  let counter = 0;
-  const intervalId = setInterval(function () {
-    const enemy = new MovingSprite(1.5 + Math.random() * 0.5, { ...START_ENEMIES_PROPS, color: getRandomColorWithOpacity() });
-    gameEnemyWave.onScreenEnemies.push(enemy);
-    gameEnemyWave.incomingEnemies.pop;
-    counter++;
-    if (counter === count) {
-      clearInterval(intervalId);
-    }
-  }, 300);
-} */
-
 export function spawnEnemies(gameEnemyWave) {
+  const reserveEnemies = Object.values(gameEnemyWave.incomingEnemies);
+  const reserveEnemiesKeys = Object.keys(gameEnemyWave.incomingEnemies);
   let counter = 0;
   let enemySelector = 0;
   const enemyProperties = Object.keys(gameEnemies);
-  const totalEnemyCount = gameEnemyWave.incomingEnemies.reduce((sum, i) => sum + i, 0);
+  const totalEnemyCount = reserveEnemies.reduce((sum, i) => sum + i, 0);
   const intervalId = setInterval(function () {
     enemySelector = Math.floor(Math.random() * enemyProperties.length);
-    if (gameEnemyWave.incomingEnemies[enemySelector] === 0) {
-      enemySelector = gameEnemyWave.incomingEnemies.findIndex((num) => num > 0);
+    if (gameEnemyWave.incomingEnemies[reserveEnemiesKeys[enemySelector]] === 0) {
+      enemySelector = reserveEnemies.findIndex((num) => num > 0);
     }
     spawnEnemy(enemySelector, enemyProperties);
     counter++;
@@ -34,9 +23,10 @@ export function spawnEnemies(gameEnemyWave) {
 }
 
 function spawnEnemy(enemySelector, enemyProperties) {
+  const reserveEnemies = Object.keys(gameEnemyWave.incomingEnemies);
   const enemy = new MovingSprite(1.5 + Math.random() * 0.5 - enemySelector * 0.3, { ...gameEnemies[enemyProperties[enemySelector]], color: getRandomColorWithOpacity() });
   gameEnemyWave.onScreenEnemies.push(enemy);
-  gameEnemyWave.incomingEnemies[enemySelector] -= 1;
+  gameEnemyWave.incomingEnemies[reserveEnemies[enemySelector]] -= 1;
 }
 
 export function hitClosestEnemies(damage) {

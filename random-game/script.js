@@ -32,8 +32,9 @@ function displayGold() {
 
 function getReserveEnemyHp() {
   let totalHp = 0;
-  for (let i = 0; i < gameEnemyWave.incomingEnemies.length; i++) {
-    totalHp += gameEnemyWave.incomingEnemies[i] * MAX_ENEMY_HP * (i + 1);
+  const reserveEnemies = Object.values(gameEnemyWave.incomingEnemies);
+  for (let i = 0; i < reserveEnemies.length; i++) {
+    totalHp += reserveEnemies[i] * MAX_ENEMY_HP * (i + 1);
   }
   return totalHp;
 }
@@ -63,7 +64,7 @@ function displayHP() {
 function updateEnemyHp(damage) {
   damageRecived += hitClosestEnemies(damage);
   const currentEnemHPWidth = (1 - getEnemyHp() / totalEnemyHp) * HP_MAX_WIDTH;
-  console.log(getEnemyHp(), totalEnemyHp);
+  //console.log(getEnemyHp(), totalEnemyHp);
   enemiesHP.width = Math.min(currentEnemHPWidth, HP_MAX_WIDTH);
 }
 
@@ -105,8 +106,8 @@ function animate() {
 animate();
 
 pushEnemyWave.addEventListener("click", () => {
-  gameEnemyWave.incomingEnemies[0] = 10;
-  gameEnemyWave.incomingEnemies[1] = 3;
+  gameEnemyWave.incomingEnemies.gurad = 10;
+  gameEnemyWave.incomingEnemies.knight = 3;
   totalEnemyHp = getEnemyMaxHp();
   spawnEnemies(gameEnemyWave);
 });

@@ -17,5 +17,7 @@ export const BASE_COST = 0.1;
 
 export const gameParams = { cost: BASE_COST, gold: 1000, discount: 1, castleHitCount: 3, castleRange: 300 };
 export const gameState = { isCombat: 1 };
-export const gameEnemyWave = { onScreenEnemies: [], incomingEnemies: [0, 0] };
+// export const gameEnemyWave = { onScreenEnemies: [], incomingEnemies: [0, 0] };
+export const gameEnemyWave = { onScreenEnemies: [], incomingEnemies: { gurad: 0, knight: 0 } };
+console.log(Object.values(gameEnemyWave.incomingEnemies));
 export const gameEnemies = { GUARD_ENEMIES_PROPS: { x: CANVAS_WIDTH - 50, y: CANVAS_HEIGHT, width: 50, height: 100, hp: MAX_ENEMY_HP, power: 0.1 }, KNIGHT_ENEMIES_PROPS: { x: CANVAS_WIDTH - 50, y: CANVAS_HEIGHT, width: 50, height: 120, hp: MAX_ENEMY_HP * 2, power: 0.2 } };
