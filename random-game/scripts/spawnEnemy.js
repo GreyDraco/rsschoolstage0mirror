@@ -29,20 +29,6 @@ function spawnEnemy(enemySelector, enemyProperties) {
   gameEnemyWave.incomingEnemies[reserveEnemies[enemySelector]] -= 1;
 }
 
-export function hitClosestEnemies(damage) {
-  let damageRecived1 = 0;
-  gameEnemyWave.onScreenEnemies.sort((a, b) => a.xPos - b.xPos);
-  const closestEnemies = gameEnemyWave.onScreenEnemies.slice(0, Math.min(gameParams.castleHitCount, gameEnemyWave.onScreenEnemies.length));
-  closestEnemies.forEach((enemy) => {
-    if (enemy.xPos < STOP_ENEMY_POS + gameParams.castleRange) {
-      enemy.hp = Math.max(0, enemy.hp - damage);
-      damageRecived1 += enemy.hp > damage ? damage : enemy.hp;
-    }
-  });
-  gameEnemyWave.onScreenEnemies = gameEnemyWave.onScreenEnemies.filter((enemy) => enemy.hp > 0);
-  return damageRecived1;
-}
-
 /*-------<DEBUG color enemy rects>-------------*/
 function getRandomColorWithOpacity() {
   const r = Math.floor(Math.random() * 256);

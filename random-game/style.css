@@ -2,6 +2,7 @@
 @import url(./styles/footer.css);
 @import url(./styles/repairPopup.css);
 @import url(./styles/mapDropdown.css);
+@import url(./styles/abilityReload.css);
 
 * {
   box-sizing: border-box;
