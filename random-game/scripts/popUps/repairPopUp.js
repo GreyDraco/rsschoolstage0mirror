@@ -55,7 +55,7 @@ repairBtn.addEventListener("click", () => {
     }
     fullRepairBtn.textContent = `full repair: ${calcCost(MAX_CASTLE_HP)}$`;
     bargainContainer.classList.add("hidden");
-    discountText.textContent = `Your discount is ${gameParams.discount}. ${gameParams.discount > 1 ? "You looser" : "Well done!"}`;
+    discountText.textContent = `Стоимость ${gameParams.discount > 1 ? "увеличилась на 25%. Повезет в следующий раз." : "умеьшилась на 30%. Вы молодец."}`;
     discountText.classList.remove("hidden");
   }
 });

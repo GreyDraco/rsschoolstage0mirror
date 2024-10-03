@@ -1,11 +1,11 @@
 import { BASE_COST, gameParams } from "./consts.js";
 
-export function addBargain(updEnvLayout) {
+export function addBargain(updEnvLayout = () => {}) {
   let isBargainRun = false;
   gameParams.discount = 1;
 
   let intervalId = null;
-  const bargainWinStart = 50;
+  const bargainWinStart = Math.floor(Math.random() * 70);
   const bargainWinEnd = bargainWinStart + 30;
 
   const { bargainContainer, bargainBar, stopBargainBtn, discountText, bargainBtn } = buildBargainLayout();
@@ -47,7 +47,8 @@ export function addBargain(updEnvLayout) {
     bargainContainer.classList.remove("hidden");
     bargainBar.value = 1;
     bargainBtn.disabled = isBargainRun;
-    intervalId = setInterval(runBargain, 50);
+    intervalId = setInterval(runBargain, 2 * gameParams.abilities.bargain);
+    console.log(1.5 * gameParams.abilities.bargain);
   });
 
   return { bargainBtn, bargainContainer, discountText };
@@ -73,10 +74,14 @@ function buildBargainLayout() {
   bargainBar.value = 0;
   bargainBar.step = 1;
 
+  const bargainTitle = document.createElement("p");
+  bargainTitle.className = "bargain-title";
+  bargainTitle.textContent = "Торгуйтесь!";
+
   const stopBargainBtn = document.createElement("button");
   stopBargainBtn.className = "button stop-bargain-btn";
   stopBargainBtn.textContent = "stop bargain";
 
-  bargainContainer.append(bargainBar, stopBargainBtn);
+  bargainContainer.append(bargainTitle, bargainBar, stopBargainBtn);
   return { bargainContainer, bargainBar, stopBargainBtn, discountText, bargainBtn };
 }

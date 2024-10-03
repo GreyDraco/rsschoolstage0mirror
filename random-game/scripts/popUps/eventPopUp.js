@@ -1,3 +1,4 @@
+import { addBargain } from "../bargain.js";
 import { DIE_SIZE, gameEnemyWave, gameParams } from "../consts.js";
 import { gameEventsData } from "../data/gameEventsData.js";
 import startBattle from "../helpers/startBattle.js";
@@ -19,7 +20,7 @@ fireEventBtn.addEventListener("click", () => {
   dieContainer.append(dieMinigame);
   popupContent.append(eventText, buttonContainer, dieContainer);
 
-  const eventName = "city1"; // "village";
+  const eventName = "city1"; //"village";
 
   let gameEvent = gameEventsData[eventName];
 
@@ -33,12 +34,49 @@ fireEventBtn.addEventListener("click", () => {
     buttonContainer.innerHTML = "";
     if (vars) {
       eventText.textContent = gameEvent.text;
-      if (gameEvent.die) {
-        const comb = Math.floor(Math.random() * DIE_SIZE);
-        console.log(comb);
 
-        gameEvent = comb > 3 ? vars.varw : vars.varl;
-        displayEventFrame();
+      if (gameEvent.check) {
+        const checkCount = Object.keys(gameEvent.check).length;
+        if (gameEvent.check.bargain && gameParams.abilities.bargain) {
+          let timerId = null;
+          gameParams.discount = 1;
+          let checkCounter = checkEvent(gameEvent);
+
+          const { bargainContainer, bargainBtn } = addBargain(() => {
+            console.log(gameParams.discount);
+            checkCounter = gameParams.discount < 1 ? +1 : 0;
+            console.log(gameParams.discount);
+            console.log("checks complete:", checkCounter, "of", checkCount);
+            gameEvent = checkCounter >= checkCount ? vars.varw : vars.varl;
+            clearTimeout(timerId);
+            bargainContainer.classList.add("hidden");
+            displayEventFrame();
+
+            setTimeout(() => {
+              bargainContainer.remove();
+            }, 300);
+          });
+          bargainBtn.click();
+          bargainContainer.classList.remove("hidden");
+          popupContent.append(bargainContainer);
+
+          timerId = setTimeout(() => {
+            checkCounter = gameParams.discount < 1 ? +1 : 0;
+            console.log(gameParams.discount);
+            console.log("checks complete:", checkCounter, "of", checkCount);
+            gameEvent = checkCounter >= checkCount ? vars.varw : vars.varl;
+            bargainContainer.classList.add("hidden");
+
+            displayEventFrame();
+            bargainContainer.remove();
+          }, 10000);
+        } else {
+          let checkCounter = checkEvent(gameEvent);
+
+          console.log("checks complete:", checkCounter, "of", checkCount);
+          gameEvent = checkCounter >= checkCount ? vars.varw : vars.varl;
+          displayEventFrame();
+        }
       } else {
         Object.values(vars).forEach((variant) => {
           const choiceBtn = document.createElement("button");
@@ -47,8 +85,6 @@ fireEventBtn.addEventListener("click", () => {
           buttonContainer.append(choiceBtn);
 
           choiceBtn.addEventListener("click", () => {
-            //  const varId = choiceBtn.id;
-
             gameEvent = variant;
             setTimeout(() => {
               displayEventFrame();
@@ -102,4 +138,29 @@ function giveRewards(gameEvent) {
     rewardList.append("Враги на подходе!");
   }
   return rewardList;
+}
+
+function checkEvent(gameEvent) {
+  let checkCounter = 0;
+
+  Object.entries(gameEvent.check).forEach(([key, value]) => {
+    switch (key) {
+      case "die": {
+        const comb = Math.floor(Math.random() * DIE_SIZE);
+        console.log("die", comb, "vs", value);
+        checkCounter += comb > value ? 1 : 0;
+        break;
+      }
+      case "lvlCheck": {
+        console.log("level:", gameParams.playerLvl, "vs", key, value);
+        checkCounter += gameParams.playerLvl > value ? 1 : 0;
+        break;
+      }
+      default: {
+        console.log("ERR got something else");
+        break;
+      }
+    }
+  });
+  return checkCounter;
 }
