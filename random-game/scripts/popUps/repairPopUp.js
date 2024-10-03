@@ -1,6 +1,6 @@
 import { addBargain } from "../bargain.js";
 import { castle, castleHP } from "../characters.js";
-import { BASE_COST, gameParams, HP_MAX_WIDTH, MAX_CASTLE_HP } from "../consts.js";
+import { BASE_COST, gameParams, gameState, HP_MAX_WIDTH, MAX_CASTLE_HP } from "../consts.js";
 import { calcCost } from "../helpers/calcCost.js";
 import { hidePopup, showPopup } from "./showPopup.js";
 
@@ -40,7 +40,9 @@ repairBtn.addEventListener("click", () => {
   const { bargainBtn, bargainContainer, discountText } = bargainResults;
 
   popupContent.append(bargainContainer ?? "", discountText ?? "");
-  repairButtonsContainer.append(bargainBtn);
+  if (!gameState.isRepairUsed) {
+    repairButtonsContainer.append(bargainBtn);
+  }
 
   function updRepairLayout() {
     repairCost.textContent = `${calcCost(repairBar.value)}$`;
@@ -57,6 +59,8 @@ repairBtn.addEventListener("click", () => {
     bargainContainer.classList.add("hidden");
     discountText.textContent = `Стоимость ${gameParams.discount > 1 ? "увеличилась на 25%. Повезет в следующий раз." : "умеьшилась на 30%. Вы молодец."}`;
     discountText.classList.remove("hidden");
+    gameState.isRepairUsed = true;
+    bargainBtn.classList.add("hidden");
   }
 });
 

@@ -1,5 +1,5 @@
 import { addBargain } from "../bargain.js";
-import { DIE_SIZE, gameEnemyWave, gameParams } from "../consts.js";
+import { DIE_SIZE, gameEnemyWave, gameParams, gameState } from "../consts.js";
 import { gameEventsData } from "../data/gameEventsData.js";
 import startBattle from "../helpers/startBattle.js";
 import { hidePopup, showPopup } from "./showPopup.js";
@@ -110,6 +110,9 @@ fireEventBtn.addEventListener("click", () => {
           startBattle();
         }
         hidePopup();
+        gameParams.discount = 1;
+        gameState.isUpgradeUsed = false;
+        gameState.isRepairUsed = false;
       });
       return;
     }
