@@ -4,7 +4,7 @@ export const MAX_CASTLE_HP = 10000;
 export const MAX_ENEMY_HP = 50;
 export const CASTLE_PROPS = { x: 0, y: CANVAS_HEIGHT, width: 200, height: 300, color: "green", hp: MAX_CASTLE_HP, power: 0.1 };
 export const STOP_ENEMY_POS = CASTLE_PROPS.width + 50;
-export const DIE_SIZE = 6;
+export const DIE_SIZE = 5;
 
 export const HP_MAX_WIDTH = 300;
 export const HP_HEIGHT = 30;

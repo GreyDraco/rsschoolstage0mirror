@@ -80,6 +80,9 @@ fireEventBtn.addEventListener("click", () => {
       } else {
         Object.values(vars).forEach((variant) => {
           const choiceBtn = document.createElement("button");
+          if (variant?.check?.gold && gameParams.gold - variant.check.gold < 0) {
+            choiceBtn.disabled = true;
+          }
           choiceBtn.textContent = variant.varDesc;
           choiceBtn.id = variant.varID;
           buttonContainer.append(choiceBtn);
@@ -125,9 +128,11 @@ function giveRewards(gameEvent) {
     if (value !== null) {
       const rewardItem = document.createElement("li");
       if (key !== "abilities") {
+        const diff = Math.min(gameParams[key], Math.abs(value));
+        console.log(diff, gameParams[key], Math.abs(value));
         gameParams[key] = Math.max(gameParams[key] + value, 0);
 
-        rewardItem.textContent = value > 0 ? `${key}: +${value}` : `${key}: ${value}`;
+        rewardItem.textContent = value > 0 ? `${key}: +${value}` : `${key}: ${-diff}`;
       } else {
         Object.entries(value).forEach(([key, value]) => {
           gameParams.abilities[key] += value;
@@ -149,14 +154,19 @@ function checkEvent(gameEvent) {
   Object.entries(gameEvent.check).forEach(([key, value]) => {
     switch (key) {
       case "die": {
-        const comb = Math.floor(Math.random() * DIE_SIZE);
+        const comb = Math.floor(Math.random() * DIE_SIZE + 1);
         console.log("die", comb, "vs", value);
-        checkCounter += comb > value ? 1 : 0;
+        checkCounter += comb >= value ? 1 : 0;
         break;
       }
       case "lvlCheck": {
         console.log("level:", gameParams.playerLvl, "vs", key, value);
         checkCounter += gameParams.playerLvl > value ? 1 : 0;
+        break;
+      }
+      case "gold": {
+        checkCounter++;
+        console.log("gold checked before");
         break;
       }
       default: {
