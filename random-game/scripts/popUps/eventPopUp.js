@@ -1,12 +1,12 @@
 import { addBargain } from "../bargain.js";
 import { DIE_SIZE, gameEnemyWave, gameParams, gameState } from "../consts.js";
-import { gameEventsData } from "../data/gameEventsData.js";
+import { gameEventsData as events } from "../data/gameEventsData.js";
 import startBattle from "../helpers/startBattle.js";
 import { hidePopup, showPopup } from "./showPopup.js";
 
 const fireEventBtn = document.querySelector(".DEBUG-event");
 
-fireEventBtn.addEventListener("click", () => {
+export function startEvent(id, gameEventsData = events) {
   showPopup();
 
   const popupContent = document.querySelector(".popup-content");
@@ -20,8 +20,7 @@ fireEventBtn.addEventListener("click", () => {
   dieContainer.append(dieMinigame);
   popupContent.append(eventText, buttonContainer, dieContainer);
 
-  const eventName = "city1"; //"village";
-
+  const eventName = id;
   let gameEvent = gameEventsData[eventName];
 
   displayEventFrame();
@@ -120,6 +119,10 @@ fireEventBtn.addEventListener("click", () => {
       return;
     }
   }
+}
+
+fireEventBtn.addEventListener("click", () => {
+  startEvent("village");
 });
 
 function giveRewards(gameEvent) {

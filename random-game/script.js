@@ -3,13 +3,12 @@ import { castle, castleHP, enemiesHP } from "./scripts/characters.js";
 import { CANVAS_HEIGHT, CANVAS_WIDTH, CASTLE_PROPS, gameEnemyWave, gameParams, gameState, HP_CASTLE_POS, HP_ENEMIES_POS, HP_HEIGHT, HP_MAX_WIDTH, HP_Y_POS, MAX_CASTLE_HP, MAX_ENEMY_HP, STOP_ENEMY_POS } from "./scripts/consts.js";
 import "./scripts/popUps/repairPopUp.js";
 import "./scripts/popUps/eventPopUp.js";
-import { hitClosestEnemies, spawnEnemies } from "./scripts/spawnEnemy.js";
-import { getEnemyHp, getReserveEnemyHp } from "./scripts/helpers/calcHp.js";
+import "./scripts/popUps/mapPopUp.js";
+import { hitClosestEnemies } from "./scripts/spawnEnemy.js";
+import { getEnemyHp } from "./scripts/helpers/calcHp.js";
 import startBattle from "./scripts/helpers/startBattle.js";
 
 const pushEnemyWave = document.querySelector(".DEBUG-wave");
-
-/* let totalEnemyHp = 0; */
 
 function displayGold() {
   ctx.beginPath();
@@ -28,27 +27,6 @@ function displayGold() {
   ctx.fillStyle = "purple";
   ctx.fillText(gameParams.gold, CANVAS_WIDTH / 2 - 70, HP_Y_POS);
 }
-/* 
-function getReserveEnemyHp() {
-  let totalHp = 0;
-  const reserveEnemies = Object.values(gameEnemyWave.incomingEnemies);
-  for (let i = 0; i < reserveEnemies.length; i++) {
-    totalHp += reserveEnemies[i] * MAX_ENEMY_HP * (i + 1);
-  }
-  return totalHp;
-}
-
-function getEnemyMaxHp() {
-  return getReserveEnemyHp();
-}
-
-function getEnemyHp() {
-  let currentHp = getReserveEnemyHp();
-  gameEnemyWave.onScreenEnemies.forEach((enemy) => {
-    currentHp += enemy.hp;
-  });
-  return currentHp;
-} */
 
 function displayHP() {
   ctx.fillStyle = "red";

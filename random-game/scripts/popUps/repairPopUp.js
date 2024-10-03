@@ -40,7 +40,7 @@ repairBtn.addEventListener("click", () => {
   const { bargainBtn, bargainContainer, discountText } = bargainResults;
 
   popupContent.append(bargainContainer ?? "", discountText ?? "");
-  if (!gameState.isRepairUsed) {
+  if (gameParams.abilities.bargain && !gameState.isRepairUsed) {
     repairButtonsContainer.append(bargainBtn);
   }
 
