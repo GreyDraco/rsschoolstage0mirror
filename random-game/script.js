@@ -9,8 +9,15 @@ import "./scripts/helpers/abilities.js";
 import { getEnemyHp } from "./scripts/helpers/calcHp.js";
 import startBattle from "./scripts/helpers/startBattle.js";
 import { hitClosestEnemies } from "./scripts/helpers/hitEnemy.js";
+import { openEndPopUp } from "./scripts/popUps/endPopUp.js";
+
+const bribeBtn = document.querySelector(".bribeBtn");
+bribeBtn.addEventListener("click", () => {
+  gameState.isCombat = false;
+});
 
 const pushEnemyWave = document.querySelector(".DEBUG-wave");
+
 if (localStorage.GrayDracoLeaders) {
   leaders.results = JSON.parse(localStorage.getItem(leadersKey));
 } else {
@@ -54,6 +61,7 @@ function updateEnemyHp(damage) {
   enemiesHP.width = Math.min(currentEnemHPWidth, HP_MAX_WIDTH);
   if (currentEnemHPWidth >= HP_MAX_WIDTH) {
     gameState.isCombat = false;
+    console.log("enemydead");
   }
 }
 
@@ -61,7 +69,10 @@ function updateCastleHp(damage) {
   castle.hp -= damage;
   const currentCastleHPWidth = (castle.hp * HP_MAX_WIDTH) / MAX_CASTLE_HP;
   castleHP.width = Math.max(currentCastleHPWidth, 0);
-  if (castle.hp === 0) {
+  if (castle.hp <= 0) {
+    gameState.isCombat = false;
+    gameState.gameOver = true;
+    console.log("gameover");
   }
 }
 
@@ -72,15 +83,26 @@ function animate() {
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   displayHP();
   castle.display("green");
-
-  gameEnemyWave.onScreenEnemies.forEach((enemy) => {
-    if (enemy.xPos > enemy.stopPos) {
-      enemy.move();
-    } else {
-      updateCastleHp(enemy.power);
-      enemy.display();
+  if (gameState.isCombat) {
+    gameEnemyWave.onScreenEnemies.forEach((enemy) => {
+      if (enemy.xPos > enemy.stopPos) {
+        enemy.move();
+      } else {
+        updateCastleHp(enemy.power);
+        enemy.display();
+      }
+    });
+  } else {
+    if (gameEnemyWave.onScreenEnemies.length) {
+      gameEnemyWave.onScreenEnemies.forEach((enemy) => {
+        enemy.move(1);
+      });
+      gameEnemyWave.onScreenEnemies = gameEnemyWave.onScreenEnemies.filter((enemy) => enemy.xPos <= CANVAS_WIDTH);
+      if (gameState.gameOver && !gameEnemyWave.onScreenEnemies.length) {
+        openEndPopUp();
+      }
     }
-  });
+  }
 
   if (gameEnemyWave.onScreenEnemies.length) {
     updateEnemyHp(castle.power);
@@ -95,18 +117,16 @@ function animate() {
 
   if (gameState.isFireballActive) {
     fireball.display();
-    console.log(fireball);
   }
   if (gameState.isLightningActive) {
     lightning.display();
-    console.log(lightning);
   }
 }
 
 animate();
 
 pushEnemyWave.addEventListener("click", () => {
-  gameEnemyWave.incomingEnemies.guard = 10;
-  gameEnemyWave.incomingEnemies.knight = 3;
+  gameEnemyWave.incomingEnemies.guard = 30;
+  gameEnemyWave.incomingEnemies.knight = 20;
   startBattle();
 });

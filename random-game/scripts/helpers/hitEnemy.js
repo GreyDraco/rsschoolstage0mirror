@@ -27,6 +27,5 @@ export function hitAll(damage) {
   }
   gameEnemyWave.onScreenEnemies.forEach((enemy) => {
     enemy.hp = Math.max(0, enemy.hp - damage);
-    console.log(gameEnemyWave.onScreenEnemies, enemy.hp, damage);
   });
 }

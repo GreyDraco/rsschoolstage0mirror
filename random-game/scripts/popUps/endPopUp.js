@@ -9,51 +9,7 @@ leaderboardBtn.addEventListener("click", () => {
 });
 
 endGameBtn.addEventListener("click", () => {
-  showPopup();
-  const result = {
-    name: "",
-    playerLvl: gameParams.playerLvl,
-    gold: gameParams.gold,
-    kingDead: gameState.isKingDead,
-  };
-
-  const popupContent = document.querySelector(".popup-content");
-  popupContent.classList.add("end-game");
-
-  const resultTextContainer = document.createElement("div");
-  resultTextContainer.classList.add("result-text-container");
-  resultTextContainer.textContent = `Вы ${gameState.isKingDead ? "выиграли!" : "проиграли!"}`;
-
-  const resultList = document.createElement("ul");
-  resultList.classList.add("result-list");
-  const resultLvl = document.createElement("li");
-  const resultGold = document.createElement("li");
-  resultLvl.classList.add("result-item");
-  resultGold.classList.add("result-item");
-
-  resultLvl.textContent = `Ваш уровень: ${gameParams.playerLvl}`;
-  resultGold.textContent = `Ваше накопленное золото: ${gameParams.gold}`;
-
-  resultList.append(resultLvl, resultGold);
-  resultTextContainer.append(resultList);
-
-  const saveResultBtn = document.createElement("button");
-  saveResultBtn.className = "save-result-btn";
-  saveResultBtn.textContent = "Сохранить";
-
-  const nameInput = document.createElement("input");
-  nameInput.classList.add("name-input");
-  nameInput.focus();
-  nameInput.placeholder = "Введите Ваше имя";
-  nameInput.addEventListener("keyup", (e) => {
-    if (e.code === "Enter") {
-      updateLeaders(nameInput, result);
-    }
-  });
-  saveResultBtn.addEventListener("click", () => {
-    updateLeaders(nameInput, result);
-  });
-  popupContent.append(resultTextContainer, nameInput, saveResultBtn);
+  openEndPopUp();
 });
 
 function updateLeaders(nameInput, result) {
@@ -115,4 +71,53 @@ function openLeaderboard() {
     showLeader(resultList, leader);
   });
   popupContent.append(resultList);
+}
+
+export function openEndPopUp() {
+  console.log("there should be popup");
+  showPopup();
+  const result = {
+    name: "",
+    playerLvl: gameParams.playerLvl,
+    gold: gameParams.gold,
+    kingDead: gameState.isKingDead,
+  };
+
+  const popupContent = document.querySelector(".popup-content");
+  popupContent.classList.add("end-game");
+
+  const resultTextContainer = document.createElement("div");
+  resultTextContainer.classList.add("result-text-container");
+  resultTextContainer.textContent = `Вы ${gameState.isKingDead ? "выиграли!" : "проиграли!"}`;
+
+  const resultList = document.createElement("ul");
+  resultList.classList.add("result-list");
+  const resultLvl = document.createElement("li");
+  const resultGold = document.createElement("li");
+  resultLvl.classList.add("result-item");
+  resultGold.classList.add("result-item");
+
+  resultLvl.textContent = `Ваш уровень: ${gameParams.playerLvl}`;
+  resultGold.textContent = `Ваше накопленное золото: ${gameParams.gold}`;
+
+  resultList.append(resultLvl, resultGold);
+  resultTextContainer.append(resultList);
+
+  const saveResultBtn = document.createElement("button");
+  saveResultBtn.className = "save-result-btn";
+  saveResultBtn.textContent = "Сохранить";
+
+  const nameInput = document.createElement("input");
+  nameInput.classList.add("name-input");
+  nameInput.focus();
+  nameInput.placeholder = "Введите Ваше имя";
+  nameInput.addEventListener("keyup", (e) => {
+    if (e.code === "Enter") {
+      updateLeaders(nameInput, result);
+    }
+  });
+  saveResultBtn.addEventListener("click", () => {
+    updateLeaders(nameInput, result);
+  });
+  popupContent.append(resultTextContainer, nameInput, saveResultBtn);
 }

@@ -25,10 +25,13 @@ export class MovingSprite extends Sprite {
     this.velocity = props.velocity + Math.random() * 0.5;
     this.stopPos = STOP_ENEMY_POS + Math.random() * 50;
   }
-  move() {
+  move(direction = -1) {
     if (this.xPos > this.stopPos) {
-      this.xPos -= this.velocity;
+      this.xPos += this.velocity * direction;
     } else {
+      if (direction) {
+        this.xPos += this.velocity * direction;
+      }
     }
     super.display();
   }
