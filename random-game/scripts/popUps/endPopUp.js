@@ -74,7 +74,6 @@ function openLeaderboard() {
 }
 
 export function openEndPopUp() {
-  console.log("there should be popup");
   showPopup();
   const result = {
     name: "",

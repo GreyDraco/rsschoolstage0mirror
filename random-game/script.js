@@ -1,5 +1,5 @@
 import { ctx } from "./scripts/canvasSetup.js";
-import { background, castle, castleHP, enemiesHP, fireball, lightning } from "./scripts/characters.js";
+import { background, castle, castleHP, dragon, enemiesHP, fireball, lightning } from "./scripts/characters.js";
 import { CANVAS_HEIGHT, CANVAS_WIDTH, CASTLE_PROPS, gameEnemyWave, gameParams, gameState, HP_CASTLE_POS, HP_ENEMIES_POS, HP_HEIGHT, HP_MAX_WIDTH, HP_Y_POS, leaders, leadersKey, MAX_CASTLE_HP, MAX_ENEMY_HP, STOP_ENEMY_POS } from "./scripts/consts.js";
 import "./scripts/popUps/repairPopUp.js";
 import "./scripts/popUps/eventPopUp.js";
@@ -72,7 +72,6 @@ function updateCastleHp(damage) {
   if (castle.hp <= 0) {
     gameState.isCombat = false;
     gameState.gameOver = true;
-    console.log("gameover");
   }
 }
 
@@ -82,9 +81,11 @@ function animate() {
   window.requestAnimationFrame(animate);
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   background.display();
+
   displayHP();
 
   castle.display("green");
+  dragon.display();
   if (gameState.isCombat) {
     gameEnemyWave.onScreenEnemies.forEach((enemy) => {
       if (enemy.xPos > enemy.stopPos) {
