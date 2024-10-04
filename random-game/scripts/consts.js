@@ -2,7 +2,7 @@ export const CANVAS_WIDTH = 1000;
 export const CANVAS_HEIGHT = 500;
 export const MAX_CASTLE_HP = 10000;
 export const MAX_ENEMY_HP = 50;
-export const CASTLE_PROPS = { x: 0, y: CANVAS_HEIGHT, width: 200, height: 300, color: "green", hp: MAX_CASTLE_HP, power: 0.1 };
+export const CASTLE_PROPS = { x: 0, y: CANVAS_HEIGHT - 25, width: 200, height: 300, color: "green", hp: MAX_CASTLE_HP, power: 0.1, src: "./assets/sprites/castleLvl2.png" };
 export const STOP_ENEMY_POS = CASTLE_PROPS.width + 50;
 export const DIE_SIZE = 5;
 

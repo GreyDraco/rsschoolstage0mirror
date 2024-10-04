@@ -2,24 +2,39 @@ import { ctx } from "../canvasSetup.js";
 import { STOP_ENEMY_POS } from "../consts.js";
 
 export class Sprite {
-  constructor({ x, y, width, height, color, hp, power }) {
+  constructor({ x, y, width, height, color, src }) {
     this.xPos = x;
     this.yPos = y - height;
     this.color = color;
     this.width = width;
     this.height = height;
     this.xPosR = x + width;
-    this.hp = hp;
-    this.power = power;
+    this.image = new Image();
+    this.imgSrc = src;
+    if (src) {
+      this.image.src = src;
+    }
   }
 
   display() {
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.xPos, this.yPos, this.width, this.height);
+    if (this.imgSrc) {
+      ctx.drawImage(this.image, this.xPos, this.yPos, this.width, this.height);
+    } else {
+      ctx.fillStyle = this.color;
+      ctx.fillRect(this.xPos, this.yPos, this.width, this.height);
+    }
   }
 }
 
-export class MovingSprite extends Sprite {
+export class Character extends Sprite {
+  constructor({ x, y, width, height, color, hp, power, src }) {
+    super({ x, y, width, height, color, src });
+    this.hp = hp;
+    this.power = power;
+  }
+}
+
+export class MovingCharacter extends Character {
   constructor(props) {
     super(props);
     this.velocity = props.velocity + Math.random() * 0.5;

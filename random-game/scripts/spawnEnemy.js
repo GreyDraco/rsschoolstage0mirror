@@ -1,4 +1,4 @@
-import { MovingSprite } from "./classes/Sprites.js";
+import { MovingCharacter } from "./classes/Sprites.js";
 import { gameEnemyWave, gameEnemies, gameParams, STOP_ENEMY_POS } from "./consts.js";
 
 export function spawnEnemies(gameEnemyWave) {
@@ -24,7 +24,7 @@ export function spawnEnemies(gameEnemyWave) {
 
 function spawnEnemy(enemySelector, enemyProperties) {
   const reserveEnemies = Object.keys(gameEnemyWave.incomingEnemies);
-  const enemy = new MovingSprite({ ...gameEnemies[enemyProperties[enemySelector]], color: getRandomColorWithOpacity() });
+  const enemy = new MovingCharacter({ ...gameEnemies[enemyProperties[enemySelector]], color: getRandomColorWithOpacity() });
   gameEnemyWave.onScreenEnemies.push(enemy);
   gameEnemyWave.incomingEnemies[reserveEnemies[enemySelector]] -= 1;
 }

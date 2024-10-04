@@ -132,7 +132,6 @@ function giveRewards(gameEvent) {
       const rewardItem = document.createElement("li");
       if (key !== "abilities") {
         const diff = Math.min(gameParams[key], Math.abs(value));
-        console.log(diff, gameParams[key], Math.abs(value));
         gameParams[key] = Math.max(gameParams[key] + value, 0);
 
         rewardItem.textContent = value > 0 ? `${key}: +${value}` : `${key}: ${-diff}`;
