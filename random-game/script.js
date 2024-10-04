@@ -1,46 +1,21 @@
 import { ctx } from "./scripts/canvasSetup.js";
 import { castle, castleHP, enemiesHP, fireball, lightning } from "./scripts/characters.js";
-import { CANVAS_HEIGHT, CANVAS_WIDTH, CASTLE_PROPS, gameEnemyWave, gameParams, gameState, HP_CASTLE_POS, HP_ENEMIES_POS, HP_HEIGHT, HP_MAX_WIDTH, HP_Y_POS, MAX_CASTLE_HP, MAX_ENEMY_HP, STOP_ENEMY_POS } from "./scripts/consts.js";
+import { CANVAS_HEIGHT, CANVAS_WIDTH, CASTLE_PROPS, gameEnemyWave, gameParams, gameState, HP_CASTLE_POS, HP_ENEMIES_POS, HP_HEIGHT, HP_MAX_WIDTH, HP_Y_POS, leaders, leadersKey, MAX_CASTLE_HP, MAX_ENEMY_HP, STOP_ENEMY_POS } from "./scripts/consts.js";
 import "./scripts/popUps/repairPopUp.js";
 import "./scripts/popUps/eventPopUp.js";
 import "./scripts/popUps/mapPopUp.js";
+import "./scripts/popUps/endPopUp.js";
+import "./scripts/helpers/abilities.js";
 import { getEnemyHp } from "./scripts/helpers/calcHp.js";
 import startBattle from "./scripts/helpers/startBattle.js";
-import { hitAll, hitClosestEnemies, hitStrongest } from "./scripts/helpers/hitEnemy.js";
+import { hitClosestEnemies } from "./scripts/helpers/hitEnemy.js";
 
 const pushEnemyWave = document.querySelector(".DEBUG-wave");
-const lightningBtn = document.querySelector(".lightningBtn");
-const fireballBtn = document.querySelector(".fireballBtn");
-
-lightningBtn.addEventListener("click", () => {
-  lightningBtn.disabled = true;
-  gameState.isLightningActive = true;
-  lightningBtn.classList.add("reload-lightning");
-  lightning.xPos = hitStrongest(150) - lightning.width / 2;
-  setTimeout(() => {
-    gameState.isLightningActive = false;
-  }, 500);
-});
-
-lightningBtn.addEventListener("animationend", () => {
-  lightningBtn.disabled = false;
-  lightningBtn.classList.remove("reload-lightning");
-});
-
-fireballBtn.addEventListener("click", () => {
-  hitAll(30);
-  fireballBtn.disabled = true;
-  gameState.isFireballActive = true;
-  fireballBtn.classList.add("reload-fireball");
-  setTimeout(() => {
-    gameState.isFireballActive = false;
-  }, 2000);
-});
-
-fireballBtn.addEventListener("animationend", () => {
-  fireballBtn.disabled = false;
-  fireballBtn.classList.remove("reload-fireball");
-});
+if (localStorage.GrayDracoLeaders) {
+  leaders.results = JSON.parse(localStorage.getItem(leadersKey));
+} else {
+  localStorage.setItem(leadersKey, JSON.stringify([]));
+}
 
 function displayGold() {
   ctx.beginPath();
@@ -86,6 +61,8 @@ function updateCastleHp(damage) {
   castle.hp -= damage;
   const currentCastleHPWidth = (castle.hp * HP_MAX_WIDTH) / MAX_CASTLE_HP;
   castleHP.width = Math.max(currentCastleHPWidth, 0);
+  if (castle.hp === 0) {
+  }
 }
 
 displayHP();

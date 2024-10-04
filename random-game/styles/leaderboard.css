@@ -1,0 +1,59 @@
+.leaderboard-content {
+  width: 80%;
+}
+
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 0;
+  gap: 10px;
+}
+
+.leaderboard-item {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 80px 100px 30px;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.leaderboard-item:first-child {
+  font-weight: bold;
+}
+
+.leaderboard-item p {
+  margin: 0;
+}
+
+.leaderboard-name {
+  grid-area: 1 / 1 / 2 / 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.leaderboard-lvl {
+  grid-area: 1 / 2 / 2 / 3;
+}
+
+.leaderboard-gold {
+  grid-area: 1 / 3 / 2 / 4;
+}
+.leaderboard-item .leaderboard-goal {
+  height: 30px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  grid-area: 1 / 4 / 2 / 5;
+}
+
+.parent {
+}
+
+.div2 {
+}
+.div3 {
+}
+.div4 {
+}

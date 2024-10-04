@@ -15,6 +15,9 @@ export const HP_ENEMIES_POS = CANVAS_WIDTH - HP_MAX_WIDTH - HP_CASTLE_POS;
 export const BASE_COST = 0.1;
 
 export const gameParams = { cost: BASE_COST, gold: 1000, playerLvl: 1, discount: 1, castleHitCount: 3, castleRange: 300, abilities: { fireball: 0, lightning: 0, bargain: 0 } };
-export const gameState = { isCombat: false, isRepairUsed: false, isUpgradeUsed: false, totalEnemyHp: 0, isFireballActive: false, isLightningActive: false };
+export const gameState = { isCombat: false, isRepairUsed: false, isUpgradeUsed: false, totalEnemyHp: 0, isFireballActive: false, isLightningActive: false, isKingDead: false };
 export const gameEnemyWave = { onScreenEnemies: [], incomingEnemies: { guard: 0, knight: 0 } };
 export const gameEnemies = { GUARD_ENEMIES_PROPS: { velocity: 1.5, x: CANVAS_WIDTH - 50, y: CANVAS_HEIGHT, width: 50, height: 100, hp: MAX_ENEMY_HP, power: 0.1 }, KNIGHT_ENEMIES_PROPS: { velocity: 0.8, x: CANVAS_WIDTH - 50, y: CANVAS_HEIGHT, width: 50, height: 120, hp: MAX_ENEMY_HP * 2, power: 0.2 } };
+
+export const leaders = { results: [] };
+export const leadersKey = "GrayDracoLeaders";
