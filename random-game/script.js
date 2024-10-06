@@ -155,8 +155,8 @@ function animate() {
 animate();
 
 pushEnemyWave.addEventListener("click", () => {
-  gameEnemyWave.incomingEnemies.guard = 3;
-  gameEnemyWave.incomingEnemies.knight = 0;
+  gameEnemyWave.incomingEnemies.guard = 1;
+  gameEnemyWave.incomingEnemies.knight = 1;
   startBattle();
 });
 
