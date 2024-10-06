@@ -1,9 +1,16 @@
 import { lightning } from "../characters.js";
 import { gameState } from "../consts.js";
 import { hitAll, hitStrongest } from "./hitEnemy.js";
+import toggleVisibleToolbar from "./showToolbar.js";
 
 const lightningBtn = document.querySelector(".lightningBtn");
 const fireballBtn = document.querySelector(".fireballBtn");
+const bribeBtn = document.querySelector(".bribeBtn");
+
+bribeBtn.addEventListener("click", () => {
+  gameState.isCombat = false;
+  toggleVisibleToolbar();
+});
 
 lightningBtn.addEventListener("click", () => {
   lightningBtn.disabled = true;

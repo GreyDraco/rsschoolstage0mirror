@@ -6,16 +6,14 @@ import "./scripts/popUps/eventPopUp.js";
 import "./scripts/popUps/mapPopUp.js";
 import "./scripts/popUps/endPopUp.js";
 import "./scripts/helpers/abilities.js";
+import "./scripts/helpers/showToolbar.js";
 import { getEnemyHp } from "./scripts/helpers/calcHp.js";
 import startBattle from "./scripts/helpers/startBattle.js";
 import { hitClosestEnemies } from "./scripts/helpers/hitEnemy.js";
 import { openEndPopUp } from "./scripts/popUps/endPopUp.js";
+import toggleVisibleToolbar from "./scripts/helpers/showToolbar.js";
 
-const bribeBtn = document.querySelector(".bribeBtn");
-bribeBtn.addEventListener("click", () => {
-  gameState.isCombat = false;
-});
-
+const checkLvlBtn = document.querySelector(".DEBUG-Lvl");
 const pushEnemyWave = document.querySelector(".DEBUG-wave");
 
 if (localStorage.GrayDracoLeaders) {
@@ -69,15 +67,13 @@ function addDead() {
   gameEnemyWave.onScreenEnemies = gameEnemyWave.onScreenEnemies.filter((enemy) => enemy.hp > 0);
 }
 
-function removeDead() {}
-
 function updateEnemyHp(damage) {
   hitClosestEnemies(damage);
   const currentEnemHPWidth = (1 - getEnemyHp() / gameState.totalEnemyHp) * HP_MAX_WIDTH;
   enemiesHP.width = Math.min(currentEnemHPWidth, HP_MAX_WIDTH);
   if (currentEnemHPWidth >= HP_MAX_WIDTH) {
     gameState.isCombat = false;
-    console.log("enemydead");
+    toggleVisibleToolbar();
   }
 }
 
@@ -87,6 +83,7 @@ function updateCastleHp(damage) {
   castleHP.width = Math.max(currentCastleHPWidth, 0);
   if (castle.hp <= 0) {
     gameState.isCombat = false;
+    toggleVisibleToolbar();
     gameState.gameOver = true;
   }
 }
@@ -123,6 +120,7 @@ function animate() {
       });
       gameEnemyWave.onScreenEnemies = gameEnemyWave.onScreenEnemies.filter((enemy) => enemy.xPos <= CANVAS_WIDTH);
       if (gameState.gameOver && !gameEnemyWave.onScreenEnemies.length) {
+        toggleVisibleToolbar();
         openEndPopUp();
       }
     }
@@ -160,4 +158,8 @@ pushEnemyWave.addEventListener("click", () => {
   gameEnemyWave.incomingEnemies.guard = 3;
   gameEnemyWave.incomingEnemies.knight = 0;
   startBattle();
+});
+
+checkLvlBtn.addEventListener("click", () => {
+  console.log("player lvl:", gameParams.playerLvl, "lightning lvl:", gameParams.abilities.lightning);
 });

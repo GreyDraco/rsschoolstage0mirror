@@ -5,6 +5,7 @@ import { calcCost } from "../helpers/calcCost.js";
 import { hidePopup, showPopup } from "./showPopup.js";
 
 const repairBtn = document.querySelector(".repairBtn");
+
 repairBtn.addEventListener("click", () => {
   gameParams.cost = BASE_COST * gameParams.discount;
 

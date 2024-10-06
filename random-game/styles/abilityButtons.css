@@ -6,19 +6,26 @@
   initial-value: 360deg;
 }
 
+.repairBtn {
+  background: conic-gradient(rgba(0, 128, 0, 0) var(--angle), rgba(0, 0, 0, 0.411) 0deg), url(../assets/icons/repair.png) no-repeat;
+}
+.upgradeBtn {
+  background: conic-gradient(rgba(0, 128, 0, 0) var(--angle), rgba(0, 0, 0, 0.411) 0deg), url(../assets/icons/up-arrow.png) no-repeat;
+}
+.mapBtn {
+  background: conic-gradient(rgba(0, 128, 0, 0) var(--angle), rgba(0, 0, 0, 0.411) 0deg), url(../assets/icons/map.png) no-repeat;
+}
+
 .fireballBtn {
   background: conic-gradient(rgba(0, 128, 0, 0) var(--angle), rgba(0, 0, 0, 0.411) 0deg), url(../assets/icons/fireball.png) no-repeat;
-  background-color: #fee97d;
 }
 
 .lightningBtn {
   background: conic-gradient(rgba(0, 128, 0, 0) var(--angle), rgba(0, 0, 0, 0.411) 0deg), url(../assets/icons/lightning.png) no-repeat;
-  background-color: #fee97d;
 }
 
 .bribeBtn {
   background: conic-gradient(rgba(0, 128, 0, 0) var(--angle), rgba(0, 0, 0, 0.411) 0deg), url(../assets/icons/bribery.png) no-repeat;
-  background-color: #fee97d;
 }
 
 .ability-btn {
@@ -30,6 +37,7 @@
   animation: none;
   background-size: contain, 80%;
   background-position: center;
+  background-color: #fee97d;
 }
 
 .reload-lightning {
