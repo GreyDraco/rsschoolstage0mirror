@@ -50,6 +50,16 @@ export class Character extends Sprite {
     this.hp = hp;
     this.power = power;
   }
+  selectAnimation(name = "idle") {
+    this.imgSrc = spriteAnimationData[this.type][name].src;
+    this.image.src = spriteAnimationData[this.type][name].src;
+    this.width = spriteAnimationData[this.type][name].width;
+    this.height = spriteAnimationData[this.type][name].height;
+    this.maxFrames = spriteAnimationData[this.type][name].maxFrames;
+    this.delay = spriteAnimationData[this.type][name].delay;
+    this.offsetX = spriteAnimationData[this.type][name].offsetX;
+    this.offsetY = spriteAnimationData[this.type][name].offsetY;
+  }
 }
 
 export class MovingCharacter extends Character {
@@ -67,15 +77,6 @@ export class MovingCharacter extends Character {
     } else {
       if (direction) {
         this.xPos += this.velocity * direction;
-
-        this.imgSrc = spriteAnimationData[this.type].runBack.src;
-        this.image.src = spriteAnimationData[this.type].runBack.src;
-        this.width = spriteAnimationData[this.type].runBack.width;
-        this.height = spriteAnimationData[this.type].runBack.height;
-        this.maxFrames = spriteAnimationData[this.type].runBack.maxFrames;
-        this.delay = spriteAnimationData[this.type].runBack.delay;
-        this.offsetX = spriteAnimationData[this.type].runBack.offsetX;
-        this.offsetY = spriteAnimationData[this.type].runBack.offsetY;
       }
     }
     super.display();

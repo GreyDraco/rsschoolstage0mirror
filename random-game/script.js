@@ -60,14 +60,7 @@ function addDead() {
   newDeadEnemies = gameEnemyWave.onScreenEnemies.filter((enemy) => enemy.hp <= 0);
   if (newDeadEnemies) {
     newDeadEnemies.forEach((enemy) => {
-      enemy.imgSrc = spriteAnimationData[enemy.type].death.src;
-      enemy.image.src = spriteAnimationData[enemy.type].death.src;
-      enemy.width = spriteAnimationData[enemy.type].death.width;
-      enemy.height = spriteAnimationData[enemy.type].death.height;
-      enemy.maxFrames = spriteAnimationData[enemy.type].death.maxFrames;
-      enemy.delay = spriteAnimationData[enemy.type].death.delay;
-      enemy.offsetX = spriteAnimationData[enemy.type].death.offsetX;
-      enemy.offsetY = spriteAnimationData[enemy.type].death.offsetY;
+      enemy.selectAnimation("death");
       enemy.currentFrame = enemy.maxFrames;
     });
     gameEnemyWave.deadEnemies.push(...newDeadEnemies);
@@ -115,14 +108,7 @@ function animate() {
       if (enemy.xPos > enemy.stopPos) {
         enemy.move();
         if (enemy.xPos <= enemy.stopPos) {
-          enemy.imgSrc = spriteAnimationData[enemy.type].attack.src;
-          enemy.image.src = spriteAnimationData[enemy.type].attack.src;
-          enemy.width = spriteAnimationData[enemy.type].attack.width;
-          enemy.height = spriteAnimationData[enemy.type].attack.height;
-          enemy.maxFrames = spriteAnimationData[enemy.type].attack.maxFrames;
-          enemy.delay = spriteAnimationData[enemy.type].attack.delay;
-          enemy.offsetX = spriteAnimationData[enemy.type].attack.offsetX;
-          enemy.offsetY = spriteAnimationData[enemy.type].attack.offsetY;
+          enemy.selectAnimation("attack");
         }
       } else {
         updateCastleHp(enemy.power);
@@ -133,6 +119,7 @@ function animate() {
     if (gameEnemyWave.onScreenEnemies.length) {
       gameEnemyWave.onScreenEnemies.forEach((enemy) => {
         enemy.move(1);
+        enemy.selectAnimation("runBack");
       });
       gameEnemyWave.onScreenEnemies = gameEnemyWave.onScreenEnemies.filter((enemy) => enemy.xPos <= CANVAS_WIDTH);
       if (gameState.gameOver && !gameEnemyWave.onScreenEnemies.length) {
