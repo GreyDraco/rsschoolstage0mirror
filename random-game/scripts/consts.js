@@ -14,7 +14,7 @@ export const HP_CASTLE_POS = 20;
 export const HP_ENEMIES_POS = CANVAS_WIDTH - HP_MAX_WIDTH - HP_CASTLE_POS;
 export const BASE_COST = 0.1;
 
-export const enemyTypes = ["guard", "knight"];
+export const enemyTypes = ["guard", "knight", "cultist"];
 
 export const spriteAnimationData = {
   guard: {
@@ -32,17 +32,25 @@ export const spriteAnimationData = {
   dragon: {
     idle: { width: 1000, height: 150, src: "./assets/sprites/dragon/dragonIdle.png", maxFrames: 6, delay: 50 },
   },
+  cultist: {
+    run: { width: 3000, height: 375, src: "./assets/sprites/cultist/Run.png", maxFrames: 8, delay: 30, offsetX: 90, offsetY: 90 },
+    runBack: { width: 3000, height: 375, src: "./assets/sprites/cultist/RunBack.png", maxFrames: 8, delay: 30, offsetX: 90, offsetY: 90 },
+    attack: { width: 3000, height: 375, src: "./assets/sprites/cultist/Attack2.png", maxFrames: 8, delay: 30, offsetX: 90, offsetY: 90 },
+    death: { width: 2625, height: 375, src: "./assets/sprites/cultist/Death.png", maxFrames: 7, delay: 30, offsetX: 90, offsetY: 90 },
+  },
 };
 
-export const gameParams = { cost: BASE_COST, gold: 10000, playerLvl: 1, discount: 1, castleHitCount: 3, castleRange: 300, abilities: { fireball: 0, lightning: 0, bargain: 10 } };
+export const gameParams = { cost: BASE_COST, gold: 10000, playerLvl: 10, discount: 1, castleHitCount: 3, castleRange: 300, abilities: { fireball: 0, lightning: 0, bargain: 10, princess: 0 } };
 export const gameState = { gameOver: false, isCombat: false, isRepairUsed: false, isUpgradeUsed: false, totalEnemyHp: 0, isFireballActive: false, isLightningActive: false, isKingDead: false };
 
-export const gameEnemyWave = { onScreenEnemies: [], deadEnemies: [], incomingEnemies: { guard: 0, knight: 0 } };
+export const gameEnemyWave = { onScreenEnemies: [], deadEnemies: [], incomingEnemies: { guard: 0, knight: 0, cultist: 0 } };
 
 export const gameEnemies = {
-  GUARD_ENEMIES_PROPS: { velocity: 1.5, x: CANVAS_WIDTH - 50, y: CANVAS_HEIGHT / 2 + 40, hp: MAX_ENEMY_HP, power: 0.1, ...spriteAnimationData.guard.run },
+  GUARD_ENEMIES_PROPS: { velocity: 1.5, x: CANVAS_WIDTH - 50, y: CANVAS_HEIGHT / 2 + 40, hp: MAX_ENEMY_HP, power: 0.1, stopX: STOP_ENEMY_POS, spread: 50, ...spriteAnimationData.guard.run },
 
-  KNIGHT_ENEMIES_PROPS: { velocity: 0.8, x: CANVAS_WIDTH - 50, y: CANVAS_HEIGHT / 2 + 40, hp: MAX_ENEMY_HP * 2, power: 0.2, ...spriteAnimationData.knight.run },
+  KNIGHT_ENEMIES_PROPS: { velocity: 0.8, x: CANVAS_WIDTH - 50, y: CANVAS_HEIGHT / 2 + 40, hp: MAX_ENEMY_HP * 2, power: 0.2, stopX: STOP_ENEMY_POS, spread: 50, ...spriteAnimationData.knight.run },
+
+  CULTIST_ENEMIES_PROPS: { velocity: 0.3, x: CANVAS_WIDTH - 50, y: CANVAS_HEIGHT / 2, hp: MAX_ENEMY_HP * 4, power: 0.4, stopX: 400, spread: 150, ...spriteAnimationData.cultist.run },
 };
 
 export const leaders = { results: [] };

@@ -36,7 +36,7 @@ export function startEvent(id, gameEventsData = events) {
 
       if (gameEvent.check) {
         const checkCount = Object.keys(gameEvent.check).length;
-        if (gameEvent.check.bargain && gameParams.abilities.bargain) {
+        if (gameEvent.check.bargain && gameParams.abilities.bargain >= gameEvent.check.bargain) {
           let timerId = null;
           gameParams.discount = 1;
           let checkCounter = checkEvent(gameEvent);
@@ -104,7 +104,7 @@ export function startEvent(id, gameEventsData = events) {
       eventText.textContent = gameEvent.text;
       okBtn.addEventListener("click", () => {
         if (gameEvent.battle) {
-          gameEnemyWave.incomingEnemies = { ...gameEvent.battle };
+          gameEnemyWave.incomingEnemies = { ...gameEnemyWave.incomingEnemies, ...gameEvent.battle };
 
           startBattle();
         }

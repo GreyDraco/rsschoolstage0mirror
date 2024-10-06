@@ -1,5 +1,5 @@
 import { ctx } from "../canvasSetup.js";
-import { CANVAS_HEIGHT, CANVAS_WIDTH, spriteAnimationData, STOP_ENEMY_POS } from "../consts.js";
+import { spriteAnimationData, STOP_ENEMY_POS } from "../consts.js";
 
 export class Sprite {
   constructor({ x, y, width, height, color, src, maxFrames = 1 /* , scale = 1 */, delay = 50, offsetX = 0, offsetY = 0 }) {
@@ -45,10 +45,12 @@ export class Sprite {
 }
 
 export class Character extends Sprite {
-  constructor({ x, y, width, height, color, hp, power, src, maxFrames = 1, delay = 50, offsetX = 0, offsetY = 0 }) {
+  constructor({ x, y, width, height, color, hp, power, src, maxFrames = 1, delay = 50, offsetX = 0, offsetY = 0, stopX = STOP_ENEMY_POS, spread = 50 }) {
     super({ x, y, width, height, color, src, maxFrames, delay, offsetX, offsetY });
     this.hp = hp;
     this.power = power;
+    this.stopX = stopX;
+    this.spread = spread;
   }
   selectAnimation(name = "idle") {
     this.imgSrc = spriteAnimationData[this.type][name].src;
@@ -66,10 +68,11 @@ export class MovingCharacter extends Character {
   constructor(props, type = "guard") {
     super(props);
     this.velocity = props.velocity + Math.random() * 0.5;
-    this.stopPos = STOP_ENEMY_POS + Math.random() * 50;
+    this.stopPos = props.stopX + Math.random() * props.spread;
     this.yPos = this.yPos + Math.random() * 50;
     this.type = type;
-    //  console.log(type);
+
+    console.log(type, props.stopX, props.spread);
   }
   move(direction = -1) {
     if (this.xPos > this.stopPos) {

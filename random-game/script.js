@@ -157,6 +157,8 @@ animate();
 pushEnemyWave.addEventListener("click", () => {
   gameEnemyWave.incomingEnemies.guard = 1;
   gameEnemyWave.incomingEnemies.knight = 1;
+  gameEnemyWave.incomingEnemies.cultist = 1;
+
   startBattle();
 });
 

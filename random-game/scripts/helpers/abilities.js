@@ -1,5 +1,5 @@
 import { lightning } from "../characters.js";
-import { gameState } from "../consts.js";
+import { gameParams, gameState } from "../consts.js";
 import { hitAll, hitStrongest } from "./hitEnemy.js";
 import toggleVisibleToolbar from "./showToolbar.js";
 
@@ -8,8 +8,14 @@ const fireballBtn = document.querySelector(".fireballBtn");
 const bribeBtn = document.querySelector(".bribeBtn");
 
 bribeBtn.addEventListener("click", () => {
-  gameState.isCombat = false;
-  toggleVisibleToolbar();
+  const bribeCost = (gameState.totalEnemyHp * (10 - gameParams.abilities.princess)) / 100;
+  if (gameParams.gold >= bribeCost) {
+    gameState.isCombat = false;
+    gameParams.gold -= bribeCost;
+    toggleVisibleToolbar();
+  } else {
+    console.log("Need more gold to bribe");
+  }
 });
 
 lightningBtn.addEventListener("click", () => {
