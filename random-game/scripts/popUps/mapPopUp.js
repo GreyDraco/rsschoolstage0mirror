@@ -24,6 +24,10 @@ function addNewLocation(id) {
   eventBtn.className = `dropdown-content event-btn event-${id}`;
   battleBtn.className = `dropdown-content battle-btn battle-${id}`;
 
+  if (!gameEventsData[id].immediateBattle) {
+    battleBtn.style.display = "none";
+  }
+
   locationDropdown.append(locationBtn, eventBtn, battleBtn);
 
   locationBtn.id = id;

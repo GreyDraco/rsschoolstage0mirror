@@ -34,7 +34,7 @@ export const spriteAnimationData = {
   },
 };
 
-export const gameParams = { cost: BASE_COST, gold: 1000, playerLvl: 1, discount: 1, castleHitCount: 3, castleRange: 300, abilities: { fireball: 0, lightning: 0, bargain: 0 } };
+export const gameParams = { cost: BASE_COST, gold: 10000, playerLvl: 1, discount: 1, castleHitCount: 3, castleRange: 300, abilities: { fireball: 0, lightning: 0, bargain: 10 } };
 export const gameState = { gameOver: false, isCombat: false, isRepairUsed: false, isUpgradeUsed: false, totalEnemyHp: 0, isFireballActive: false, isLightningActive: false, isKingDead: false };
 
 export const gameEnemyWave = { onScreenEnemies: [], deadEnemies: [], incomingEnemies: { guard: 0, knight: 0 } };

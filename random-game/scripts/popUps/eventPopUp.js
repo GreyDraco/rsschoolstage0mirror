@@ -40,11 +40,8 @@ export function startEvent(id, gameEventsData = events) {
           let timerId = null;
           gameParams.discount = 1;
           let checkCounter = checkEvent(gameEvent);
-
           const { bargainContainer, bargainBtn } = addBargain(() => {
-            console.log(gameParams.discount);
-            checkCounter = gameParams.discount < 1 ? +1 : 0;
-            console.log(gameParams.discount);
+            checkCounter += gameParams.discount < 1 ? +1 : 0;
             console.log("checks complete:", checkCounter, "of", checkCount);
             gameEvent = checkCounter >= checkCount ? vars.varw : vars.varl;
             clearTimeout(timerId);
@@ -172,7 +169,7 @@ function checkEvent(gameEvent) {
         break;
       }
       default: {
-        console.log("ERR got something else");
+        console.log("Got something else:", `${key}`);
         break;
       }
     }
