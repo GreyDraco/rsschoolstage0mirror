@@ -8,7 +8,6 @@ export function hitClosestEnemies(damage) {
       enemy.hp = Math.max(0, enemy.hp - damage);
     }
   });
-  gameEnemyWave.onScreenEnemies = gameEnemyWave.onScreenEnemies.filter((enemy) => enemy.hp > 0);
 }
 
 export function hitStrongest(damage) {

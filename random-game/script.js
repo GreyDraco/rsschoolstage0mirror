@@ -1,6 +1,6 @@
 import { ctx } from "./scripts/canvasSetup.js";
 import { background, castle, castleHP, dragon, enemiesHP, fireball, lightning } from "./scripts/characters.js";
-import { CANVAS_HEIGHT, CANVAS_WIDTH, CASTLE_PROPS, gameEnemyWave, gameParams, gameState, HP_CASTLE_POS, HP_ENEMIES_POS, HP_HEIGHT, HP_MAX_WIDTH, HP_Y_POS, leaders, leadersKey, MAX_CASTLE_HP, MAX_ENEMY_HP, STOP_ENEMY_POS } from "./scripts/consts.js";
+import { CANVAS_HEIGHT, CANVAS_WIDTH, CASTLE_PROPS, gameEnemyWave, gameParams, gameState, HP_CASTLE_POS, HP_ENEMIES_POS, HP_HEIGHT, HP_MAX_WIDTH, HP_Y_POS, leaders, leadersKey, MAX_CASTLE_HP, spriteAnimationData } from "./scripts/consts.js";
 import "./scripts/popUps/repairPopUp.js";
 import "./scripts/popUps/eventPopUp.js";
 import "./scripts/popUps/mapPopUp.js";
@@ -26,7 +26,7 @@ if (localStorage.GrayDracoLeaders) {
 
 function displayGold() {
   ctx.beginPath();
-  ctx.arc(CANVAS_WIDTH / 2 - 100, HP_Y_POS - 15, 20, 0, 2 * Math.PI);
+  ctx.arc(CANVAS_WIDTH / 2 - 100, HP_Y_POS + 15, 20, 0, 2 * Math.PI);
   ctx.fillStyle = "yellow";
   ctx.fill();
   ctx.lineWidth = 4;
@@ -35,25 +35,48 @@ function displayGold() {
 
   ctx.font = "30px Arial";
   ctx.fillStyle = "purple";
-  ctx.fillText("$", CANVAS_WIDTH / 2 - 107, HP_Y_POS - 3);
+  ctx.fillText("$", CANVAS_WIDTH / 2 - 107, HP_Y_POS + 25);
 
   ctx.font = "40px Arial";
   ctx.fillStyle = "purple";
-  ctx.fillText(gameParams.gold, CANVAS_WIDTH / 2 - 70, HP_Y_POS);
+  ctx.fillText(gameParams.gold, CANVAS_WIDTH / 2 - 70, HP_Y_POS + 30);
 }
 
 function displayHP() {
   ctx.fillStyle = "red";
-  ctx.fillRect(HP_CASTLE_POS, HP_Y_POS - HP_HEIGHT, HP_MAX_WIDTH, HP_HEIGHT);
+  ctx.fillRect(HP_CASTLE_POS, HP_Y_POS, HP_MAX_WIDTH, HP_HEIGHT);
 
   castleHP.display();
   if (gameState.isCombat) {
     ctx.fillStyle = "green";
-    ctx.fillRect(HP_ENEMIES_POS, HP_Y_POS - HP_HEIGHT, HP_MAX_WIDTH, HP_HEIGHT);
+    ctx.fillRect(HP_ENEMIES_POS, HP_Y_POS, HP_MAX_WIDTH, HP_HEIGHT);
 
     enemiesHP.display();
   }
 }
+
+function addDead() {
+  let newDeadEnemies = [];
+  newDeadEnemies = gameEnemyWave.onScreenEnemies.filter((enemy) => enemy.hp <= 0);
+  if (newDeadEnemies) {
+    newDeadEnemies.forEach((enemy) => {
+      enemy.imgSrc = spriteAnimationData[enemy.type].death.src;
+      enemy.image.src = spriteAnimationData[enemy.type].death.src;
+      enemy.width = spriteAnimationData[enemy.type].death.width;
+      enemy.height = spriteAnimationData[enemy.type].death.height;
+      enemy.maxFrames = spriteAnimationData[enemy.type].death.maxFrames;
+      enemy.delay = spriteAnimationData[enemy.type].death.delay;
+      enemy.offsetX = spriteAnimationData[enemy.type].death.offsetX;
+      enemy.offsetY = spriteAnimationData[enemy.type].death.offsetY;
+      enemy.currentFrame = enemy.maxFrames;
+    });
+    gameEnemyWave.deadEnemies.push(...newDeadEnemies);
+  }
+
+  gameEnemyWave.onScreenEnemies = gameEnemyWave.onScreenEnemies.filter((enemy) => enemy.hp > 0);
+}
+
+function removeDead() {}
 
 function updateEnemyHp(damage) {
   hitClosestEnemies(damage);
@@ -86,10 +109,21 @@ function animate() {
 
   castle.display("green");
   dragon.display();
+
   if (gameState.isCombat) {
     gameEnemyWave.onScreenEnemies.forEach((enemy) => {
       if (enemy.xPos > enemy.stopPos) {
         enemy.move();
+        if (enemy.xPos <= enemy.stopPos) {
+          enemy.imgSrc = spriteAnimationData[enemy.type].attack.src;
+          enemy.image.src = spriteAnimationData[enemy.type].attack.src;
+          enemy.width = spriteAnimationData[enemy.type].attack.width;
+          enemy.height = spriteAnimationData[enemy.type].attack.height;
+          enemy.maxFrames = spriteAnimationData[enemy.type].attack.maxFrames;
+          enemy.delay = spriteAnimationData[enemy.type].attack.delay;
+          enemy.offsetX = spriteAnimationData[enemy.type].attack.offsetX;
+          enemy.offsetY = spriteAnimationData[enemy.type].attack.offsetY;
+        }
       } else {
         updateCastleHp(enemy.power);
         enemy.display();
@@ -107,8 +141,15 @@ function animate() {
     }
   }
 
-  if (gameEnemyWave.onScreenEnemies.length) {
+  if (gameState.isCombat && gameEnemyWave.onScreenEnemies.length) {
     updateEnemyHp(castle.power);
+    addDead();
+  }
+  if (gameEnemyWave.deadEnemies.length) {
+    gameEnemyWave.deadEnemies.forEach((enemy) => {
+      enemy.display();
+      gameEnemyWave.deadEnemies = gameEnemyWave.deadEnemies.filter((enemy) => enemy.currentFrame > 0);
+    });
   }
 
   displayGold();
@@ -129,7 +170,7 @@ function animate() {
 animate();
 
 pushEnemyWave.addEventListener("click", () => {
-  gameEnemyWave.incomingEnemies.guard = 30;
-  gameEnemyWave.incomingEnemies.knight = 20;
+  gameEnemyWave.incomingEnemies.guard = 3;
+  gameEnemyWave.incomingEnemies.knight = 0;
   startBattle();
 });

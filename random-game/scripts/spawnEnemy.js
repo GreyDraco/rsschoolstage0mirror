@@ -1,5 +1,5 @@
 import { MovingCharacter } from "./classes/Sprites.js";
-import { gameEnemyWave, gameEnemies, gameParams, STOP_ENEMY_POS } from "./consts.js";
+import { gameEnemyWave, gameEnemies, gameParams, STOP_ENEMY_POS, enemyTypes } from "./consts.js";
 
 export function spawnEnemies(gameEnemyWave) {
   const reserveEnemies = Object.values(gameEnemyWave.incomingEnemies);
@@ -24,7 +24,7 @@ export function spawnEnemies(gameEnemyWave) {
 
 function spawnEnemy(enemySelector, enemyProperties) {
   const reserveEnemies = Object.keys(gameEnemyWave.incomingEnemies);
-  const enemy = new MovingCharacter({ ...gameEnemies[enemyProperties[enemySelector]], color: getRandomColorWithOpacity() });
+  const enemy = new MovingCharacter({ ...gameEnemies[enemyProperties[enemySelector]], color: getRandomColorWithOpacity() }, enemyTypes[enemySelector]);
   gameEnemyWave.onScreenEnemies.push(enemy);
   gameEnemyWave.incomingEnemies[reserveEnemies[enemySelector]] -= 1;
 }

@@ -9,7 +9,7 @@ lightningBtn.addEventListener("click", () => {
   lightningBtn.disabled = true;
   gameState.isLightningActive = true;
   lightningBtn.classList.add("reload-lightning");
-  lightning.xPos = hitStrongest(150) - lightning.width / 2;
+  lightning.xPos = hitStrongest(150);
   setTimeout(() => {
     gameState.isLightningActive = false;
   }, 500);
