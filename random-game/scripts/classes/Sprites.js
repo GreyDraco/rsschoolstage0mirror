@@ -71,8 +71,6 @@ export class MovingCharacter extends Character {
     this.stopPos = props.stopX + Math.random() * props.spread;
     this.yPos = this.yPos + Math.random() * 50;
     this.type = type;
-
-    console.log(type, props.stopX, props.spread);
   }
   move(direction = -1) {
     if (this.xPos > this.stopPos) {

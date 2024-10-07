@@ -136,6 +136,11 @@ function giveRewards(gameEvent) {
         Object.entries(value).forEach(([key, value]) => {
           gameParams.abilities[key] += value;
           rewardItem.textContent = `ability leveled up: ${key}`;
+          const abilityBtn = document.querySelector(`.${key}Btn`);
+          if (abilityBtn && abilityBtn.disabled) {
+            abilityBtn.disabled = false;
+            abilityBtn.classList.add("unlocked");
+          }
         });
       }
       rewardList.append(rewardItem);

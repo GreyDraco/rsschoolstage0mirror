@@ -40,6 +40,12 @@
   background-color: #fee97d;
 }
 
+.button.ability-btn:not(.unlocked):disabled {
+  filter: grayscale(100%);
+  cursor: auto;
+  opacity: 0.5;
+}
+
 .reload-lightning {
   animation: fill-circle 5s linear forwards;
 }

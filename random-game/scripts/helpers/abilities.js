@@ -1,5 +1,6 @@
 import { lightning } from "../characters.js";
 import { gameParams, gameState } from "../consts.js";
+import { getEnemyHp } from "./calcHp.js";
 import { hitAll, hitStrongest } from "./hitEnemy.js";
 import toggleVisibleToolbar from "./showToolbar.js";
 
@@ -8,13 +9,13 @@ const fireballBtn = document.querySelector(".fireballBtn");
 const bribeBtn = document.querySelector(".bribeBtn");
 
 bribeBtn.addEventListener("click", () => {
-  const bribeCost = (gameState.totalEnemyHp * (10 - gameParams.abilities.princess)) / 100;
+  const bribeCost = Math.floor(getEnemyHp() / 1 + gameParams.abilities.princess);
   if (gameParams.gold >= bribeCost) {
     gameState.isCombat = false;
     gameParams.gold -= bribeCost;
     toggleVisibleToolbar();
   } else {
-    console.log("Need more gold to bribe");
+    console.log("Need more gold to bribe: ", gameParams.gold, "/", bribeCost);
   }
 });
 
