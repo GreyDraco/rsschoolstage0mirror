@@ -5,5 +5,5 @@ export function playNextAudio(id = "idle") {
   audio.currentTime = 0;
   audio.src = `./assets/audio/${id}.mp3`;
   audio.play();
-  console.log("try to play:", id, audio.src);
+  // console.log("try to play:", id, audio.src);
 }

@@ -4,6 +4,7 @@
 @import url(./styles/mapDropdown.css);
 @import url(./styles/abilityButtons.css);
 @import url(./styles/leaderboard.css);
+@import url(./styles/startMenu.css);
 
 * {
   box-sizing: border-box;

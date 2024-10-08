@@ -44,7 +44,9 @@ function showLeader(resultList, leader = null) {
     resultName.textContent = `${leader.name}`;
     resultLvl.textContent = `${leader.playerLvl}`;
     resultGold.textContent = `${leader.gold}`;
-    resultKing.style.backgroundImage = `url(${leader.kingDead ? "./assets/icons/crown.png" : "./assets/icons/skull.png"})`;
+    resultKing.style.backgroundImage = `url(${
+      leader.kingDead ? "./assets/icons/crown.png" : "./assets/icons/skull.png"
+    })`;
   } else {
     resultName.textContent = "Имя";
     resultLvl.textContent = "Уровень";
@@ -57,7 +59,7 @@ function showLeader(resultList, leader = null) {
   resultList.append(resulItem);
 }
 
-function openLeaderboard() {
+export function openLeaderboard() {
   showPopup();
   const popupContent = document.querySelector(".popup-content");
   popupContent.classList.add("leaderboard-content");
@@ -70,6 +72,7 @@ function openLeaderboard() {
   currentLeaders.forEach((leader) => {
     showLeader(resultList, leader);
   });
+
   popupContent.append(resultList);
 }
 
@@ -87,7 +90,9 @@ export function openEndPopUp() {
 
   const resultTextContainer = document.createElement("div");
   resultTextContainer.classList.add("result-text-container");
-  resultTextContainer.textContent = `Вы ${gameState.isKingDead ? "выиграли!" : "проиграли!"}`;
+  resultTextContainer.textContent = `Вы ${
+    gameState.isKingDead ? "выиграли!" : "проиграли!"
+  }`;
 
   const resultList = document.createElement("ul");
   resultList.classList.add("result-list");

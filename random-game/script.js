@@ -23,8 +23,6 @@ import {
   leaders,
   leadersKey,
   MAX_CASTLE_HP,
-  spriteAnimationData,
-  audio,
 } from "./scripts/consts.js";
 import "./scripts/popUps/repairPopUp.js";
 import "./scripts/popUps/eventPopUp.js";
@@ -38,6 +36,7 @@ import { hitClosestEnemies } from "./scripts/helpers/hitEnemy.js";
 import { openEndPopUp } from "./scripts/popUps/endPopUp.js";
 import toggleVisibleToolbar from "./scripts/helpers/showToolbar.js";
 import { playNextAudio } from "./scripts/helpers/playNextAudio.js";
+import { openStartPopUp } from "./scripts/popUps/startPopUp.js";
 
 const checkLvlBtn = document.querySelector(".DEBUG-Lvl");
 const pushEnemyWave = document.querySelector(".DEBUG-wave");
@@ -47,22 +46,11 @@ if (localStorage.GrayDracoLeaders) {
 } else {
   localStorage.setItem(leadersKey, JSON.stringify([]));
 }
-//-----------------------------------------------------------------------------
-//audio.volume = 0.5;
 
-const startGame = document.createElement("button");
-document.body.append(startGame);
-startGame.textContent = "start";
-startGame.addEventListener("click", () => {
-  /*   audio.currentTime = 0;
-  audio.src = "./assets/audio/idle.mp3";
-  // audio.onload = () => {
-  audio.play(); */
-  playNextAudio("idle");
-  console.log("play");
-  //};
-});
-//-----------------------------------------------------
+//------------------------------<Start of the game>---------------------------------------
+//audio.volume = 0.5;
+openStartPopUp();
+//----------------------------------------------------------------------------------------
 function displayGold() {
   ctx.beginPath();
   ctx.arc(CANVAS_WIDTH / 2 - 100, HP_Y_POS + 15, 20, 0, 2 * Math.PI);
@@ -120,10 +108,6 @@ function updateEnemyHp(damage) {
   if (currentEnemHPWidth >= HP_MAX_WIDTH) {
     gameState.isCombat = false;
     toggleVisibleToolbar();
-    /*   audio.pause();
-    audio.currentTime = 0;
-    audio.src = `./assets/audio/idle.mp3`;
-    audio.play(); */
     playNextAudio("idle");
   }
 }
