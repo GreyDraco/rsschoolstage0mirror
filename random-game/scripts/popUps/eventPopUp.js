@@ -1,6 +1,7 @@
 import { addBargain } from "../bargain.js";
 import { DIE_SIZE, gameEnemyWave, gameParams, gameState } from "../consts.js";
 import { gameEventsData as events } from "../data/gameEventsData.js";
+import { playNextAudio } from "../helpers/playNextAudio.js";
 import startBattle from "../helpers/startBattle.js";
 import { hidePopup, showPopup } from "./showPopup.js";
 
@@ -8,6 +9,14 @@ const fireEventBtn = document.querySelector(".DEBUG-event");
 
 export function startEvent(id, gameEventsData = events) {
   showPopup();
+
+  if (id !== "immediateBattle") {
+    console.log("not im b");
+
+    playNextAudio(id);
+  }
+
+  console.log(id);
 
   const popupContent = document.querySelector(".popup-content");
   popupContent.classList.add("event-popup");
@@ -36,7 +45,10 @@ export function startEvent(id, gameEventsData = events) {
 
       if (gameEvent.check) {
         const checkCount = Object.keys(gameEvent.check).length;
-        if (gameEvent.check.bargain && gameParams.abilities.bargain >= gameEvent.check.bargain) {
+        if (
+          gameEvent.check.bargain &&
+          gameParams.abilities.bargain >= gameEvent.check.bargain
+        ) {
           let timerId = null;
           gameParams.discount = 1;
           let checkCounter = checkEvent(gameEvent);
@@ -76,7 +88,10 @@ export function startEvent(id, gameEventsData = events) {
       } else {
         Object.values(vars).forEach((variant) => {
           const choiceBtn = document.createElement("button");
-          if (variant?.check?.gold && gameParams.gold - variant.check.gold < 0) {
+          if (
+            variant?.check?.gold &&
+            gameParams.gold - variant.check.gold < 0
+          ) {
             choiceBtn.disabled = true;
           }
           choiceBtn.textContent = variant.varDesc;
@@ -104,9 +119,14 @@ export function startEvent(id, gameEventsData = events) {
       eventText.textContent = gameEvent.text;
       okBtn.addEventListener("click", () => {
         if (gameEvent.battle) {
-          gameEnemyWave.incomingEnemies = { ...gameEnemyWave.incomingEnemies, ...gameEvent.battle };
+          gameEnemyWave.incomingEnemies = {
+            ...gameEnemyWave.incomingEnemies,
+            ...gameEvent.battle,
+          };
 
           startBattle();
+        } else {
+          playNextAudio("idle");
         }
         hidePopup();
         gameParams.discount = 1;
@@ -131,7 +151,8 @@ function giveRewards(gameEvent) {
         const diff = Math.min(gameParams[key], Math.abs(value));
         gameParams[key] = Math.max(gameParams[key] + value, 0);
 
-        rewardItem.textContent = value > 0 ? `${key}: +${value}` : `${key}: ${-diff}`;
+        rewardItem.textContent =
+          value > 0 ? `${key}: +${value}` : `${key}: ${-diff}`;
       } else {
         Object.entries(value).forEach(([key, value]) => {
           gameParams.abilities[key] += value;

@@ -1,3 +1,6 @@
+import { audio } from "../consts.js";
+import { playNextAudio } from "../helpers/playNextAudio.js";
+
 const overlay = document.querySelector(".overlay");
 const body = document.body;
 
@@ -15,6 +18,7 @@ export function showPopup() {
   closePopupBtn.textContent = "×";
   closePopupBtn.addEventListener("click", () => {
     hidePopup();
+    playNextAudio("idle");
   });
 
   const popupContainer = document.createElement("div");
@@ -25,7 +29,10 @@ export function showPopup() {
 }
 
 overlay.addEventListener("click", (event) => {
-  if (!event.target.closest(".popup-container")) hidePopup();
+  if (!event.target.closest(".popup-container")) {
+    hidePopup();
+    playNextAudio("idle");
+  }
 });
 
 export function hidePopup() {

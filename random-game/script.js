@@ -1,6 +1,31 @@
 import { ctx } from "./scripts/canvasSetup.js";
-import { background, castle, castleHP, dragon, enemiesHP, fireball, lightning } from "./scripts/characters.js";
-import { CANVAS_HEIGHT, CANVAS_WIDTH, CASTLE_PROPS, gameEnemyWave, gameParams, gameState, HP_CASTLE_POS, HP_ENEMIES_POS, HP_HEIGHT, HP_MAX_WIDTH, HP_Y_POS, leaders, leadersKey, MAX_CASTLE_HP, spriteAnimationData } from "./scripts/consts.js";
+import {
+  background,
+  castle,
+  castleHP,
+  dragon,
+  enemiesHP,
+  fireball,
+  lightning,
+} from "./scripts/characters.js";
+import {
+  CANVAS_HEIGHT,
+  CANVAS_WIDTH,
+  CASTLE_PROPS,
+  gameEnemyWave,
+  gameParams,
+  gameState,
+  HP_CASTLE_POS,
+  HP_ENEMIES_POS,
+  HP_HEIGHT,
+  HP_MAX_WIDTH,
+  HP_Y_POS,
+  leaders,
+  leadersKey,
+  MAX_CASTLE_HP,
+  spriteAnimationData,
+  audio,
+} from "./scripts/consts.js";
 import "./scripts/popUps/repairPopUp.js";
 import "./scripts/popUps/eventPopUp.js";
 import "./scripts/popUps/mapPopUp.js";
@@ -12,6 +37,7 @@ import startBattle from "./scripts/helpers/startBattle.js";
 import { hitClosestEnemies } from "./scripts/helpers/hitEnemy.js";
 import { openEndPopUp } from "./scripts/popUps/endPopUp.js";
 import toggleVisibleToolbar from "./scripts/helpers/showToolbar.js";
+import { playNextAudio } from "./scripts/helpers/playNextAudio.js";
 
 const checkLvlBtn = document.querySelector(".DEBUG-Lvl");
 const pushEnemyWave = document.querySelector(".DEBUG-wave");
@@ -21,7 +47,22 @@ if (localStorage.GrayDracoLeaders) {
 } else {
   localStorage.setItem(leadersKey, JSON.stringify([]));
 }
+//-----------------------------------------------------------------------------
+//audio.volume = 0.5;
 
+const startGame = document.createElement("button");
+document.body.append(startGame);
+startGame.textContent = "start";
+startGame.addEventListener("click", () => {
+  /*   audio.currentTime = 0;
+  audio.src = "./assets/audio/idle.mp3";
+  // audio.onload = () => {
+  audio.play(); */
+  playNextAudio("idle");
+  console.log("play");
+  //};
+});
+//-----------------------------------------------------
 function displayGold() {
   ctx.beginPath();
   ctx.arc(CANVAS_WIDTH / 2 - 100, HP_Y_POS + 15, 20, 0, 2 * Math.PI);
@@ -55,7 +96,9 @@ function displayHP() {
 
 function addDead() {
   let newDeadEnemies = [];
-  newDeadEnemies = gameEnemyWave.onScreenEnemies.filter((enemy) => enemy.hp <= 0);
+  newDeadEnemies = gameEnemyWave.onScreenEnemies.filter(
+    (enemy) => enemy.hp <= 0
+  );
   if (newDeadEnemies) {
     newDeadEnemies.forEach((enemy) => {
       enemy.selectAnimation("death");
@@ -64,16 +107,24 @@ function addDead() {
     gameEnemyWave.deadEnemies.push(...newDeadEnemies);
   }
 
-  gameEnemyWave.onScreenEnemies = gameEnemyWave.onScreenEnemies.filter((enemy) => enemy.hp > 0);
+  gameEnemyWave.onScreenEnemies = gameEnemyWave.onScreenEnemies.filter(
+    (enemy) => enemy.hp > 0
+  );
 }
 
 function updateEnemyHp(damage) {
   hitClosestEnemies(damage);
-  const currentEnemHPWidth = (1 - getEnemyHp() / gameState.totalEnemyHp) * HP_MAX_WIDTH;
+  const currentEnemHPWidth =
+    (1 - getEnemyHp() / gameState.totalEnemyHp) * HP_MAX_WIDTH;
   enemiesHP.width = Math.min(currentEnemHPWidth, HP_MAX_WIDTH);
   if (currentEnemHPWidth >= HP_MAX_WIDTH) {
     gameState.isCombat = false;
     toggleVisibleToolbar();
+    /*   audio.pause();
+    audio.currentTime = 0;
+    audio.src = `./assets/audio/idle.mp3`;
+    audio.play(); */
+    playNextAudio("idle");
   }
 }
 
@@ -81,11 +132,6 @@ function updateCastleHp(damage) {
   castle.hp -= damage;
   const currentCastleHPWidth = (castle.hp * HP_MAX_WIDTH) / MAX_CASTLE_HP;
   castleHP.width = Math.max(currentCastleHPWidth, 0);
-  if (castle.hp <= 0) {
-    gameState.isCombat = false;
-    toggleVisibleToolbar();
-    gameState.gameOver = true;
-  }
 }
 
 displayHP();
@@ -112,13 +158,16 @@ function animate() {
         enemy.display();
       }
     });
+    checkCastleDead();
   } else {
     if (gameEnemyWave.onScreenEnemies.length) {
       gameEnemyWave.onScreenEnemies.forEach((enemy) => {
         enemy.move(1);
         enemy.selectAnimation("runBack");
       });
-      gameEnemyWave.onScreenEnemies = gameEnemyWave.onScreenEnemies.filter((enemy) => enemy.xPos <= CANVAS_WIDTH);
+      gameEnemyWave.onScreenEnemies = gameEnemyWave.onScreenEnemies.filter(
+        (enemy) => enemy.xPos <= CANVAS_WIDTH
+      );
       if (gameState.gameOver && !gameEnemyWave.onScreenEnemies.length) {
         toggleVisibleToolbar();
         openEndPopUp();
@@ -133,7 +182,9 @@ function animate() {
   if (gameEnemyWave.deadEnemies.length) {
     gameEnemyWave.deadEnemies.forEach((enemy) => {
       enemy.display();
-      gameEnemyWave.deadEnemies = gameEnemyWave.deadEnemies.filter((enemy) => enemy.currentFrame > 0);
+      gameEnemyWave.deadEnemies = gameEnemyWave.deadEnemies.filter(
+        (enemy) => enemy.currentFrame > 0
+      );
     });
   }
 
@@ -163,5 +214,19 @@ pushEnemyWave.addEventListener("click", () => {
 });
 
 checkLvlBtn.addEventListener("click", () => {
-  console.log("player lvl:", gameParams.playerLvl, "lightning lvl:", gameParams.abilities.lightning);
+  console.log(
+    "player lvl:",
+    gameParams.playerLvl,
+    "lightning lvl:",
+    gameParams.abilities.lightning
+  );
 });
+
+function checkCastleDead() {
+  if (castle.hp <= 0) {
+    gameState.isCombat = false;
+    toggleVisibleToolbar();
+    playNextAudio("idle");
+    gameState.gameOver = true;
+  }
+}
