@@ -1,4 +1,3 @@
-import { audio } from "../consts.js";
 import { playNextAudio } from "../helpers/playNextAudio.js";
 
 const overlay = document.querySelector(".overlay");
@@ -13,18 +12,18 @@ export function showPopup() {
   const popupContent = document.createElement("div");
   popupContent.classList.add("popup-content");
 
-  const closePopupBtn = document.createElement("button");
+  /*  const closePopupBtn = document.createElement("button");
   closePopupBtn.className = "close-popup";
   closePopupBtn.textContent = "×";
   closePopupBtn.addEventListener("click", () => {
     hidePopup();
     playNextAudio("idle");
-  });
+  }); */
 
   const popupContainer = document.createElement("div");
   popupContainer.classList.add("popup-container");
 
-  popupContainer.append(popupContent, closePopupBtn);
+  popupContainer.append(popupContent);
   overlay.append(popupContainer);
 }
 
