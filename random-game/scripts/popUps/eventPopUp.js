@@ -161,15 +161,16 @@ function giveRewards(gameEvent) {
       const rewardItem = document.createElement("li");
       if (key !== "abilities") {
         const diff = Math.min(gameParams[key], Math.abs(value));
-        gameParams[key] = Math.max(gameParams[key] + value, 0);
-
+        gameParams[key] = Math.max(gameParams[key] + value, 1);
         rewardItem.textContent =
           value > 0
             ? `${paramsLocalization[key]}: +${value}`
             : `${paramsLocalization[key]}: ${-diff}`;
         if (key === "playerLvl") {
-          castle.power = CASTLE_PROPS.power + 0.01 * gameParams.playerLvl;
-          console.log(castle.power, gameParams.playerLvl);
+          castle.power =
+            Math.round(
+              (CASTLE_PROPS.power + 0.01 * gameParams.playerLvl) * 100
+            ) / 100;
         }
       } else {
         Object.entries(value).forEach(([key, value]) => {

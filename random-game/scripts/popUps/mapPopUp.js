@@ -22,7 +22,6 @@ mapBtn.addEventListener("click", () => {
   });
 
   const popupContainer = document.querySelector(".popup-container");
-  console.log(popupContainer.clientHeight);
   popupContainer.scrollTop =
     (popupContainer.scrollHeight - popupContainer.clientHeight) / 2;
   popupContainer.scrollLeft =

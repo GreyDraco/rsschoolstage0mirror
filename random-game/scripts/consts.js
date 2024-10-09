@@ -164,7 +164,7 @@ export const spriteAnimationData = {
 export const gameParams = {
   cost: BASE_COST,
   gold: 100000,
-  playerLvl: 10,
+  playerLvl: 1,
   discount: 1,
   castleHitCount: 3,
   castleRange: 300,
@@ -172,9 +172,9 @@ export const gameParams = {
   power: {
     fireball: 30,
     lightning: 150,
-    bargain: 10,
+    bargain: 0,
   },
-  abilities: { fireball: 1, lightning: 1, bargain: 10, princess: 0 },
+  abilities: { fireball: 1, lightning: 1, bargain: 0, princess: 0 },
 };
 
 export const CASTLE_PROPS = {

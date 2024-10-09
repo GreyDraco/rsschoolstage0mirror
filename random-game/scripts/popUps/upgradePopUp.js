@@ -42,7 +42,9 @@ function addUpgradeItem(upgradeList, upgradeButtons, upgrade) {
   upgradeDescription.classList.add("upgrade-description");
   upgradeCost.classList.add("upgrade-cost");
 
-  upgradeItemBtn.className = `button ability-btn upgrade-btn upgrade-${upgrade}`;
+  upgradeItemBtn.className = `button ability-btn upgrade-btn upgrade-${
+    gameParams[upgrade] ? upgrade : upgrade.match(/\[(.*?)\]/)[1]
+  }`;
   upgradeCurrentLvl.classList.add(`upgrade-current-lvl`);
 
   upgradeButtons.push(upgradeItemBtn);
@@ -50,39 +52,18 @@ function addUpgradeItem(upgradeList, upgradeButtons, upgrade) {
   let cost = 0;
   switch (upgrade) {
     case "playerLvl": {
-      cost = gameParams.playerLvl * upgradeCosts.playerLvl;
-      upgradeCurrentLvl.textContent =
-        gameParams.playerLvl < upgradeMax.playerLvl
-          ? gameParams.playerLvl
-          : "MAX";
-      upgradeCost.textContent = `${cost}$`;
-      upgradeDescription.textContent = `Уровень отвечает за урон наносимый врагам и влияет на исход некоторых событий. Сила вашей атаки на данный момент: ${castle.power}`;
-      if (
-        isUpgradeAffordable(
-          cost,
-          upgradeMax.playerLvl,
-          gameParams.playerLvl,
-          upgradeItemBtn
-        )
-      ) {
-        upgradeBtn.addEventListener("click", () => {
-          gameParams.playerLvl++;
-          castle.power += 0.01;
-          gameParams.gold -= cost;
-
-          cost += upgradeCosts.playerLvl;
-          upgradeCurrentLvl.textContent =
-            gameParams.playerLvl < upgradeMax.playerLvl
-              ? gameParams.playerLvl
-              : "MAX";
-          upgradeCost.textContent = cost;
-          upgradeDescription.textContent = `Уровень отвечает за урон наносимый врагам и влияет на исход некоторых событий. Сила вашей атаки на данный момент: ${Math.floor(
-            castle.power
-          )}`;
-
-          updateUpgradeButtonsState(upgradeButtons);
-        });
-      }
+      const description =
+        "Уровень отвечает за урон наносимый врагам и влияет на исход некоторых событий. Сила вашей атаки на данный момент:";
+      fillUpgradeGameParamsItem(
+        upgrade,
+        1,
+        description,
+        upgradeCurrentLvl,
+        upgradeCost,
+        upgradeDescription,
+        upgradeItemBtn,
+        upgradeButtons
+      );
       break;
     }
     case "castleHitCount": {
@@ -200,7 +181,9 @@ function fillUpgradeGameParamsItem(
       ? abilityPower / valuePerLvl
       : "MAX";
   upgradeCost.textContent = `${cost}$`;
-  upgradeDescription.textContent = `${description}${abilityPower}`;
+  upgradeDescription.textContent = `${description}${
+    upgrade === "playerLvl" ? castle.power : abilityPower
+  }`;
 
   if (
     isUpgradeAffordable(
@@ -224,6 +207,10 @@ function fillUpgradeGameParamsItem(
         castle.hp += valuePerLvl;
       }
 
+      if (upgrade === "playerLvl") {
+        castle.power = Math.round((castle.power + 0.01) * 100) / 100;
+      }
+
       gameParams.gold -= cost;
       cost += upgradeCosts[upgrade] || upgradeCosts.abilities[abilityKey];
 
@@ -233,9 +220,9 @@ function fillUpgradeGameParamsItem(
           ? abilityPower / valuePerLvl
           : "MAX";
       upgradeCost.textContent = `${cost}$`;
-      upgradeDescription.textContent = `${description}${Math.floor(
-        abilityPower
-      )}`;
+      upgradeDescription.textContent = `${description}${
+        upgrade === "playerLvl" ? castle.power : abilityPower
+      }`;
       updateUpgradeButtonsState(upgradeButtons);
     });
   }
@@ -270,7 +257,6 @@ function updateUpgradeButtonsState(upgradeButtons) {
 }
 
 function isUpgradeAffordable(cost, maxLvl, currentLvl, btn) {
-  // console.log(maxLvl, currentLvl, cost, btn);
   if (gameParams.gold < cost || currentLvl >= maxLvl) {
     btn.disabled = true;
   }
