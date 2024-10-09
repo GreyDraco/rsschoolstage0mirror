@@ -1,3 +1,4 @@
+import { createBtn } from "../helpers/createBtn.js";
 import { playNextAudio } from "../helpers/playNextAudio.js";
 import { openLeaderboard } from "./endPopUp.js";
 import { hidePopup, showPopup } from "./showPopup.js";
@@ -9,14 +10,14 @@ export function openStartPopUp() {
   popupContent.classList.add("start-content");
 
   const buttonContainer = document.createElement("div");
-  const startBtn = document.createElement("button");
-  const leaderboardBtn = document.createElement("button");
-  const rulesBtn = document.createElement("button");
+  const startBtn = createBtn();
+  const leaderboardBtn = createBtn();
+  const rulesBtn = createBtn();
 
-  rulesBtn.textContent = "Rules";
+  rulesBtn.textContent = "Правила";
   buttonContainer.classList.add("menu-btn-container");
-  leaderboardBtn.textContent = "leaderboard";
-  startBtn.textContent = "start";
+  leaderboardBtn.textContent = "Таблица результатов";
+  startBtn.textContent = "Начать игру";
   startBtn.addEventListener("click", () => {
     playNextAudio("idle");
     console.log("play");

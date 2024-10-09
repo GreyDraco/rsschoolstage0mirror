@@ -1,4 +1,5 @@
 import { gameParams, gameState, leaders, leadersKey } from "../consts.js";
+import { createBtn } from "../helpers/createBtn.js";
 import { hidePopup, showPopup } from "./showPopup.js";
 
 const endGameBtn = document.querySelector(".DEBUG-endGame");
@@ -102,13 +103,12 @@ export function openEndPopUp() {
   resultGold.classList.add("result-item");
 
   resultLvl.textContent = `Ваш уровень: ${gameParams.playerLvl}`;
-  resultGold.textContent = `Ваше накопленное золото: ${gameParams.gold}`;
+  resultGold.textContent = `Накопленное золото: ${gameParams.gold}`;
 
   resultList.append(resultLvl, resultGold);
   resultTextContainer.append(resultList);
 
-  const saveResultBtn = document.createElement("button");
-  saveResultBtn.className = "save-result-btn";
+  const saveResultBtn = createBtn(["save-result-btn"]);
   saveResultBtn.textContent = "Сохранить";
 
   const nameInput = document.createElement("input");

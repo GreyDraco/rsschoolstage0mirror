@@ -18,6 +18,11 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background: url(./assets/sprites/background.png) no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  backdrop-filter: blur(20px) grayscale(0.5);
 }
 
 .main {
@@ -50,4 +55,93 @@ canvas {
 
 .hidden {
   display: none;
+}
+
+/*--------------------------------------------------------------------*/
+.btn {
+  background: linear-gradient(to bottom, #7a4c2c, #8b5e3c);
+  border: 2px solid #2d1606;
+  border-radius: 15px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+  position: relative;
+  box-shadow: 0px 0px 0px 4px #d49221, 0px 0px 0px 7px #37240f,
+    inset 0px 3px 0px rgba(255, 255, 255, 0.2),
+    inset 0px -3px 0px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn:hover {
+  box-shadow: 0px 0px 0px 4px #d49221, 0px 0px 0px 7px #37240f,
+    inset 0px 4px 0px rgba(255, 255, 255, 0.3),
+    inset 0px -4px 0px rgba(0, 0, 0, 0.4);
+}
+
+.event-btn-container,
+.repair-btns-container {
+  display: flex;
+  align-items: center;
+
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.event-btn-container:has(.rewards-list) {
+  flex-direction: column;
+  /*   gap: 10px; */
+}
+
+.popup-content {
+  padding: 20px 12%;
+}
+
+.btn::before,
+.btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 10px;
+  height: 10px;
+  background: conic-gradient(#d4a259, #ffcc66);
+  border: 2px solid #4d291a;
+}
+
+.btn:before {
+  left: -11px;
+}
+
+.btn:after {
+  right: -11px;
+}
+
+.btn {
+  margin: 7px 10px;
+}
+
+.btn:disabled {
+  pointer-events: none;
+  background: #bfbfbf;
+  box-shadow: 0px 0px 0px 4px #bfbfbf, 0px 0px 0px 7px #3f3f3f,
+    inset 0px 3px 0px rgba(255, 255, 255, 0.2),
+    inset 0px -3px 0px rgba(0, 0, 0, 0.3);
+}
+
+.btn:disabled:before,
+.btn:disabled::after {
+  background: conic-gradient(#cfcdcb, #fdf9f1);
+  border: 2px solid #3f3f3f;
+}
+
+.game-btn-container {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: end;
 }

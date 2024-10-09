@@ -28,7 +28,6 @@ mapBtn.addEventListener("click", () => {
   popupContainer.scrollLeft =
     (popupContainer.scrollWidth - popupContainer.clientWidth) / 2;
 });
-
 function addNewLocation(id) {
   const locationDropdown = document.createElement("div");
   const locationBtn = document.createElement("button");

@@ -23,15 +23,14 @@
   margin: 0;
 }
 
-.leaderboard-btn {
+.leaderboard-name {
   grid-area: 1 / 1 / 2 / 2;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.leaderboard-current-lvl {
+.leaderboard-lvl {
   grid-area: 1 / 2 / 2 / 3;
-  position: absolute;
 }
 
 .leaderboard-gold {

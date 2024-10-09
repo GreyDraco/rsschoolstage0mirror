@@ -16,6 +16,10 @@ export function openUpgradePopUp() {
   const upgradeList = document.createElement("div");
   upgradeList.className = "upgrade-list";
 
+  const currentGold = document.createElement("p");
+  currentGold.classList.add("current-gold");
+  currentGold.textContent = `${gameParams.gold}`;
+
   const upgradeItemBtnArr = [];
   addUpgradeItem(upgradeList, upgradeItemBtnArr, "playerLvl");
   addUpgradeItem(upgradeList, upgradeItemBtnArr, "castleHitCount");
@@ -24,7 +28,7 @@ export function openUpgradePopUp() {
   addUpgradeItem(upgradeList, upgradeItemBtnArr, "abilities[lightning]");
   addUpgradeItem(upgradeList, upgradeItemBtnArr, "abilities[bargain]");
 
-  popupContent.append(upgradeList);
+  popupContent.append(currentGold, upgradeList);
 }
 
 function addUpgradeItem(upgradeList, upgradeButtons, upgrade) {
@@ -48,7 +52,7 @@ function addUpgradeItem(upgradeList, upgradeButtons, upgrade) {
     case "playerLvl": {
       cost = gameParams.playerLvl * upgradeCosts.playerLvl;
       upgradeCurrentLvl.textContent = gameParams.playerLvl;
-      upgradeCost.textContent = cost;
+      upgradeCost.textContent = `${cost}$`;
       upgradeDescription.textContent = `Уровень отвечает за урон наносимый врагам и влияет на исход некоторых событий. Сила вашей атаки на данный момент: ${castle.power}`;
       if (
         isUpgradeAffordable(
@@ -66,7 +70,9 @@ function addUpgradeItem(upgradeList, upgradeButtons, upgrade) {
           cost += upgradeCosts.playerLvl;
           upgradeCurrentLvl.textContent = gameParams.playerLvl;
           upgradeCost.textContent = cost;
-          upgradeDescription.textContent = `Уровень отвечает за урон наносимый врагам и влияет на исход некоторых событий. Сила вашей атаки на данный момент: ${castle.power}`;
+          upgradeDescription.textContent = `Уровень отвечает за урон наносимый врагам и влияет на исход некоторых событий. Сила вашей атаки на данный момент: ${Math.floor(
+            castle.power
+          )}`;
 
           updateUpgradeButtonsState(upgradeButtons);
         });
@@ -183,7 +189,7 @@ function fillUpgradeGameParamsItem(
   }
 
   upgradeCurrentLvl.textContent = abilityPower / valuePerLvl;
-  upgradeCost.textContent = cost;
+  upgradeCost.textContent = `${cost}$`;
   upgradeDescription.textContent = `${description}${abilityPower}`;
 
   if (
@@ -203,13 +209,18 @@ function fillUpgradeGameParamsItem(
         gameParams.power[abilityKey] = abilityPower;
       }
 
-      gameParams.gold -= cost;
+      if (upgrade === "maxCastleHp") {
+        castle.hp += valuePerLvl;
+      }
 
+      gameParams.gold -= cost;
       cost += upgradeCosts[upgrade] || upgradeCosts.abilities[abilityKey];
 
       upgradeCurrentLvl.textContent = abilityPower / valuePerLvl;
-      upgradeCost.textContent = cost;
-      upgradeDescription.textContent = `${description}${abilityPower}`;
+      upgradeCost.textContent = `${cost}$`;
+      upgradeDescription.textContent = `${description}${Math.floor(
+        abilityPower
+      )}`;
       updateUpgradeButtonsState(upgradeButtons);
     });
   }
@@ -239,6 +250,8 @@ function updateUpgradeButtonsState(upgradeButtons) {
 
     isUpgradeAffordable(cost, maxLvl, currentLvl, btn);
   });
+  const currentGold = document.querySelector(".current-gold");
+  currentGold.textContent = `${gameParams.gold}`;
 }
 
 function isUpgradeAffordable(cost, maxLvl, currentLvl, btn) {

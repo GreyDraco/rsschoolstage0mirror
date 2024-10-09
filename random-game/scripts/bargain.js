@@ -1,4 +1,5 @@
 import { BASE_COST, gameParams } from "./consts.js";
+import { createBtn } from "./helpers/createBtn.js";
 
 export function addBargain(updEnvLayout = () => {}) {
   let isBargainRun = false;
@@ -8,13 +9,26 @@ export function addBargain(updEnvLayout = () => {}) {
   const bargainWinStart = Math.floor(Math.random() * 70);
   const bargainWinEnd = bargainWinStart + 30;
 
-  const { bargainContainer, bargainBar, stopBargainBtn, discountText, bargainBtn } = buildBargainLayout();
-  bargainBar.style.background = `linear-gradient(to right,white 0%, white ${bargainWinStart - 1}%, #434343 ${bargainWinStart}%, #82CFD0 ${bargainWinEnd}%, #fff ${bargainWinEnd}%, white ${bargainWinEnd + 1}%)`;
+  const {
+    bargainContainer,
+    bargainBar,
+    stopBargainBtn,
+    discountText,
+    bargainBtn,
+  } = buildBargainLayout();
+  bargainBar.style.background = `linear-gradient(to right,white 0%, white ${
+    bargainWinStart - 1
+  }%, #434343 ${bargainWinStart}%, #82CFD0 ${bargainWinEnd}%, #fff ${bargainWinEnd}%, white ${
+    bargainWinEnd + 1
+  }%)`;
 
   stopBargainBtn.addEventListener("click", () => {
     isBargainRun = false;
     bargainBtn.disabled = isBargainRun;
-    if (bargainBar.value <= bargainWinEnd && bargainBar.value >= bargainWinStart) {
+    if (
+      bargainBar.value <= bargainWinEnd &&
+      bargainBar.value >= bargainWinStart
+    ) {
       gameParams.discount = 0.7;
     } else {
       gameParams.discount = 1.25;
@@ -32,7 +46,10 @@ export function addBargain(updEnvLayout = () => {}) {
   let direction = 1;
   function runBargain() {
     if (isBargainRun) {
-      if (bargainBar.value === bargainBar.min || bargainBar.value === bargainBar.max) {
+      if (
+        bargainBar.value === bargainBar.min ||
+        bargainBar.value === bargainBar.max
+      ) {
         direction = -direction;
       }
       if (direction > 0) {
@@ -55,10 +72,9 @@ export function addBargain(updEnvLayout = () => {}) {
 }
 
 function buildBargainLayout() {
-  const bargainBtn = document.createElement("button");
+  const bargainBtn = createBtn(["button", "bargain-btn"]);
   bargainBtn.disabled = false;
-  bargainBtn.className = "button bargain-btn";
-  bargainBtn.textContent = "bargain";
+  bargainBtn.textContent = "Торговаться";
 
   const discountText = document.createElement("p");
   discountText.className = "discount-text hidden";
@@ -78,10 +94,15 @@ function buildBargainLayout() {
   bargainTitle.className = "bargain-title";
   bargainTitle.textContent = "Торгуйтесь!";
 
-  const stopBargainBtn = document.createElement("button");
-  stopBargainBtn.className = "button stop-bargain-btn";
-  stopBargainBtn.textContent = "stop bargain";
+  const stopBargainBtn = createBtn("button", "stop-bargain-btn");
+  stopBargainBtn.textContent = "Остановить торги";
 
   bargainContainer.append(bargainTitle, bargainBar, stopBargainBtn);
-  return { bargainContainer, bargainBar, stopBargainBtn, discountText, bargainBtn };
+  return {
+    bargainContainer,
+    bargainBar,
+    stopBargainBtn,
+    discountText,
+    bargainBtn,
+  };
 }

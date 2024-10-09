@@ -6,8 +6,10 @@ import {
   gameEnemyWave,
   gameParams,
   gameState,
+  paramsLocalization,
 } from "../consts.js";
 import { gameEventsData as events } from "../data/gameEventsData.js";
+import { createBtn } from "../helpers/createBtn.js";
 import { playNextAudio } from "../helpers/playNextAudio.js";
 import startBattle from "../helpers/startBattle.js";
 import { hidePopup, showPopup } from "./showPopup.js";
@@ -30,6 +32,7 @@ export function startEvent(id, gameEventsData = events) {
 
   const eventText = document.createElement("p");
   const buttonContainer = document.createElement("div");
+  buttonContainer.classList.add("event-btn-container");
   const dieContainer = document.createElement("div");
   const dieMinigame = document.createElement("div");
 
@@ -94,7 +97,8 @@ export function startEvent(id, gameEventsData = events) {
         }
       } else {
         Object.values(vars).forEach((variant) => {
-          const choiceBtn = document.createElement("button");
+          const choiceBtn = createBtn();
+
           if (
             variant?.check?.gold &&
             gameParams.gold - variant.check.gold < 0
@@ -114,7 +118,7 @@ export function startEvent(id, gameEventsData = events) {
         });
       }
     } else {
-      const okBtn = document.createElement("button");
+      const okBtn = createBtn();
 
       if (gameEvent.rewards) {
         buttonContainer.prepend(giveRewards(gameEvent));
@@ -151,6 +155,7 @@ fireEventBtn.addEventListener("click", () => {
 
 function giveRewards(gameEvent) {
   const rewardList = document.createElement("ul");
+  rewardList.className = "rewards-list";
   Object.entries(gameEvent.rewards).forEach(([key, value]) => {
     if (value !== null) {
       const rewardItem = document.createElement("li");
@@ -159,7 +164,9 @@ function giveRewards(gameEvent) {
         gameParams[key] = Math.max(gameParams[key] + value, 0);
 
         rewardItem.textContent =
-          value > 0 ? `${key}: +${value}` : `${key}: ${-diff}`;
+          value > 0
+            ? `${paramsLocalization[key]}: +${value}`
+            : `${paramsLocalization[key]}: ${-diff}`;
         if (key === "playerLvl") {
           castle.power = CASTLE_PROPS.power + 0.01 * gameParams.playerLvl;
           console.log(castle.power, gameParams.playerLvl);
@@ -167,7 +174,7 @@ function giveRewards(gameEvent) {
       } else {
         Object.entries(value).forEach(([key, value]) => {
           gameParams.abilities[key] += value;
-          rewardItem.textContent = `ability leveled up: ${key}`;
+          rewardItem.textContent = `Улучшена способность: ${paramsLocalization[key]}`;
           const abilityBtn = document.querySelector(`.${key}Btn`);
           if (abilityBtn && abilityBtn.disabled) {
             abilityBtn.disabled = false;

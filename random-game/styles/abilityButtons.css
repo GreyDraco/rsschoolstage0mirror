@@ -62,6 +62,7 @@
   background-size: contain, 80%;
   background-position: center;
   background-color: #fee97d;
+  transition: 0.2s;
 }
 
 .button.ability-btn:not(.unlocked):disabled {
@@ -70,6 +71,10 @@
   opacity: 0.5;
 }
 
+.ability-btn:hover {
+  border: 3px solid #e1c84a;
+  background-color: #f2eeb2;
+}
 .reload-lightning {
   animation: fill-circle 5s linear forwards;
 }

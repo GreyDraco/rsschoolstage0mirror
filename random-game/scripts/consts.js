@@ -25,6 +25,14 @@ export const upgradeMax = {
   abilities: { fireball: 5, lightning: 5, bargain: 10 },
 };
 
+export const paramsLocalization = {
+  gold: "Золото",
+  playerLvl: "Уровень",
+  fireball: "Огненный взрыв",
+  lightning: "Удар молнией",
+  bargain: "Торговля",
+};
+
 export const enemyTypes = ["guard", "knight", "cultist"];
 
 export const spriteAnimationData = {
@@ -155,7 +163,7 @@ export const spriteAnimationData = {
 
 export const gameParams = {
   cost: BASE_COST,
-  gold: 10000,
+  gold: 100000,
   playerLvl: 10,
   discount: 1,
   castleHitCount: 3,

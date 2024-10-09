@@ -2,6 +2,7 @@ import { addBargain } from "../bargain.js";
 import { castle, castleHP } from "../characters.js";
 import { BASE_COST, gameParams, gameState, HP_MAX_WIDTH } from "../consts.js";
 import { calcCost } from "../helpers/calcCost.js";
+import { createBtn } from "../helpers/createBtn.js";
 import { hidePopup, showPopup } from "./showPopup.js";
 
 const repairBtn = document.querySelector(".repairBtn");
@@ -11,6 +12,7 @@ repairBtn.addEventListener("click", () => {
 
   showPopup();
   const {
+    currentGold,
     fullRepairBtn,
     okRepairBtn,
     repairBar,
@@ -64,7 +66,7 @@ repairBtn.addEventListener("click", () => {
     } else {
       okRepairBtn.disabled = false;
     }
-    fullRepairBtn.textContent = `full repair: ${calcCost(
+    fullRepairBtn.textContent = `Отремонтировать все: ${calcCost(
       gameParams.maxCastleHp
     )}$`;
     bargainContainer.classList.add("hidden");
@@ -83,18 +85,19 @@ function buildRepairPopupLayout() {
   const popupContent = document.querySelector(".popup-content");
   popupContent.classList.add("repair-popup");
 
+  const currentGold = document.createElement("p");
+  currentGold.classList.add("current-gold");
+  currentGold.textContent = `${gameParams.gold}`;
+
   const repairButtonsContainer = document.createElement("div");
   repairButtonsContainer.classList.add("repair-btns-container");
 
-  const fullRepairBtn = document.createElement("button");
-  fullRepairBtn.className = "full-repair-btn button";
+  const fullRepairBtn = createBtn(["full-repair-btn", "button"]);
   if (calcCost(gameParams.maxCastleHp) > gameParams.gold) {
     fullRepairBtn.disabled = true;
   }
 
-  const okRepairBtn = document.createElement("button");
-  okRepairBtn.className = "button ok-repair-btn";
-
+  const okRepairBtn = createBtn(["button", "ok-repair-btn"]);
   const repairBarContainer = document.createElement("div");
   repairBarContainer.classList.add("repair-bar-container");
   const repairBar = document.createElement("input");
@@ -114,15 +117,16 @@ function buildRepairPopupLayout() {
     gameParams.maxCastleHp
   }`;
 
-  fullRepairBtn.textContent = `full repair: ${calcCost(
+  fullRepairBtn.textContent = `Отремонтировать все: ${calcCost(
     gameParams.maxCastleHp
   )}$`;
-  okRepairBtn.textContent = "repair";
-  repairButtonsContainer.append(fullRepairBtn, okRepairBtn);
+  okRepairBtn.textContent = "Отремонтировать";
+  repairButtonsContainer.append(okRepairBtn, fullRepairBtn);
   repairBarContainer.append(repairBar, repairCost, repairHp);
 
-  popupContent.append(repairBarContainer, repairButtonsContainer);
+  popupContent.append(currentGold, repairBarContainer, repairButtonsContainer);
   return {
+    currentGold,
     fullRepairBtn,
     okRepairBtn,
     repairBar,
