@@ -51,7 +51,10 @@ function addUpgradeItem(upgradeList, upgradeButtons, upgrade) {
   switch (upgrade) {
     case "playerLvl": {
       cost = gameParams.playerLvl * upgradeCosts.playerLvl;
-      upgradeCurrentLvl.textContent = gameParams.playerLvl;
+      upgradeCurrentLvl.textContent =
+        gameParams.playerLvl < upgradeMax.playerLvl
+          ? gameParams.playerLvl
+          : "MAX";
       upgradeCost.textContent = `${cost}$`;
       upgradeDescription.textContent = `Уровень отвечает за урон наносимый врагам и влияет на исход некоторых событий. Сила вашей атаки на данный момент: ${castle.power}`;
       if (
@@ -68,7 +71,10 @@ function addUpgradeItem(upgradeList, upgradeButtons, upgrade) {
           gameParams.gold -= cost;
 
           cost += upgradeCosts.playerLvl;
-          upgradeCurrentLvl.textContent = gameParams.playerLvl;
+          upgradeCurrentLvl.textContent =
+            gameParams.playerLvl < upgradeMax.playerLvl
+              ? gameParams.playerLvl
+              : "MAX";
           upgradeCost.textContent = cost;
           upgradeDescription.textContent = `Уровень отвечает за урон наносимый врагам и влияет на исход некоторых событий. Сила вашей атаки на данный момент: ${Math.floor(
             castle.power
@@ -159,7 +165,7 @@ function addUpgradeItem(upgradeList, upgradeButtons, upgrade) {
       console.log("got some unexpected upgrade: ", upgrade);
     }
   }
-
+  upgradeItemBtn.append(upgradeCurrentLvl);
   upgradeItem.append(upgradeItemBtn, upgradeDescription, upgradeCost);
   upgradeList.append(upgradeItem);
 }
@@ -188,7 +194,11 @@ function fillUpgradeGameParamsItem(
       (1 + abilityPower / valuePerLvl) * upgradeCosts.abilities[abilityKey];
   }
 
-  upgradeCurrentLvl.textContent = abilityPower / valuePerLvl;
+  upgradeCurrentLvl.textContent =
+    abilityPower / valuePerLvl < upgradeMax[upgrade] ||
+    gameParams.abilities[abilityKey] < upgradeMax.abilities[abilityKey]
+      ? abilityPower / valuePerLvl
+      : "MAX";
   upgradeCost.textContent = `${cost}$`;
   upgradeDescription.textContent = `${description}${abilityPower}`;
 
@@ -206,6 +216,7 @@ function fillUpgradeGameParamsItem(
         abilityPower = gameParams[upgrade];
       } else {
         abilityPower += valuePerLvl;
+        gameParams.abilities[abilityKey]++;
         gameParams.power[abilityKey] = abilityPower;
       }
 
@@ -216,7 +227,11 @@ function fillUpgradeGameParamsItem(
       gameParams.gold -= cost;
       cost += upgradeCosts[upgrade] || upgradeCosts.abilities[abilityKey];
 
-      upgradeCurrentLvl.textContent = abilityPower / valuePerLvl;
+      upgradeCurrentLvl.textContent =
+        abilityPower / valuePerLvl < upgradeMax[upgrade] ||
+        gameParams.abilities[abilityKey] < upgradeMax.abilities[abilityKey]
+          ? abilityPower / valuePerLvl
+          : "MAX";
       upgradeCost.textContent = `${cost}$`;
       upgradeDescription.textContent = `${description}${Math.floor(
         abilityPower
@@ -255,7 +270,7 @@ function updateUpgradeButtonsState(upgradeButtons) {
 }
 
 function isUpgradeAffordable(cost, maxLvl, currentLvl, btn) {
-  console.log(maxLvl, currentLvl, cost, btn);
+  // console.log(maxLvl, currentLvl, cost, btn);
   if (gameParams.gold < cost || currentLvl >= maxLvl) {
     btn.disabled = true;
   }
