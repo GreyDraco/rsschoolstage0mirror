@@ -187,9 +187,15 @@ function animate(currentTime) {
 
   if (gameState.isFireballActive) {
     fireball.display(deltaTime);
+    if (fireball.currentFrame < 1) {
+      gameState.isFireballActive = false;
+    }
   }
   if (gameState.isLightningActive) {
     lightning.display(deltaTime);
+    if (lightning.currentFrame < 1) {
+      gameState.isLightningActive = false;
+    }
   }
 }
 //--------------------------------------------------------------------------------------------
