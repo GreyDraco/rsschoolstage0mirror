@@ -188,12 +188,14 @@ function animate(currentTime) {
   if (gameState.isFireballActive) {
     fireball.display(deltaTime);
     if (fireball.currentFrame < 1) {
+      fireball.currentFrame = fireball.maxFrames;
       gameState.isFireballActive = false;
     }
   }
   if (gameState.isLightningActive) {
     lightning.display(deltaTime);
     if (lightning.currentFrame < 1) {
+      lightning.currentFrame = lightning.maxFrames;
       gameState.isLightningActive = false;
     }
   }

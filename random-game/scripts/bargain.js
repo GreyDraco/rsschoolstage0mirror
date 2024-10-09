@@ -1,5 +1,6 @@
-import { BASE_COST, gameParams } from "./consts.js";
+import { BASE_COST, gameParams, sounds } from "./consts.js";
 import { createBtn } from "./helpers/createBtn.js";
+import { playSound } from "./helpers/playNextAudio.js";
 
 export function addBargain(updEnvLayout = () => {}) {
   let isBargainRun = false;
@@ -23,6 +24,7 @@ export function addBargain(updEnvLayout = () => {}) {
   }%)`;
 
   stopBargainBtn.addEventListener("click", () => {
+    playSound(sounds.btn);
     isBargainRun = false;
     bargainBtn.disabled = isBargainRun;
     if (
@@ -35,9 +37,7 @@ export function addBargain(updEnvLayout = () => {}) {
     }
     gameParams.cost = BASE_COST * gameParams.discount;
 
-    //-----------------------------update layout after bargain-----------------------------------------------------------------------------
     updEnvLayout();
-    //---------------------------------------------------------------------------------------------------------------
     if (intervalId) {
       clearInterval(intervalId);
     }
@@ -60,6 +60,7 @@ export function addBargain(updEnvLayout = () => {}) {
     }
   }
   bargainBtn.addEventListener("click", () => {
+    playSound(sounds.btn);
     isBargainRun = true;
     bargainContainer.classList.remove("hidden");
     bargainBar.value = 1;

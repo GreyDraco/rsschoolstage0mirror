@@ -1,9 +1,11 @@
 import { castle } from "../characters.js";
-import { gameParams, upgradeCosts, upgradeMax } from "../consts.js";
+import { gameParams, sounds, upgradeCosts, upgradeMax } from "../consts.js";
+import { playSound } from "../helpers/playNextAudio.js";
 import { showPopup } from "./showPopup.js";
 
 const upgradeBtn = document.querySelector(".upgradeBtn");
 upgradeBtn.addEventListener("click", () => {
+  playSound(sounds.btn);
   openUpgradePopUp();
 });
 
@@ -194,6 +196,7 @@ function fillUpgradeGameParamsItem(
     )
   ) {
     upgradeItemBtn.addEventListener("click", () => {
+      playSound(sounds.money);
       if (gameParams[upgrade]) {
         gameParams[upgrade] += valuePerLvl;
         abilityPower = gameParams[upgrade];

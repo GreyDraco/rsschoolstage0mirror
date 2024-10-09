@@ -30,7 +30,7 @@ export const enemiesHP = new Sprite({
 export const fireball = new Sprite({
   x: CASTLE_PROPS.width + 20,
   y: 140,
-  width: 8000 /* CANVAS_WIDTH - CASTLE_PROPS.width + 50 */,
+  width: 8000,
   height: 370,
   color: "#d2060617",
   src: "./assets/sprites/explosionR.png",
@@ -41,9 +41,12 @@ export const fireball = new Sprite({
 export const lightning = new Sprite({
   x: 0,
   y: 0,
-  width: 80,
+  width: 1400,
   height: CANVAS_HEIGHT,
   color: "#fdf16d7a",
+  src: "./assets/sprites/lightning.png",
+  maxFrames: 10,
+  delay: 50,
 });
 export const background = new Sprite({
   x: 0,

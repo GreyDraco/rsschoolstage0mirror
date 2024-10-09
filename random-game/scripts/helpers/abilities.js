@@ -1,8 +1,8 @@
 import { lightning } from "../characters.js";
-import { gameParams, gameState } from "../consts.js";
+import { gameParams, gameState, sounds } from "../consts.js";
 import { getEnemyHp } from "./calcHp.js";
 import { hitAll, hitStrongest } from "./hitEnemy.js";
-import { playNextAudio } from "./playNextAudio.js";
+import { playNextAudio, playSound } from "./playNextAudio.js";
 import toggleVisibleToolbar from "./showToolbar.js";
 
 const lightningBtn = document.querySelector(".lightningBtn");
@@ -10,6 +10,7 @@ const fireballBtn = document.querySelector(".fireballBtn");
 const bribeBtn = document.querySelector(".bribeBtn");
 
 bribeBtn.addEventListener("click", () => {
+  playSound(sounds.money);
   const bribeCost = Math.floor(
     getEnemyHp() / 1 + gameParams.abilities.princess
   );
@@ -24,13 +25,11 @@ bribeBtn.addEventListener("click", () => {
 });
 
 lightningBtn.addEventListener("click", () => {
+  playSound(sounds.lightning);
   lightningBtn.disabled = true;
   gameState.isLightningActive = true;
   lightningBtn.classList.add("reload-lightning");
   lightning.xPos = hitStrongest(gameParams.power.lightning);
-  setTimeout(() => {
-    gameState.isLightningActive = false;
-  }, 500);
 });
 
 lightningBtn.addEventListener("animationend", () => {
@@ -39,13 +38,12 @@ lightningBtn.addEventListener("animationend", () => {
 });
 
 fireballBtn.addEventListener("click", () => {
+  playSound(sounds.fireball);
+
   hitAll(gameParams.power.fireball);
   fireballBtn.disabled = true;
   gameState.isFireballActive = true;
   fireballBtn.classList.add("reload-fireball");
-  setTimeout(() => {
-    gameState.isFireballActive = false;
-  }, 2000);
 });
 
 fireballBtn.addEventListener("animationend", () => {

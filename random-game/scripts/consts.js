@@ -247,3 +247,16 @@ export const leadersKey = "GrayDracoLeaders";
 export const audio = new Audio();
 audio.loop = true;
 audio.volume = 0.1;
+
+export const sound = new Audio();
+
+export const sounds = {
+  btn: "btn.mp3",
+  battle: "battle.mp3",
+  event: "event.mp3",
+  fireball: "fireball.mp3",
+  lightning: "lightning.mp3",
+  lose: "lose.wav",
+  win: "win.mp3",
+  money: "money.mp3",
+};

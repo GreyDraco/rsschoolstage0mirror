@@ -1,13 +1,21 @@
 import { addBargain } from "../bargain.js";
 import { castle, castleHP } from "../characters.js";
-import { BASE_COST, gameParams, gameState, HP_MAX_WIDTH } from "../consts.js";
+import {
+  BASE_COST,
+  gameParams,
+  gameState,
+  HP_MAX_WIDTH,
+  sounds,
+} from "../consts.js";
 import { calcCost } from "../helpers/calcCost.js";
 import { createBtn } from "../helpers/createBtn.js";
+import { playSound } from "../helpers/playNextAudio.js";
 import { hidePopup, showPopup } from "./showPopup.js";
 
 const repairBtn = document.querySelector(".repairBtn");
 
 repairBtn.addEventListener("click", () => {
+  playSound(sounds.btn);
   gameParams.cost = BASE_COST * gameParams.discount;
 
   showPopup();
@@ -33,6 +41,7 @@ repairBtn.addEventListener("click", () => {
   });
 
   okRepairBtn.addEventListener("click", () => {
+    playSound(sounds.money);
     hidePopup();
     gameParams.gold -= calcCost(repairBar.value);
     castle.hp = repairBar.value;
@@ -40,7 +49,9 @@ repairBtn.addEventListener("click", () => {
   });
 
   fullRepairBtn.addEventListener("click", () => {
+    playSound(sounds.money);
     hidePopup();
+
     gameParams.gold -= calcCost(gameParams.maxCastleHp);
     castle.hp = gameParams.maxCastleHp;
     castleHP.width = HP_MAX_WIDTH;

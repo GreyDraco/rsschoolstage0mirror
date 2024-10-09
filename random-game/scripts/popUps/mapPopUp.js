@@ -1,9 +1,12 @@
+import { sounds } from "../consts.js";
 import { gameEventsData } from "../data/gameEventsData.js";
+import { playSound } from "../helpers/playNextAudio.js";
 import { startEvent } from "./eventPopUp.js";
 import { hidePopup, showPopup } from "./showPopup.js";
 
 const mapBtn = document.querySelector(".mapBtn");
 mapBtn.addEventListener("click", () => {
+  playSound(sounds.btn);
   showPopup();
   const popupContent = document.querySelector(".popup-content");
   popupContent.classList.add("map-popup");
@@ -47,10 +50,12 @@ function addNewLocation(id) {
   locationBtn.id = id;
 
   eventBtn.addEventListener("click", () => {
+    playSound(sounds.event);
     hidePopup();
     startEvent(id);
   });
   battleBtn.addEventListener("click", () => {
+    playSound(sounds.battle);
     hidePopup();
     startEvent("immediateBattle", gameEventsData[id]);
   });

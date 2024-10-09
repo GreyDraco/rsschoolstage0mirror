@@ -1,15 +1,24 @@
-import { gameParams, gameState, leaders, leadersKey } from "../consts.js";
+import {
+  gameParams,
+  gameState,
+  leaders,
+  leadersKey,
+  sounds,
+} from "../consts.js";
 import { createBtn } from "../helpers/createBtn.js";
+import { playSound } from "../helpers/playNextAudio.js";
 import { hidePopup, showPopup } from "./showPopup.js";
 
 const endGameBtn = document.querySelector(".DEBUG-endGame");
 const leaderboardBtn = document.querySelector(".leaderboard-btn");
 
 leaderboardBtn.addEventListener("click", () => {
+  playSound(sounds.btn);
   openLeaderboard();
 });
 
 endGameBtn.addEventListener("click", () => {
+  playSound(sounds.btn);
   openEndPopUp();
 });
 
@@ -78,6 +87,7 @@ export function openLeaderboard() {
 }
 
 export function openEndPopUp() {
+  playSound(gameState.isKingDead ? sounds.win : sounds.lose);
   showPopup();
   const result = {
     name: "",
@@ -121,6 +131,7 @@ export function openEndPopUp() {
     }
   });
   saveResultBtn.addEventListener("click", () => {
+    playSound(sounds.btn);
     updateLeaders(nameInput, result);
   });
   popupContent.append(resultTextContainer, nameInput, saveResultBtn);

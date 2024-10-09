@@ -7,10 +7,11 @@ import {
   gameParams,
   gameState,
   paramsLocalization,
+  sounds,
 } from "../consts.js";
 import { gameEventsData as events } from "../data/gameEventsData.js";
 import { createBtn } from "../helpers/createBtn.js";
-import { playNextAudio } from "../helpers/playNextAudio.js";
+import { playNextAudio, playSound } from "../helpers/playNextAudio.js";
 import startBattle from "../helpers/startBattle.js";
 import { hidePopup, showPopup } from "./showPopup.js";
 
@@ -110,6 +111,7 @@ export function startEvent(id, gameEventsData = events) {
           buttonContainer.append(choiceBtn);
 
           choiceBtn.addEventListener("click", () => {
+            playSound(sounds.event);
             gameEvent = variant;
             setTimeout(() => {
               displayEventFrame();
@@ -129,6 +131,7 @@ export function startEvent(id, gameEventsData = events) {
       buttonContainer.append(okBtn);
       eventText.textContent = gameEvent.text;
       okBtn.addEventListener("click", () => {
+        playSound(sounds.event);
         if (gameEvent.battle) {
           gameEnemyWave.incomingEnemies = {
             ...gameEnemyWave.incomingEnemies,
@@ -150,6 +153,7 @@ export function startEvent(id, gameEventsData = events) {
 }
 
 fireEventBtn.addEventListener("click", () => {
+  playSound(sounds.event);
   startEvent("village");
 });
 
