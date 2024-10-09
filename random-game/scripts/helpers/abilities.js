@@ -27,7 +27,7 @@ lightningBtn.addEventListener("click", () => {
   lightningBtn.disabled = true;
   gameState.isLightningActive = true;
   lightningBtn.classList.add("reload-lightning");
-  lightning.xPos = hitStrongest(150);
+  lightning.xPos = hitStrongest(gameParams.power.lightning);
   setTimeout(() => {
     gameState.isLightningActive = false;
   }, 500);
@@ -39,7 +39,7 @@ lightningBtn.addEventListener("animationend", () => {
 });
 
 fireballBtn.addEventListener("click", () => {
-  hitAll(30);
+  hitAll(gameParams.power.fireball);
   fireballBtn.disabled = true;
   gameState.isFireballActive = true;
   fireballBtn.classList.add("reload-fireball");

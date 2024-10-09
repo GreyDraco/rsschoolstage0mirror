@@ -1,5 +1,12 @@
 import { addBargain } from "../bargain.js";
-import { DIE_SIZE, gameEnemyWave, gameParams, gameState } from "../consts.js";
+import { castle } from "../characters.js";
+import {
+  CASTLE_PROPS,
+  DIE_SIZE,
+  gameEnemyWave,
+  gameParams,
+  gameState,
+} from "../consts.js";
 import { gameEventsData as events } from "../data/gameEventsData.js";
 import { playNextAudio } from "../helpers/playNextAudio.js";
 import startBattle from "../helpers/startBattle.js";
@@ -153,6 +160,10 @@ function giveRewards(gameEvent) {
 
         rewardItem.textContent =
           value > 0 ? `${key}: +${value}` : `${key}: ${-diff}`;
+        if (key === "playerLvl") {
+          castle.power = CASTLE_PROPS.power + 0.01 * gameParams.playerLvl;
+          console.log(castle.power, gameParams.playerLvl);
+        }
       } else {
         Object.entries(value).forEach(([key, value]) => {
           gameParams.abilities[key] += value;

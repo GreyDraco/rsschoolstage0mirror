@@ -5,6 +5,7 @@
 @import url(./styles/abilityButtons.css);
 @import url(./styles/leaderboard.css);
 @import url(./styles/startMenu.css);
+@import url(./styles/upgrade.css);
 
 * {
   box-sizing: border-box;

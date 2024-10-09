@@ -1,7 +1,3 @@
-.leaderboard-content {
-  width: 80%;
-}
-
 .leaderboard-list {
   display: flex;
   flex-direction: column;
@@ -27,14 +23,15 @@
   margin: 0;
 }
 
-.leaderboard-name {
+.leaderboard-btn {
   grid-area: 1 / 1 / 2 / 2;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.leaderboard-lvl {
+.leaderboard-current-lvl {
   grid-area: 1 / 2 / 2 / 3;
+  position: absolute;
 }
 
 .leaderboard-gold {
@@ -46,14 +43,4 @@
   background-position: center;
   background-repeat: no-repeat;
   grid-area: 1 / 4 / 2 / 5;
-}
-
-.parent {
-}
-
-.div2 {
-}
-.div3 {
-}
-.div4 {
 }

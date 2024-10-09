@@ -22,11 +22,11 @@ import {
   HP_Y_POS,
   leaders,
   leadersKey,
-  MAX_CASTLE_HP,
 } from "./scripts/consts.js";
 import "./scripts/popUps/repairPopUp.js";
 import "./scripts/popUps/eventPopUp.js";
 import "./scripts/popUps/mapPopUp.js";
+import "./scripts/popUps/upgradePopUp.js";
 import "./scripts/popUps/endPopUp.js";
 import "./scripts/helpers/abilities.js";
 import "./scripts/helpers/showToolbar.js";
@@ -114,7 +114,8 @@ function updateEnemyHp(damage) {
 
 function updateCastleHp(damage) {
   castle.hp -= damage;
-  const currentCastleHPWidth = (castle.hp * HP_MAX_WIDTH) / MAX_CASTLE_HP;
+  const currentCastleHPWidth =
+    (castle.hp * HP_MAX_WIDTH) / gameParams.maxCastleHp;
   castleHP.width = Math.max(currentCastleHPWidth, 0);
 }
 

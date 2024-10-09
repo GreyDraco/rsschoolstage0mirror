@@ -1,18 +1,7 @@
 export const CANVAS_WIDTH = 1000;
 export const CANVAS_HEIGHT = 500;
-export const MAX_CASTLE_HP = 10000;
 export const MAX_ENEMY_HP = 50;
-export const CASTLE_PROPS = {
-  x: 0,
-  y: CANVAS_HEIGHT - 320,
-  width: 270,
-  height: 300,
-  color: "green",
-  hp: MAX_CASTLE_HP,
-  power: 0.1,
-  src: "./assets/sprites/castleLvl2.png",
-};
-export const STOP_ENEMY_POS = CASTLE_PROPS.width - 20;
+
 export const DIE_SIZE = 5;
 
 export const HP_MAX_WIDTH = 300;
@@ -21,7 +10,20 @@ export const HP_Y_POS = 30;
 
 export const HP_CASTLE_POS = 20;
 export const HP_ENEMIES_POS = CANVAS_WIDTH - HP_MAX_WIDTH - HP_CASTLE_POS;
-export const BASE_COST = 0.1;
+export const BASE_COST = 0.1; // repair cost
+
+export const upgradeCosts = {
+  playerLvl: 5000,
+  maxCastleHp: 500,
+  castleHitCount: 3000,
+  abilities: { fireball: 7000, lightning: 5000, bargain: 5000 },
+};
+export const upgradeMax = {
+  playerLvl: 10,
+  maxCastleHp: 15,
+  castleHitCount: 5,
+  abilities: { fireball: 5, lightning: 5, bargain: 10 },
+};
 
 export const enemyTypes = ["guard", "knight", "cultist"];
 
@@ -158,8 +160,27 @@ export const gameParams = {
   discount: 1,
   castleHitCount: 3,
   castleRange: 300,
+  maxCastleHp: 10000,
+  power: {
+    fireball: 30,
+    lightning: 150,
+    bargain: 10,
+  },
   abilities: { fireball: 1, lightning: 1, bargain: 10, princess: 0 },
 };
+
+export const CASTLE_PROPS = {
+  x: 0,
+  y: CANVAS_HEIGHT - 320,
+  width: 270,
+  height: 300,
+  color: "green",
+  hp: gameParams.maxCastleHp,
+  power: 0.1,
+  src: "./assets/sprites/castleLvl2.png",
+};
+export const STOP_ENEMY_POS = CASTLE_PROPS.width - 20;
+
 export const gameState = {
   gameOver: false,
   isCombat: false,

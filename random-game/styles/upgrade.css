@@ -1,0 +1,45 @@
+.upgrade-list {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 0;
+  gap: 10px;
+}
+
+.upgrade-item {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 60px 1fr 100px;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.upgrade-item:first-child {
+  font-weight: bold;
+}
+
+.upgrade-item p {
+  margin: 0;
+}
+
+.upgrade-item .upgrade-btn {
+  grid-area: 1 / 1 / 2 / 2;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.upgrade-description {
+  grid-area: 1 / 2 / 2 / 3;
+  text-align: center;
+  padding: 0 5px;
+}
+
+.upgrade-cost {
+  grid-area: 1 / 3 / 2 / 4;
+}
+
+.upgrade-current-lvl {
+  position: absolute;
+}
