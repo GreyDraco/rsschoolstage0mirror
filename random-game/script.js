@@ -7,6 +7,8 @@ import {
   enemiesHP,
   fireball,
   lightning,
+  money,
+  playerLvl,
 } from "./scripts/characters.js";
 import {
   CANVAS_HEIGHT,
@@ -51,22 +53,19 @@ if (localStorage.GrayDracoLeaders) {
 //audio.volume = 0.5;
 openStartPopUp();
 //----------------------------------------------------------------------------------------
+
 function displayGold() {
-  ctx.beginPath();
-  ctx.arc(CANVAS_WIDTH / 2 - 100, HP_Y_POS + 15, 20, 0, 2 * Math.PI);
-  ctx.fillStyle = "yellow";
-  ctx.fill();
-  ctx.lineWidth = 4;
-  ctx.strokeStyle = "#ecec73";
-  ctx.stroke();
-
-  ctx.font = "30px Arial";
-  ctx.fillStyle = "purple";
-  ctx.fillText("$", CANVAS_WIDTH / 2 - 107, HP_Y_POS + 25);
-
+  money.display();
   ctx.font = "40px Arial";
   ctx.fillStyle = "purple";
   ctx.fillText(gameParams.gold, CANVAS_WIDTH / 2 - 70, HP_Y_POS + 30);
+}
+
+function displayPlayerLvl() {
+  playerLvl.display();
+  ctx.font = "20px Arial";
+  ctx.fillStyle = "purple";
+  ctx.fillText(gameParams.playerLvl, dragon.xPos + 157, dragon.yPos - 2);
 }
 
 function displayHP() {
@@ -179,6 +178,7 @@ function animate(currentTime) {
   }
 
   displayGold();
+  displayPlayerLvl();
 
   ctx.beginPath();
   ctx.moveTo(CASTLE_PROPS.width + 50, CANVAS_HEIGHT);

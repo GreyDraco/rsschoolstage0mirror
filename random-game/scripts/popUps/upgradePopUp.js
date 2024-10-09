@@ -236,9 +236,9 @@ function updateUpgradeButtonsState(upgradeButtons) {
       ? { upgrade: "castleHitCount", valuePerLvl: 1 }
       : btn.classList.contains("upgrade-maxCastleHp")
       ? { upgrade: "maxCastleHp", valuePerLvl: 1000 }
-      : btn.classList.contains("upgrade-abilities[fireball]")
+      : btn.classList.contains("upgrade-fireball")
       ? { upgrade: "fireball", valuePerLvl: 30 }
-      : btn.classList.contains("upgrade-abilities[lightning]")
+      : btn.classList.contains("upgrade-lightning")
       ? { upgrade: "lightning", valuePerLvl: 150 }
       : { upgrade: "bargain", valuePerLvl: 1 };
 
@@ -249,7 +249,6 @@ function updateUpgradeButtonsState(upgradeButtons) {
     let cost =
       currentLvl * upgradeCosts[upgrade] ||
       (currentLvl + 1) * upgradeCosts.abilities[upgrade];
-
     isUpgradeAffordable(cost, maxLvl, currentLvl, btn);
   });
   const currentGold = document.querySelector(".current-gold");

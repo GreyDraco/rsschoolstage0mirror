@@ -58,3 +58,19 @@ export const dragon = new Sprite({
   y: CANVAS_HEIGHT - 385,
   ...spriteAnimationData.dragon.idle,
 });
+
+export const money = new Sprite({
+  x: CANVAS_WIDTH / 2 - 115,
+  y: HP_Y_POS - 5,
+  width: 40,
+  height: 40,
+  src: "./assets/icons/dollar.png",
+});
+
+export const playerLvl = new Sprite({
+  x: dragon.xPos + 130,
+  y: dragon.yPos - 20,
+  width: 20,
+  height: 20,
+  src: "./assets/icons/star.png",
+});
