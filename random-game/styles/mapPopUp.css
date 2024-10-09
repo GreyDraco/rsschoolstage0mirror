@@ -1,0 +1,108 @@
+.popup-container:has(.map-popup)::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+  border-radius: 20px;
+}
+
+.popup-container:has(.map-popup)::-webkit-scrollbar-track {
+  background: rgb(131, 130, 130);
+  border-radius: 20px;
+}
+
+.popup-container:has(.map-popup)::-webkit-scrollbar-thumb {
+  background-color: #d1802e;
+  border-radius: 20px;
+}
+
+.popup-container:has(.map-popup)::before,
+.popup-container:has(.map-popup)::after {
+  display: none;
+}
+
+.popup-container:has(.map-popup) {
+  width: fit-content;
+  width: 90vw;
+  padding: 0;
+  align-items: start;
+  justify-content: start;
+  overflow: auto;
+  height: fit-content;
+  min-height: auto;
+  max-height: 90vh;
+  max-width: 1088px;
+}
+
+.popup-content.map-popup {
+  padding: 0;
+  background: none;
+
+  position: relative;
+  overflow: visible;
+}
+
+.map-img {
+  width: 100%;
+  height: 100%;
+}
+
+.map-locations {
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr repeat(4, 0.5fr) repeat(2, 1fr);
+  grid-column-gap: 1vw;
+  grid-row-gap: 1vh;
+
+  width: 100%;
+  height: 100%;
+}
+
+.location-dropdown.dropdown-village {
+  grid-area: 3 / 2 / 5 / 3;
+}
+.location-dropdown.dropdown-city1 {
+  grid-area: 2 / 3 / 4 / 4;
+}
+
+.location-dropdown.dropdown-cultists {
+  grid-area: 4 / 4 / 6 / 5;
+}
+.location-dropdown.dropdown-city2 {
+  grid-area: 6 / 3 / 7 / 4;
+}
+.location-dropdown.dropdown-king {
+  grid-area: 4 / 3 / 6 / 4;
+}
+
+.location-btn.village {
+  background-image: url(../assets/map/village2.png);
+}
+
+.location-btn.city1 {
+  background-image: url(../assets/map/city1.png);
+}
+
+.location-btn.city2 {
+  background-image: url(../assets/map/city2.png);
+}
+.location-btn.cultists {
+  background-image: url(../assets/map/cultists.png);
+}
+.location-btn.king {
+  background-image: url(../assets/map/castleIcon.png);
+}
+
+.location-btn,
+.location-dropdown {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  border: none;
+}
+
+.location-btn:hover {
+  filter: drop-shadow(1px 1px 6px #fff93c);
+}

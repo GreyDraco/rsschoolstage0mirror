@@ -1,14 +1,10 @@
 .location-btn {
-  width: 30px;
-  height: 30px;
-  background-color: aqua;
   cursor: pointer;
+  padding: 0;
 }
 .location-dropdown {
   position: relative;
   display: inline-block;
-  z-index: 3;
-  height: 30px;
 }
 
 .location-dropdown .dropdown-content {
@@ -18,17 +14,17 @@
   z-index: 1;
   margin: 0;
   border-radius: 50%;
-  bottom: -45px;
+  bottom: -25px;
   cursor: pointer;
   background-color: white;
 }
 
 .location-dropdown .dropdown-content.battle-btn {
-  left: -45px;
+  left: 20%;
   border-top-right-radius: 0;
 }
 .location-dropdown .dropdown-content.event-btn {
-  left: 30px;
+  right: 15%;
   border-top-left-radius: 0;
 }
 .location-dropdown:focus-within .dropdown-content {
@@ -57,4 +53,29 @@
   background-repeat: no-repeat;
   background-size: 24px, 100%;
   background-position: center;
+}
+/*------------------------------------------*/
+.dropdown-content:hover {
+  filter: drop-shadow(1px 1px 10px #fff93c);
+}
+
+@media (max-width: 850px) {
+  .location-dropdown .dropdown-content.event-btn {
+    right: 0;
+    scale: 0.7;
+    bottom: -15px;
+  }
+  .location-dropdown .dropdown-content.battle-btn {
+    left: 0;
+    scale: 0.7;
+    bottom: -15px;
+  }
+}
+@media (max-width: 550px) {
+  .location-dropdown .dropdown-content.event-btn {
+    right: -25%;
+  }
+  .location-dropdown .dropdown-content.battle-btn {
+    left: -25%;
+  }
 }

@@ -525,7 +525,6 @@ export const gameEventsData = {
         },
       },
     },
-    //-------------------------------------------
   },
 
   king: {
@@ -534,6 +533,5 @@ export const gameEventsData = {
     check: null,
     vars: null,
     battle: { guard: 30, knight: 20 },
-    //-------------------------------------------
   },
 };

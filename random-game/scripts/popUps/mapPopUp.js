@@ -5,12 +5,28 @@ import { hidePopup, showPopup } from "./showPopup.js";
 const mapBtn = document.querySelector(".mapBtn");
 mapBtn.addEventListener("click", () => {
   showPopup();
-
   const popupContent = document.querySelector(".popup-content");
   popupContent.classList.add("map-popup");
+
+  const mapImg = document.createElement("img");
+  mapImg.classList.add("map-img");
+  mapImg.src = "./assets/map/map.jpg";
+  popupContent.append(mapImg);
+
+  const mapLocations = document.createElement("div");
+  mapLocations.classList.add("map-locations");
+  popupContent.append(mapLocations);
+
   Object.keys(gameEventsData).forEach((location) => {
-    popupContent.append(addNewLocation(location));
+    mapLocations.append(addNewLocation(location));
   });
+
+  const popupContainer = document.querySelector(".popup-container");
+  console.log(popupContainer.clientHeight);
+  popupContainer.scrollTop =
+    (popupContainer.scrollHeight - popupContainer.clientHeight) / 2;
+  popupContainer.scrollLeft =
+    (popupContainer.scrollWidth - popupContainer.clientWidth) / 2;
 });
 
 function addNewLocation(id) {
@@ -32,7 +48,6 @@ function addNewLocation(id) {
 
   locationBtn.id = id;
 
-  locationBtn.textContent = id;
   eventBtn.addEventListener("click", () => {
     hidePopup();
     startEvent(id);
