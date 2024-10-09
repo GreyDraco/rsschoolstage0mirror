@@ -119,9 +119,13 @@ function updateCastleHp(damage) {
   castleHP.width = Math.max(currentCastleHPWidth, 0);
 }
 
+let lastTime = 0;
 displayHP();
+//------------------------------------------------------<animate>------------------------------------------------
+function animate(currentTime) {
+  const deltaTime = currentTime - lastTime;
+  lastTime = currentTime;
 
-function animate() {
   window.requestAnimationFrame(animate);
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   background.display();
@@ -129,26 +133,27 @@ function animate() {
   displayHP();
 
   castle.display("green");
-  dragon.display();
+  dragon.display(deltaTime);
 
   if (gameState.isCombat) {
     gameEnemyWave.onScreenEnemies.forEach((enemy) => {
       if (enemy.xPos > enemy.stopPos) {
-        enemy.move();
+        enemy.move(deltaTime);
         if (enemy.xPos <= enemy.stopPos) {
           enemy.selectAnimation("attack");
         }
       } else {
         updateCastleHp(enemy.power);
-        enemy.display();
+        enemy.display(deltaTime);
       }
     });
     checkCastleDead();
   } else {
     if (gameEnemyWave.onScreenEnemies.length) {
       gameEnemyWave.onScreenEnemies.forEach((enemy) => {
-        enemy.move(1);
+        enemy.move(deltaTime, 1);
         enemy.selectAnimation("runBack");
+        enemy.display(deltaTime);
       });
       gameEnemyWave.onScreenEnemies = gameEnemyWave.onScreenEnemies.filter(
         (enemy) => enemy.xPos <= CANVAS_WIDTH
@@ -166,7 +171,7 @@ function animate() {
   }
   if (gameEnemyWave.deadEnemies.length) {
     gameEnemyWave.deadEnemies.forEach((enemy) => {
-      enemy.display();
+      enemy.display(deltaTime);
       gameEnemyWave.deadEnemies = gameEnemyWave.deadEnemies.filter(
         (enemy) => enemy.currentFrame > 0
       );
@@ -181,14 +186,14 @@ function animate() {
   ctx.stroke();
 
   if (gameState.isFireballActive) {
-    fireball.display();
+    fireball.display(deltaTime);
   }
   if (gameState.isLightningActive) {
-    lightning.display();
+    lightning.display(deltaTime);
   }
 }
-
-animate();
+//--------------------------------------------------------------------------------------------
+animate(0);
 
 pushEnemyWave.addEventListener("click", () => {
   gameEnemyWave.incomingEnemies.guard = 1;
