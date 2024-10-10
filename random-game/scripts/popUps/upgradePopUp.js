@@ -189,7 +189,7 @@ function fillUpgradeGameParamsItem(
     abilityPower / valuePerLvl < upgradeMax[upgrade] ||
     gameParams.abilities[abilityKey] < upgradeMax.abilities[abilityKey]
       ? abilityPower / valuePerLvl
-      : "MAX";
+      : "МАХ";
   upgradeCost.textContent = `${cost}$`;
   upgradeDescription.textContent = `${description}${
     upgrade === "playerLvl" ? castle.power : abilityPower
@@ -229,7 +229,7 @@ function fillUpgradeGameParamsItem(
         abilityPower / valuePerLvl < upgradeMax[upgrade] ||
         gameParams.abilities[abilityKey] < upgradeMax.abilities[abilityKey]
           ? abilityPower / valuePerLvl
-          : "MAX";
+          : "МАХ";
       upgradeCost.textContent = `${cost}$`;
       upgradeDescription.textContent = `${description}${
         upgrade === "playerLvl" ? castle.power : abilityPower

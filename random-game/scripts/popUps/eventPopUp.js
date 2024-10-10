@@ -26,8 +26,6 @@ export function startEvent(id, gameEventsData = events) {
     playNextAudio(id);
   }
 
-  console.log(id);
-
   const popupContent = document.querySelector(".popup-content");
   const popupContainer = document.querySelector(".popup-container");
   popupContainer.addEventListener("animationend", () => {
@@ -35,14 +33,20 @@ export function startEvent(id, gameEventsData = events) {
   });
   popupContent.classList.add("event-popup");
 
+  const eventImg = document.createElement("img");
+  eventImg.className = "event-img";
+  eventImg.src = "./assets/PLACEHOLDER.jpeg";
+  eventImg.alt = `${id}-event-image`;
+
   const eventText = document.createElement("p");
+  eventText.className = "event-text";
   const buttonContainer = document.createElement("div");
   buttonContainer.classList.add("event-btn-container");
   const dieContainer = document.createElement("div");
   const dieMinigame = document.createElement("div");
 
   dieContainer.append(dieMinigame);
-  popupContent.append(eventText, buttonContainer, dieContainer);
+  popupContent.append(eventImg, eventText, buttonContainer, dieContainer);
 
   const eventName = id;
   let gameEvent = gameEventsData[eventName];
