@@ -29,6 +29,10 @@ export function startEvent(id, gameEventsData = events) {
   console.log(id);
 
   const popupContent = document.querySelector(".popup-content");
+  const popupContainer = document.querySelector(".popup-container");
+  popupContainer.addEventListener("animationend", () => {
+    popupContainer.style.animation = "none";
+  });
   popupContent.classList.add("event-popup");
 
   const eventText = document.createElement("p");
@@ -114,6 +118,7 @@ export function startEvent(id, gameEventsData = events) {
             playSound(sounds.event);
             gameEvent = variant;
             setTimeout(() => {
+              popupContainer.style.animation = "popup 0.6s";
               displayEventFrame();
             }, 300);
           });

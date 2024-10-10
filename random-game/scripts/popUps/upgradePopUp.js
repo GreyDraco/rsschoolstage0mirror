@@ -1,7 +1,8 @@
 import { castle } from "../characters.js";
 import { gameParams, sounds, upgradeCosts, upgradeMax } from "../consts.js";
+import { createBtn } from "../helpers/createBtn.js";
 import { playSound } from "../helpers/playNextAudio.js";
-import { showPopup } from "./showPopup.js";
+import { hidePopup, showPopup } from "./showPopup.js";
 
 const upgradeBtn = document.querySelector(".upgradeBtn");
 upgradeBtn.addEventListener("click", () => {
@@ -30,7 +31,14 @@ export function openUpgradePopUp() {
   addUpgradeItem(upgradeList, upgradeItemBtnArr, "abilities[lightning]");
   addUpgradeItem(upgradeList, upgradeItemBtnArr, "abilities[bargain]");
 
-  popupContent.append(currentGold, upgradeList);
+  const backBtn = createBtn();
+  backBtn.textContent = "Закрыть";
+  backBtn.addEventListener("click", () => {
+    playSound(sounds.btn);
+    hidePopup();
+  });
+
+  popupContent.append(currentGold, upgradeList, backBtn);
 }
 
 function addUpgradeItem(upgradeList, upgradeButtons, upgrade) {

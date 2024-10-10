@@ -198,6 +198,9 @@ export const gameState = {
   isFireballActive: false,
   isLightningActive: false,
   isKingDead: false,
+  generalVol: 1,
+  musicVol: 1,
+  soundVol: 1,
 };
 
 export const gameEnemyWave = {
@@ -243,12 +246,20 @@ export const gameEnemies = {
 
 export const leaders = { results: [] };
 export const leadersKey = "GrayDracoLeaders";
+export const settingsKey = "GrayDracoSettings";
+
+if (localStorage[settingsKey]) {
+  Object.assign(gameState, JSON.parse(localStorage.getItem(settingsKey)));
+
+  console.log(gameState);
+}
 
 export const audio = new Audio();
 audio.loop = true;
-audio.volume = 0.1;
-
+/* audio.volume = 0.1; */
+audio.volume = gameState.musicVol * gameState.generalVol;
 export const sound = new Audio();
+sound.volume = gameState.soundVol * gameState.generalVol;
 
 export const sounds = {
   btn: "btn.mp3",

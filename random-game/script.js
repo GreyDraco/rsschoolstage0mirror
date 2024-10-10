@@ -24,6 +24,7 @@ import {
   HP_Y_POS,
   leaders,
   leadersKey,
+  settingsKey,
 } from "./scripts/consts.js";
 import "./scripts/popUps/repairPopUp.js";
 import "./scripts/popUps/eventPopUp.js";
@@ -32,6 +33,7 @@ import "./scripts/popUps/upgradePopUp.js";
 import "./scripts/popUps/endPopUp.js";
 import "./scripts/helpers/abilities.js";
 import "./scripts/helpers/showToolbar.js";
+import "./scripts/popUps/settingsPopUp.js";
 import { getEnemyHp } from "./scripts/helpers/calcHp.js";
 import startBattle from "./scripts/helpers/startBattle.js";
 import { hitClosestEnemies } from "./scripts/helpers/hitEnemy.js";
@@ -39,6 +41,10 @@ import { openEndPopUp } from "./scripts/popUps/endPopUp.js";
 import toggleVisibleToolbar from "./scripts/helpers/showToolbar.js";
 import { playNextAudio } from "./scripts/helpers/playNextAudio.js";
 import { openStartPopUp } from "./scripts/popUps/startPopUp.js";
+
+window.onload = () => {
+  playNextAudio("idle");
+};
 
 const checkLvlBtn = document.querySelector(".DEBUG-Lvl");
 const pushEnemyWave = document.querySelector(".DEBUG-wave");
@@ -49,10 +55,7 @@ if (localStorage.GrayDracoLeaders) {
   localStorage.setItem(leadersKey, JSON.stringify([]));
 }
 
-//------------------------------<Start of the game>---------------------------------------
-//audio.volume = 0.5;
 openStartPopUp();
-//----------------------------------------------------------------------------------------
 
 function displayGold() {
   money.display();
@@ -180,11 +183,6 @@ function animate(currentTime) {
   displayGold();
   displayPlayerLvl();
 
-  ctx.beginPath();
-  ctx.moveTo(CASTLE_PROPS.width + 50, CANVAS_HEIGHT);
-  ctx.lineTo(CASTLE_PROPS.width + 50, 0);
-  ctx.stroke();
-
   if (gameState.isFireballActive) {
     fireball.display(deltaTime);
     if (fireball.currentFrame < 1) {
@@ -200,7 +198,6 @@ function animate(currentTime) {
     }
   }
 }
-//--------------------------------------------------------------------------------------------
 animate(0);
 
 pushEnemyWave.addEventListener("click", () => {

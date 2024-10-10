@@ -42,7 +42,6 @@ repairBtn.addEventListener("click", () => {
 
   okRepairBtn.addEventListener("click", () => {
     playSound(sounds.money);
-    hidePopup();
     gameParams.gold -= calcCost(repairBar.value);
     castle.hp = repairBar.value;
     castleHP.width = (repairBar.value * HP_MAX_WIDTH) / gameParams.maxCastleHp;

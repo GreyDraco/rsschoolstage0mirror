@@ -8,14 +8,9 @@ import {
 import { createBtn } from "../helpers/createBtn.js";
 import { playSound } from "../helpers/playNextAudio.js";
 import { hidePopup, showPopup } from "./showPopup.js";
+import { openStartPopUp } from "./startPopUp.js";
 
 const endGameBtn = document.querySelector(".DEBUG-endGame");
-const leaderboardBtn = document.querySelector(".leaderboard-btn");
-
-leaderboardBtn.addEventListener("click", () => {
-  playSound(sounds.btn);
-  openLeaderboard();
-});
 
 endGameBtn.addEventListener("click", () => {
   playSound(sounds.btn);
@@ -83,7 +78,14 @@ export function openLeaderboard() {
     showLeader(resultList, leader);
   });
 
-  popupContent.append(resultList);
+  const backBtn = createBtn();
+  backBtn.textContent = "Назад";
+  backBtn.addEventListener("click", () => {
+    playSound(sounds.btn);
+    hidePopup();
+    openStartPopUp();
+  });
+  popupContent.append(resultList, backBtn);
 }
 
 export function openEndPopUp() {
