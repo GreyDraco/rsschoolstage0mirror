@@ -54,6 +54,7 @@ export function startEvent(id, gameEventsData = events) {
   displayEventFrame();
 
   function displayEventFrame() {
+    popupContent.scrollTop = 0;
     eventText.textContent = gameEvent.text;
 
     let vars = gameEvent.vars;
@@ -140,6 +141,7 @@ export function startEvent(id, gameEventsData = events) {
       buttonContainer.append(okBtn);
       eventText.textContent = gameEvent.text;
       okBtn.addEventListener("click", () => {
+        gameState.completedEvents.push(id);
         playSound(sounds.event);
         if (gameEvent.battle) {
           gameEnemyWave.incomingEnemies = {
@@ -170,7 +172,7 @@ function giveRewards(gameEvent) {
   const rewardList = document.createElement("ul");
   rewardList.className = "rewards-list";
   Object.entries(gameEvent.rewards).forEach(([key, value]) => {
-    if (value !== null) {
+    if (value !== null && value !== 0) {
       const rewardItem = document.createElement("li");
       if (key !== "abilities") {
         const diff = Math.min(gameParams[key], Math.abs(value));

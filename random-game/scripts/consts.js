@@ -201,6 +201,7 @@ export const gameState = {
   generalVol: 1,
   musicVol: 1,
   soundVol: 1,
+  completedEvents: [],
 };
 
 export const gameEnemyWave = {

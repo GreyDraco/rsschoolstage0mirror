@@ -8,6 +8,7 @@ export function showPopup() {
 
   overlay.classList.toggle("overlay_active");
 
+  overlay.style.top = `${window.scrollY}px`;
   const popupContent = document.createElement("div");
   popupContent.classList.add("popup-content");
 

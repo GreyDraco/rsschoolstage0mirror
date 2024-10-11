@@ -183,3 +183,7 @@ canvas {
 body:has(.overlay_active) {
   overflow: hidden;
 }
+
+.rewards-list {
+  margin: 0;
+}

@@ -19,7 +19,7 @@ endGameBtn.addEventListener("click", () => {
 
 function updateLeaders(nameInput, result) {
   if (nameInput.value) {
-    result.name = nameInput.value;
+    result.name = nameInput.value.trim();
     const currentLeaders = JSON.parse(localStorage.getItem(leadersKey));
     currentLeaders.unshift(result);
     leaders.results = [...currentLeaders];
@@ -121,12 +121,17 @@ export function openEndPopUp() {
   resultTextContainer.append(resultList);
 
   const saveResultBtn = createBtn(["save-result-btn"]);
+  saveResultBtn.disabled = true;
   saveResultBtn.textContent = "Сохранить";
 
   const nameInput = document.createElement("input");
   nameInput.classList.add("name-input");
   nameInput.focus();
   nameInput.placeholder = "Введите Ваше имя";
+
+  nameInput.addEventListener("input", () => {
+    saveResultBtn.disabled = !nameInput.value.trim();
+  });
   nameInput.addEventListener("keyup", (e) => {
     if (e.code === "Enter") {
       updateLeaders(nameInput, result);

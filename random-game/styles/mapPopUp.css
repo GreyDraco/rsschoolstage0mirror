@@ -106,3 +106,9 @@
 .location-btn:hover {
   filter: drop-shadow(1px 1px 6px #fff93c);
 }
+
+.location-dropdown.completed {
+  filter: grayscale(1);
+  pointer-events: none;
+  opacity: 0.7;
+}
