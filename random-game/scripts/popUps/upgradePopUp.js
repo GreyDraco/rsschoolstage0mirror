@@ -14,6 +14,7 @@ export function openUpgradePopUp() {
   showPopup();
 
   const popupContent = document.querySelector(".popup-content");
+  const popupContainer = document.querySelector(".popup-container");
   popupContent.classList.add("upgrade-content");
 
   const upgradeList = document.createElement("div");
@@ -37,8 +38,8 @@ export function openUpgradePopUp() {
     playSound(sounds.btn);
     hidePopup();
   });
-
-  popupContent.append(currentGold, upgradeList, backBtn);
+  popupContainer.append(currentGold);
+  popupContent.append(upgradeList, backBtn);
 }
 
 function addUpgradeItem(upgradeList, upgradeButtons, upgrade) {
@@ -63,7 +64,7 @@ function addUpgradeItem(upgradeList, upgradeButtons, upgrade) {
   switch (upgrade) {
     case "playerLvl": {
       const description =
-        "Уровень отвечает за урон наносимый врагам и влияет на исход некоторых событий. Сила вашей атаки на данный момент:";
+        "Уровень отвечает за урон наносимый врагам и влияет на исход некоторых событий. Текущая сила вашей атаки: ";
       fillUpgradeGameParamsItem(
         upgrade,
         1,
@@ -78,7 +79,7 @@ function addUpgradeItem(upgradeList, upgradeButtons, upgrade) {
     }
     case "castleHitCount": {
       const description =
-        "Количество целей пламенное дыхание может затронуть за раз. Текущее число:";
+        "Количество целей, которые пламенное дыхание способно охватить одновременно. Текущее число: ";
       fillUpgradeGameParamsItem(
         upgrade,
         1,
@@ -92,7 +93,7 @@ function addUpgradeItem(upgradeList, upgradeButtons, upgrade) {
       break;
     }
     case "maxCastleHp": {
-      const description = "Прочность вашего замка. Текущая прочноть:";
+      const description = "Прочность вашего замка. Текущая прочноть: ";
       fillUpgradeGameParamsItem(
         upgrade,
         1000,
@@ -107,7 +108,7 @@ function addUpgradeItem(upgradeList, upgradeButtons, upgrade) {
     }
     case "abilities[fireball]": {
       const description =
-        "Ваш навык владения огненным взрывом (наносит урон всем на поле). Его сила:";
+        "Ваш навык владения огненным взрывом (наносит урон всем врагам на поле). Его сила: ";
       fillUpgradeGameParamsItem(
         upgrade,
         30,
@@ -123,7 +124,7 @@ function addUpgradeItem(upgradeList, upgradeButtons, upgrade) {
     }
     case "abilities[lightning]": {
       const description =
-        "Ваш навык призыва молнии (наносит урон сильнейшиму на поле). Его сила:";
+        "Ваш навык призыва молнии (наносит урон сильнейшиму врагу на поле). Его сила: ";
       fillUpgradeGameParamsItem(
         upgrade,
         150,
@@ -138,7 +139,7 @@ function addUpgradeItem(upgradeList, upgradeButtons, upgrade) {
       break;
     }
     case "abilities[bargain]": {
-      const description = "Ваш навык красноречия и торговли. Его уровень:";
+      const description = "Ваш навык красноречия и торговли. Его уровень: ";
       fillUpgradeGameParamsItem(
         upgrade,
         1,
@@ -190,7 +191,7 @@ function fillUpgradeGameParamsItem(
     gameParams.abilities[abilityKey] < upgradeMax.abilities[abilityKey]
       ? abilityPower / valuePerLvl
       : "МАХ";
-  upgradeCost.textContent = `${cost}$`;
+  upgradeCost.textContent = `${cost}`;
   upgradeDescription.textContent = `${description}${
     upgrade === "playerLvl" ? castle.power : abilityPower
   }`;
@@ -230,7 +231,7 @@ function fillUpgradeGameParamsItem(
         gameParams.abilities[abilityKey] < upgradeMax.abilities[abilityKey]
           ? abilityPower / valuePerLvl
           : "МАХ";
-      upgradeCost.textContent = `${cost}$`;
+      upgradeCost.textContent = `${cost}`;
       upgradeDescription.textContent = `${description}${
         upgrade === "playerLvl" ? castle.power : abilityPower
       }`;

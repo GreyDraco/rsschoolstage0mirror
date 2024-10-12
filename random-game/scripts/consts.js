@@ -201,18 +201,19 @@ export const spriteAnimationData = {
 
 export const gameParams = {
   cost: BASE_COST,
-  gold: 100000,
+  gold: 100,
   playerLvl: 1,
   discount: 1,
   castleHitCount: 3,
   castleRange: 300,
   maxCastleHp: 10000,
+
   power: {
     fireball: 30,
     lightning: 150,
-    bargain: 0,
+    bargain: 10,
   },
-  abilities: { fireball: 1, lightning: 1, bargain: 0, princess: 0 },
+  abilities: { fireball: 1, lightning: 1, bargain: 10, princess: 0 },
 };
 
 export const CASTLE_PROPS = {
@@ -233,7 +234,7 @@ export const gameState = {
   isRepairUsed: false,
   isUpgradeUsed: false,
   totalEnemyHp: 0,
-  currentEnemyHp: 0,
+  currentEnemiesHP: 0,
   isFireballActive: false,
   isLightningActive: false,
   isFireActive: false,
@@ -291,6 +292,8 @@ export const settingsKey = "GrayDracoSettings";
 
 if (localStorage[settingsKey]) {
   Object.assign(gameState, JSON.parse(localStorage.getItem(settingsKey)));
+
+  console.log(gameState);
 }
 
 export const audio = new Audio();
@@ -309,4 +312,5 @@ export const sounds = {
   lose: "lose.wav",
   win: "win.mp3",
   money: "money.mp3",
+  notEnoughMoney: "needgold.mp3",
 };

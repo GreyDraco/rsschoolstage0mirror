@@ -1,0 +1,57 @@
+.result-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.result-text {
+  text-align: start;
+  margin: 0;
+  position: relative;
+  padding-left: 35px;
+}
+.result-text::before {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  left: 0;
+}
+
+.result-text.lose::before {
+  top: -5px;
+  background-image: url(../assets/icons/skull.png);
+}
+.result-text.win::before {
+  top: -7px;
+  background-image: url(../assets/icons/crown.png);
+}
+
+.result-list {
+  margin: 0;
+  text-align: start;
+}
+
+.name-input {
+  width: 100%;
+  max-width: 300px;
+  outline: none;
+  height: 40px;
+  font-size: 22px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 2px solid #2d1606;
+  box-shadow: 0px 0px 0px 4px #d49221, 0px 0px 0px 7px #37240f,
+    inset 0px 3px 0px rgba(255, 255, 255, 0.2),
+    inset 0px -3px 0px rgba(0, 0, 0, 0.3);
+  color: #180f09;
+  font-family: "BaseFont";
+}
+
+.name-input:focus {
+  outline: none;
+}

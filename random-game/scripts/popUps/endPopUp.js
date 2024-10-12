@@ -103,9 +103,12 @@ export function openEndPopUp() {
 
   const resultTextContainer = document.createElement("div");
   resultTextContainer.classList.add("result-text-container");
-  resultTextContainer.textContent = `Вы ${
+  const resultText = document.createElement("p");
+
+  resultText.textContent = `Вы ${
     gameState.isKingDead ? "выиграли!" : "проиграли!"
   }`;
+  resultText.className = `result-text ${gameState.isKingDead ? "win" : "lose"}`;
 
   const resultList = document.createElement("ul");
   resultList.classList.add("result-list");
@@ -118,7 +121,7 @@ export function openEndPopUp() {
   resultGold.textContent = `Накопленное золото: ${gameParams.gold}`;
 
   resultList.append(resultLvl, resultGold);
-  resultTextContainer.append(resultList);
+  resultTextContainer.append(resultText, resultList);
 
   const saveResultBtn = createBtn(["save-result-btn"]);
   saveResultBtn.disabled = true;

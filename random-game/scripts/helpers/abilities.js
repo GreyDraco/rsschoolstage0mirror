@@ -10,18 +10,27 @@ const fireballBtn = document.querySelector(".fireballBtn");
 const bribeBtn = document.querySelector(".bribeBtn");
 
 bribeBtn.addEventListener("click", () => {
-  playSound(sounds.money);
+  // playSound(sounds.money);
   const bribeCost = Math.floor(
     getEnemyHp() / 1 + gameParams.abilities.princess
   );
+
   if (gameParams.gold >= bribeCost) {
+    playSound(sounds.money);
     gameState.isCombat = false;
     gameParams.gold -= bribeCost;
     toggleVisibleToolbar();
     playNextAudio("idle");
   } else {
+    playSound(sounds.notEnoughMoney);
+    bribeBtn.classList.add("shaked-btn");
+
     console.log("Need more gold to bribe: ", gameParams.gold, "/", bribeCost);
   }
+});
+
+bribeBtn.addEventListener("animationend", () => {
+  bribeBtn.classList.remove("shaked-btn");
 });
 
 lightningBtn.addEventListener("click", () => {

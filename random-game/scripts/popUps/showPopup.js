@@ -17,6 +17,7 @@ export function showPopup() {
 
   popupContainer.append(popupContent);
   overlay.append(popupContainer);
+  return { popupContainer, popupContent };
 }
 
 overlay.addEventListener("click", (event) => {

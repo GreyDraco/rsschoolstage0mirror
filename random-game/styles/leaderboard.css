@@ -3,16 +3,26 @@
   flex-direction: column;
   text-align: center;
   margin: 0;
-  gap: 10px;
+  gap: 5px;
+  font-size: 20px;
 }
 
 .leaderboard-item {
   align-items: center;
   display: grid;
-  grid-template-columns: 1fr 80px 100px 30px;
+  grid-template-columns: 1fr 80px 100px 25px;
   grid-template-rows: 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
+  padding: 2px 10px;
+}
+.leaderboard-item:nth-child(2n + 1) {
+  background-color: #8b580d5c;
+  border-radius: 10px;
+}
+.leaderboard-item:first-child {
+  background-color: transparent;
+  border-radius: 0;
 }
 
 .leaderboard-item:first-child {
@@ -28,6 +38,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 250px;
+  justify-self: center;
 }
 .leaderboard-lvl {
   grid-area: 1 / 2 / 2 / 3;

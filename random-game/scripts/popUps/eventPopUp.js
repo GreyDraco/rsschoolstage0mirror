@@ -42,11 +42,15 @@ export function startEvent(id, gameEventsData = events) {
   eventText.className = "event-text";
   const buttonContainer = document.createElement("div");
   buttonContainer.classList.add("event-btn-container");
-  const dieContainer = document.createElement("div");
-  const dieMinigame = document.createElement("div");
+  //const dieContainer = document.createElement("div");
+  // const dieMinigame = document.createElement("div");
 
-  dieContainer.append(dieMinigame);
-  popupContent.append(eventImg, eventText, buttonContainer, dieContainer);
+  // dieContainer.append(dieMinigame);
+  popupContent.append(
+    eventImg,
+    eventText,
+    buttonContainer /* , dieContainer */
+  );
 
   const eventName = id;
   let gameEvent = gameEventsData[eventName];
@@ -54,7 +58,13 @@ export function startEvent(id, gameEventsData = events) {
   displayEventFrame();
 
   function displayEventFrame() {
-    popupContent.scrollTop = 0;
+    // popupContent.scrollTop = 0;
+    eventImg.classList.remove("hidden");
+    // const popupContent = document.querySelector(".popup-content");
+    popupContent.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     eventText.textContent = gameEvent.text;
 
     let vars = gameEvent.vars;
@@ -86,7 +96,8 @@ export function startEvent(id, gameEventsData = events) {
           });
           bargainBtn.click();
           bargainContainer.classList.remove("hidden");
-          popupContent.append(bargainContainer);
+          eventImg.classList.add("hidden");
+          popupContent.prepend(bargainContainer);
 
           timerId = setTimeout(() => {
             checkCounter = gameParams.discount < 1 ? +1 : 0;
@@ -97,7 +108,8 @@ export function startEvent(id, gameEventsData = events) {
 
             displayEventFrame();
             bargainContainer.remove();
-          }, 10000);
+            eventImg.classList.remove("hidden");
+          }, 100000);
         } else {
           let checkCounter = checkEvent(gameEvent);
 

@@ -17,11 +17,9 @@ export function addBargain(updEnvLayout = () => {}) {
     discountText,
     bargainBtn,
   } = buildBargainLayout();
-  bargainBar.style.background = `linear-gradient(to right,white 0%, white ${
-    bargainWinStart - 1
-  }%, #434343 ${bargainWinStart}%, #82CFD0 ${bargainWinEnd}%, #fff ${bargainWinEnd}%, white ${
-    bargainWinEnd + 1
-  }%)`;
+  bargainBar.style.background = `linear-gradient(to right, #e9d3c2 0%, #e9d3c2 ${bargainWinStart}%, #2d1606 ${bargainWinStart}%, #8b5e3c ${
+    (bargainWinEnd - bargainWinStart) / 2 + bargainWinStart
+  }%,   #2d1606 ${bargainWinEnd + 1}%, #e9d3c2 ${bargainWinEnd + 1}%)`;
 
   stopBargainBtn.addEventListener("click", () => {
     playSound(sounds.btn);
@@ -66,7 +64,12 @@ export function addBargain(updEnvLayout = () => {}) {
     bargainBar.value = 1;
     bargainBtn.disabled = isBargainRun;
     intervalId = setInterval(runBargain, 2 * gameParams.abilities.bargain);
-    console.log(1.5 * gameParams.abilities.bargain);
+    const popupContent = document.querySelector(".popup-content");
+    popupContent.scrollTo({
+      top: 100500,
+      behavior: "smooth",
+    });
+    // console.log(1.5 * gameParams.abilities.bargain);
   });
 
   return { bargainBtn, bargainContainer, discountText };
@@ -95,7 +98,7 @@ function buildBargainLayout() {
   bargainTitle.className = "bargain-title";
   bargainTitle.textContent = "Торгуйтесь!";
 
-  const stopBargainBtn = createBtn("button", "stop-bargain-btn");
+  const stopBargainBtn = createBtn(["button", "stop-bargain-btn"]);
   stopBargainBtn.textContent = "Остановить торги";
 
   bargainContainer.append(bargainTitle, bargainBar, stopBargainBtn);

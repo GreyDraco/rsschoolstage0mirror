@@ -30,7 +30,7 @@ repairBtn.addEventListener("click", () => {
     popupContent,
   } = buildRepairPopupLayout();
   repairBar.addEventListener("input", () => {
-    repairHp.textContent = `❤️ ${repairBar.value}/${gameParams.maxCastleHp}`;
+    repairHp.textContent = `🛡️ ${repairBar.value}/${gameParams.maxCastleHp}`;
 
     repairCost.textContent = `${calcCost(repairBar.value)}$`;
     if (calcCost(repairBar.value) > gameParams.gold) {
@@ -41,6 +41,7 @@ repairBtn.addEventListener("click", () => {
   });
 
   okRepairBtn.addEventListener("click", () => {
+    hidePopup();
     playSound(sounds.money);
     gameParams.gold -= calcCost(repairBar.value);
     castle.hp = repairBar.value;
@@ -61,6 +62,7 @@ repairBtn.addEventListener("click", () => {
   const { bargainBtn, bargainContainer, discountText } = bargainResults;
 
   popupContent.append(bargainContainer ?? "", discountText ?? "");
+
   if (gameParams.abilities.bargain && !gameState.isRepairUsed) {
     repairButtonsContainer.append(bargainBtn);
   }
@@ -69,6 +71,8 @@ repairBtn.addEventListener("click", () => {
     repairCost.textContent = `${calcCost(repairBar.value)}$`;
     if (calcCost(gameParams.maxCastleHp) > gameParams.gold) {
       fullRepairBtn.disabled = true;
+    } else {
+      fullRepairBtn.disabled = false;
     }
 
     if (calcCost(repairBar.value) > gameParams.gold) {
@@ -93,6 +97,7 @@ repairBtn.addEventListener("click", () => {
 
 function buildRepairPopupLayout() {
   const popupContent = document.querySelector(".popup-content");
+  const popupContainer = document.querySelector(".popup-container");
   popupContent.classList.add("repair-popup");
 
   const currentGold = document.createElement("p");
@@ -123,7 +128,7 @@ function buildRepairPopupLayout() {
   repairBar.max = gameParams.maxCastleHp;
 
   repairCost.textContent = "0$";
-  repairHp.textContent = `❤️ ${Math.floor(castle.hp)}/${
+  repairHp.textContent = `🛡️ ${Math.floor(castle.hp)}/${
     gameParams.maxCastleHp
   }`;
 
@@ -133,8 +138,11 @@ function buildRepairPopupLayout() {
   okRepairBtn.textContent = "Отремонтировать";
   repairButtonsContainer.append(okRepairBtn, fullRepairBtn);
   repairBarContainer.append(repairBar, repairCost, repairHp);
-
-  popupContent.append(currentGold, repairBarContainer, repairButtonsContainer);
+  popupContainer.append(currentGold);
+  popupContent.append(
+    /* currentGold, */ repairBarContainer,
+    repairButtonsContainer
+  );
   return {
     currentGold,
     fullRepairBtn,

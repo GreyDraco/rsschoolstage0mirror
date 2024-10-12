@@ -34,7 +34,7 @@
 }
 
 .vol-item {
-  flex-wrap: wrap;
+  /*   flex-wrap: wrap; */
   display: flex;
   width: 100%;
   font-size: 20px;
@@ -42,7 +42,7 @@
   align-items: center;
   justify-content: center;
   gap: 30px;
-
+  text-align: end;
   font-size: 20px;
   color: #f5e9d5;
 }
@@ -55,14 +55,16 @@
 .vol-title {
   margin: 0;
   justify-self: end;
-  width: 170px;
-  text-align: end;
-  font-weight: 700;
+  width: 200px;
+  /*   text-align: end; */
+  /* font-weight: 700; */
+  font-size: 28px;
 }
 
 /*---------------------------------------------------------*/
 
-.volume-input {
+.volume-input,
+.repair-bar {
   width: 100%;
   height: 15px;
   appearance: none;
@@ -73,7 +75,8 @@
   border: 1px solid #2d1606;
 }
 
-.volume-input::-webkit-slider-thumb {
+.volume-input::-webkit-slider-thumb,
+.repair-bar::-webkit-slider-thumb {
   appearance: none;
   width: 15px;
   height: 15px;
@@ -84,8 +87,19 @@
   cursor: pointer;
 }
 
-@media (max-width: 625px) {
+@media (max-width: 760px) {
+  .vol-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
+  }
+  .settings-content {
+    gap: 30px;
+  }
+}
+
+/* @media (max-width: 625px) {
   .vol-title {
     text-align: start;
   }
-}
+} */

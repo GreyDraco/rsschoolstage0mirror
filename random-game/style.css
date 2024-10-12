@@ -8,6 +8,7 @@
 @import url(./styles/startMenu.css);
 @import url(./styles/upgrade.css);
 @import url(./styles/volume.css);
+@import url(./styles/endPopup.css);
 
 @font-face {
   font-family: "BaseFont";
@@ -164,6 +165,7 @@ canvas {
 .rules,
 .event-text {
   text-align: justify;
+  margin: 0;
 }
 
 .event-img {
@@ -174,10 +176,20 @@ canvas {
   height: 100%;
   border-radius: 15px;
   border: 2px solid #2d1606;
-
   box-shadow: 0px 0px 0px 4px #d49221, 0px 0px 0px 7px #37240f,
     inset 0px 3px 0px rgba(255, 255, 255, 0.2),
     inset 0px -3px 0px rgba(0, 0, 0, 0.3);
+}
+
+.event-img::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  background-color: #cfcdcb;
+  z-index: 8000;
 }
 
 body:has(.overlay_active) {
@@ -186,4 +198,8 @@ body:has(.overlay_active) {
 
 .rewards-list {
   margin: 0;
+}
+
+.current-gold {
+  position: absolute;
 }

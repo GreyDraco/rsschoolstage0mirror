@@ -14,6 +14,7 @@ import {
 import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
+  CASTLE_PROPS,
   gameEnemyWave,
   gameParams,
   gameState,
@@ -25,6 +26,7 @@ import {
   leaders,
   leadersKey,
   STOP_ENEMY_POS,
+  settingsKey,
 } from "./scripts/consts.js";
 import "./scripts/popUps/repairPopUp.js";
 import "./scripts/popUps/eventPopUp.js";
@@ -41,14 +43,15 @@ import { openEndPopUp } from "./scripts/popUps/endPopUp.js";
 import toggleVisibleToolbar from "./scripts/helpers/showToolbar.js";
 import { playNextAudio } from "./scripts/helpers/playNextAudio.js";
 import { openStartPopUp } from "./scripts/popUps/startPopUp.js";
-import { MovingCharacter } from "./scripts/classes/Sprites.js";
 
-/* window.onload = () => {
+window.onload = () => {
   playNextAudio("idle");
-}; */
+};
 
 const checkLvlBtn = document.querySelector(".DEBUG-Lvl");
 const pushEnemyWave = document.querySelector(".DEBUG-wave");
+const bribeCostText = document.querySelector(".bribe-cost");
+//const bribeBtn = document.querySelector(".bribe-cost");
 
 if (localStorage.GrayDracoLeaders) {
   leaders.results = JSON.parse(localStorage.getItem(leadersKey));
@@ -60,14 +63,20 @@ openStartPopUp();
 
 function displayGold() {
   money.display();
-  ctx.font = "40px Arial";
+  ctx.font = "40px BaseFont";
   ctx.fillStyle = "purple";
-  ctx.fillText(gameParams.gold, CANVAS_WIDTH / 2 - 70, HP_Y_POS + 30);
+  ctx.fillText(gameParams.gold, CANVAS_WIDTH / 2 - 70, HP_Y_POS + 27);
+}
+
+function displayHPVal(curHP, maxHP, xPos) {
+  ctx.font = "32px BaseFont";
+  ctx.fillStyle = "yellow";
+  ctx.fillText(`${curHP} / ${maxHP}`, xPos, HP_Y_POS + 23);
 }
 
 function displayPlayerLvl() {
   playerLvl.display();
-  ctx.font = "20px Arial";
+  ctx.font = "30px BaseFont";
   ctx.fillStyle = "purple";
   ctx.fillText(gameParams.playerLvl, dragon.xPos + 157, dragon.yPos - 2);
 }
@@ -93,6 +102,7 @@ function addDead() {
   if (newDeadEnemies) {
     newDeadEnemies.forEach((enemy) => {
       enemy.selectAnimation("death");
+      enemy.currentFrame = enemy.maxFrames;
     });
     gameEnemyWave.deadEnemies.push(...newDeadEnemies);
   }
@@ -104,8 +114,14 @@ function addDead() {
 
 function updateEnemyHp(damage) {
   hitClosestEnemies(damage);
+  const enemyHp = getEnemyHp();
+  gameState.currentEnemiesHP = Math.floor(enemyHp);
+  //console.log(enemyHp, gameState.totalEnemyHp);
+  const bribeCost = Math.floor(enemyHp / 1 + gameParams.abilities.princess);
+  bribeCostText.textContent = bribeCost;
+
   const currentEnemHPWidth =
-    (1 - getEnemyHp() / gameState.totalEnemyHp) * HP_MAX_WIDTH;
+    (1 - /* getEnemyHp() */ enemyHp / gameState.totalEnemyHp) * HP_MAX_WIDTH;
   enemiesHP.width = Math.min(currentEnemHPWidth, HP_MAX_WIDTH);
   if (currentEnemHPWidth >= HP_MAX_WIDTH) {
     gameState.isCombat = false;
@@ -133,6 +149,7 @@ function animate(currentTime) {
   background.display();
 
   displayHP();
+  displayHPVal(Math.floor(castle.hp), gameParams.maxCastleHp, 90);
 
   castle.display("green");
   dragon.display(deltaTime);
@@ -155,7 +172,6 @@ function animate(currentTime) {
       gameEnemyWave.onScreenEnemies.forEach((enemy) => {
         enemy.move(deltaTime, 1);
         enemy.selectAnimation("runBack");
-
         enemy.display(deltaTime);
       });
       gameEnemyWave.onScreenEnemies = gameEnemyWave.onScreenEnemies.filter(
@@ -171,6 +187,7 @@ function animate(currentTime) {
   if (gameState.isCombat && gameEnemyWave.onScreenEnemies.length) {
     animateDragonAttack(deltaTime);
     updateEnemyHp(castle.power);
+    displayHPVal(gameState.currentEnemiesHP, gameState.totalEnemyHp, 780);
     addDead();
   } else {
     if (!gameState.gameOver) {
@@ -181,7 +198,6 @@ function animate(currentTime) {
       }
     }
   }
-
   if (gameEnemyWave.deadEnemies.length) {
     gameEnemyWave.deadEnemies.forEach((enemy) => {
       enemy.display(deltaTime);
@@ -209,7 +225,6 @@ function animate(currentTime) {
       gameState.isFireballActive = false;
     }
   }
-
   if (gameState.isLightningActive) {
     lightning.display(deltaTime);
     if (lightning.currentFrame < 1) {

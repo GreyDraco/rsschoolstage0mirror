@@ -50,6 +50,8 @@
       rgba(0, 0, 0, 0.411) 0deg
     ),
     url(../assets/icons/bribery.png) no-repeat;
+  position: relative;
+  /*  z-index: 2; */
 }
 
 .ability-btn {
@@ -89,4 +91,98 @@
   100% {
     --angle: 360deg;
   }
+}
+
+.bribe-cost {
+  /* z-index: -1; */
+  position: absolute;
+  background-color: #8e5f3c97;
+  padding: 2px 5px;
+  padding-left: 22px;
+  color: black;
+  bottom: -3px;
+  left: 53px;
+  font-size: 20px;
+  /*  border-radius: 10px; */
+  /*   position: relative; */
+  background: #d49221;
+  background: #825911;
+  color: antiquewhite;
+  /*   rotate: 0; */
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  min-width: 65px;
+
+  /*   border: 3px solid #d2c106; */
+
+  height: 30px;
+  width: fit-content;
+  /*   margin: 35px 20px 0 0; */
+  /*   background: #B1BA5C;
+  position: relative; */
+  display: block;
+  line-height: 25px;
+}
+
+.bribe-cost::before {
+  /* z-index: 20; */
+  position: absolute;
+  content: "";
+  width: 17px;
+  height: 17px;
+  top: 5px;
+  left: 0;
+  background: url(../assets/icons/dollar.png) no-repeat;
+  background-size: contain;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
+.bribe-cost::after {
+  content: "⋅";
+  padding-left: 5px;
+  font-weight: 700;
+  color: rgb(57, 34, 5);
+  font-size: 30px;
+  line-height: 2px;
+  width: 0;
+  height: 0;
+  position: absolute;
+  right: 100%;
+  top: calc(50% - 15px);
+  border-top: 15px solid transparent;
+  border-right: 10px solid #825911;
+  border-bottom: 15px solid transparent;
+}
+
+@keyframes swing {
+  15% {
+    -webkit-transform: translateX(9px);
+    transform: translateX(9px);
+  }
+  30% {
+    -webkit-transform: translateX(-9px);
+    transform: translateX(-9px);
+  }
+  40% {
+    -webkit-transform: translateX(6px);
+    transform: translateX(6px);
+  }
+  50% {
+    -webkit-transform: translateX(-6px);
+    transform: translateX(-6px);
+  }
+  65% {
+    -webkit-transform: translateX(3px);
+    transform: translateX(3px);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+.shaked-btn {
+  animation: swing 0.6s ease;
+  animation-iteration-count: 1;
 }
