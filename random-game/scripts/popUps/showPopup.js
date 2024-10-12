@@ -22,8 +22,15 @@ export function showPopup() {
 
 overlay.addEventListener("click", (event) => {
   if (!event.target.closest(".popup-container")) {
-    hidePopup();
-    playNextAudio("idle");
+    const popupContent = document.querySelector(".popup-content");
+    if (
+      popupContent &&
+      !popupContent.classList.contains("event-popup") &&
+      !popupContent.classList.contains("end-game")
+    ) {
+      hidePopup();
+      playNextAudio("idle");
+    }
   }
 });
 
