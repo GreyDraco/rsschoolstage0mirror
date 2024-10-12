@@ -1,4 +1,4 @@
-import { Character, Sprite } from "./classes/Sprites.js";
+import { Character, MovingCharacter, Sprite } from "./classes/Sprites.js";
 import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
@@ -35,7 +35,7 @@ export const fireball = new Sprite({
   color: "#d2060617",
   src: "./assets/sprites/explosionR.png",
   maxFrames: 12,
-  delay: 10,
+  delay: 60,
   offsetY: 0,
 });
 export const lightning = new Sprite({
@@ -56,10 +56,21 @@ export const background = new Sprite({
   src: "./assets/sprites/background.png",
 });
 
-export const dragon = new Sprite({
-  x: 130,
-  y: CANVAS_HEIGHT - 385,
+export const dragon = new Character({
+  x: 90,
+  y: CANVAS_HEIGHT - 410,
   ...spriteAnimationData.dragon.idle,
+  type: "dragon",
+});
+
+export const flame = new MovingCharacter({
+  velocity: 20,
+  x: 90,
+  y: CANVAS_HEIGHT - 410,
+  stopX: CANVAS_WIDTH,
+  spread: 0,
+  ...spriteAnimationData.flame,
+  type: "flame",
 });
 
 export const money = new Sprite({

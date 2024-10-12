@@ -10,7 +10,9 @@ export function spawnEnemies() {
   let totalEnemyCount = reserveEnemies.reduce((sum, i) => sum + i, 0);
   const intervalId = setInterval(function () {
     enemySelector = Math.floor(Math.random() * enemyProperties.length);
-    if (gameEnemyWave.incomingEnemies[reserveEnemiesKeys[enemySelector]] === 0) {
+    if (
+      gameEnemyWave.incomingEnemies[reserveEnemiesKeys[enemySelector]] === 0
+    ) {
       enemySelector = reserveEnemies.findIndex((num) => num > 0);
     }
 
@@ -25,7 +27,11 @@ export function spawnEnemies() {
 }
 
 function spawnEnemy(enemySelector, enemyProperties, reserveEnemiesKeys) {
-  const enemy = new MovingCharacter({ ...gameEnemies[enemyProperties[enemySelector]], color: getRandomColorWithOpacity() }, enemyTypes[enemySelector]);
+  const enemy = new MovingCharacter({
+    ...gameEnemies[enemyProperties[enemySelector]],
+    color: getRandomColorWithOpacity(),
+    type: enemyTypes[enemySelector],
+  });
   gameEnemyWave.onScreenEnemies.push(enemy);
   gameEnemyWave.incomingEnemies[reserveEnemiesKeys[enemySelector]] -= 1;
 }

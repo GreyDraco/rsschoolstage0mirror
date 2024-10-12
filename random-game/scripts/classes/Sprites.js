@@ -82,6 +82,7 @@ export class Character extends Sprite {
     offsetY = 0,
     stopX = STOP_ENEMY_POS,
     spread = 50,
+    type,
   }) {
     super({
       x,
@@ -99,26 +100,31 @@ export class Character extends Sprite {
     this.power = power;
     this.stopX = stopX;
     this.spread = spread;
+    this.type = type;
+    this.animationName = "idle";
   }
   selectAnimation(name = "idle") {
-    this.imgSrc = spriteAnimationData[this.type][name].src;
-    this.image.src = spriteAnimationData[this.type][name].src;
-    this.width = spriteAnimationData[this.type][name].width;
-    this.height = spriteAnimationData[this.type][name].height;
-    this.maxFrames = spriteAnimationData[this.type][name].maxFrames;
-    this.delay = spriteAnimationData[this.type][name].delay;
-    this.offsetX = spriteAnimationData[this.type][name].offsetX;
-    this.offsetY = spriteAnimationData[this.type][name].offsetY;
+    if (name !== this.animationName) {
+      this.imgSrc = spriteAnimationData[this.type][name].src;
+      this.image.src = spriteAnimationData[this.type][name].src;
+      this.width = spriteAnimationData[this.type][name].width;
+      this.height = spriteAnimationData[this.type][name].height;
+      this.maxFrames = spriteAnimationData[this.type][name].maxFrames;
+      this.currentFrame = this.maxFrames;
+      this.delay = spriteAnimationData[this.type][name].delay;
+      this.offsetX = spriteAnimationData[this.type][name].offsetX;
+      this.offsetY = spriteAnimationData[this.type][name].offsetY;
+      this.animationName = name;
+    }
   }
 }
 
 export class MovingCharacter extends Character {
-  constructor(props, type = "guard") {
+  constructor(props) {
     super(props);
     this.velocity = props.velocity + Math.random() * 40;
     this.stopPos = props.stopX + Math.random() * props.spread;
     this.yPos = this.yPos + Math.random() * 50;
-    this.type = type;
   }
 
   move(deltaTime, direction = -1) {

@@ -114,11 +114,40 @@ export const spriteAnimationData = {
   },
   dragon: {
     idle: {
-      width: 1000,
-      height: 150,
-      src: "./assets/sprites/dragon/dragonIdle.png",
+      width: 1440,
+      height: 175,
+      src: "./assets/sprites/dragon/Idle.png",
       maxFrames: 6,
       delay: 150,
+      offsetX: 0,
+      offsetY: 0,
+    },
+    attack: {
+      width: 4800,
+      height: 175,
+      src: "./assets/sprites/dragon/Attack.png",
+      maxFrames: 20,
+      delay: 130,
+      offsetX: 0,
+      offsetY: 0,
+    },
+    death: {
+      width: 960,
+      height: 175,
+      src: "./assets/sprites/dragon/Death.png",
+      maxFrames: 4,
+      delay: 140,
+      offsetX: 0,
+      offsetY: 0,
+    },
+    dead: {
+      width: 480,
+      height: 175,
+      src: "./assets/sprites/dragon/Dead.png",
+      maxFrames: 2,
+      delay: 150,
+      offsetX: 0,
+      offsetY: 0,
     },
   },
   cultist: {
@@ -159,6 +188,15 @@ export const spriteAnimationData = {
       offsetY: 90,
     },
   },
+  flame: {
+    width: 14800,
+    height: 420,
+    src: "./assets/sprites/dragon/DragonBreath.png",
+    maxFrames: 20,
+    delay: 50,
+    offsetX: 90,
+    offsetY: 40,
+  },
 };
 
 export const gameParams = {
@@ -195,8 +233,10 @@ export const gameState = {
   isRepairUsed: false,
   isUpgradeUsed: false,
   totalEnemyHp: 0,
+  currentEnemyHp: 0,
   isFireballActive: false,
   isLightningActive: false,
+  isFireActive: false,
   isKingDead: false,
   generalVol: 1,
   musicVol: 1,
@@ -251,8 +291,6 @@ export const settingsKey = "GrayDracoSettings";
 
 if (localStorage[settingsKey]) {
   Object.assign(gameState, JSON.parse(localStorage.getItem(settingsKey)));
-
-  console.log(gameState);
 }
 
 export const audio = new Audio();

@@ -6,6 +6,7 @@ import {
   dragon,
   enemiesHP,
   fireball,
+  flame,
   lightning,
   money,
   playerLvl,
@@ -13,7 +14,6 @@ import {
 import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
-  CASTLE_PROPS,
   gameEnemyWave,
   gameParams,
   gameState,
@@ -24,7 +24,7 @@ import {
   HP_Y_POS,
   leaders,
   leadersKey,
-  settingsKey,
+  STOP_ENEMY_POS,
 } from "./scripts/consts.js";
 import "./scripts/popUps/repairPopUp.js";
 import "./scripts/popUps/eventPopUp.js";
@@ -41,10 +41,11 @@ import { openEndPopUp } from "./scripts/popUps/endPopUp.js";
 import toggleVisibleToolbar from "./scripts/helpers/showToolbar.js";
 import { playNextAudio } from "./scripts/helpers/playNextAudio.js";
 import { openStartPopUp } from "./scripts/popUps/startPopUp.js";
+import { MovingCharacter } from "./scripts/classes/Sprites.js";
 
-window.onload = () => {
+/* window.onload = () => {
   playNextAudio("idle");
-};
+}; */
 
 const checkLvlBtn = document.querySelector(".DEBUG-Lvl");
 const pushEnemyWave = document.querySelector(".DEBUG-wave");
@@ -92,7 +93,6 @@ function addDead() {
   if (newDeadEnemies) {
     newDeadEnemies.forEach((enemy) => {
       enemy.selectAnimation("death");
-      enemy.currentFrame = enemy.maxFrames;
     });
     gameEnemyWave.deadEnemies.push(...newDeadEnemies);
   }
@@ -155,6 +155,7 @@ function animate(currentTime) {
       gameEnemyWave.onScreenEnemies.forEach((enemy) => {
         enemy.move(deltaTime, 1);
         enemy.selectAnimation("runBack");
+
         enemy.display(deltaTime);
       });
       gameEnemyWave.onScreenEnemies = gameEnemyWave.onScreenEnemies.filter(
@@ -168,9 +169,19 @@ function animate(currentTime) {
   }
 
   if (gameState.isCombat && gameEnemyWave.onScreenEnemies.length) {
+    animateDragonAttack(deltaTime);
     updateEnemyHp(castle.power);
     addDead();
+  } else {
+    if (!gameState.gameOver) {
+      dragon.selectAnimation();
+    } else {
+      if (dragon.currentFrame < 1) {
+        dragon.selectAnimation("dead");
+      }
+    }
   }
+
   if (gameEnemyWave.deadEnemies.length) {
     gameEnemyWave.deadEnemies.forEach((enemy) => {
       enemy.display(deltaTime);
@@ -183,6 +194,14 @@ function animate(currentTime) {
   displayGold();
   displayPlayerLvl();
 
+  if (gameState.isFireActive) {
+    flame.display(deltaTime);
+    if (flame.currentFrame < 1) {
+      flame.currentFrame = flame.maxFrames;
+      gameState.isFireActive = false;
+    }
+  }
+
   if (gameState.isFireballActive) {
     fireball.display(deltaTime);
     if (fireball.currentFrame < 1) {
@@ -190,6 +209,7 @@ function animate(currentTime) {
       gameState.isFireballActive = false;
     }
   }
+
   if (gameState.isLightningActive) {
     lightning.display(deltaTime);
     if (lightning.currentFrame < 1) {
@@ -223,5 +243,28 @@ function checkCastleDead() {
     toggleVisibleToolbar();
     playNextAudio("idle");
     gameState.gameOver = true;
+    dragon.selectAnimation("death");
+  }
+}
+
+function animateDragonAttack(deltaTime) {
+  if (
+    gameEnemyWave.onScreenEnemies.some(
+      (enemy) => enemy.xPos < STOP_ENEMY_POS + gameParams.castleRange
+    )
+  ) {
+    dragon.selectAnimation("attack");
+    dragon.display(deltaTime);
+    if (dragon.currentFrame === 10) {
+      gameState.isFireActive = true;
+    }
+  } else {
+    dragon.selectAnimation();
+  }
+}
+
+function spawnDragonFlame() {
+  if (dragon.currentFrame < dragon.maxFrames / 2) {
+    flame.currentFrame = flame.maxFrames;
   }
 }
