@@ -5,7 +5,13 @@ import { playNextAudio } from "./playNextAudio.js";
 import toggleVisibleToolbar from "./showToolbar.js";
 
 export default function startBattle() {
-  playNextAudio("battle");
+  if (gameEnemyWave.incomingEnemies.king) {
+    playNextAudio("battle"); // final boss music
+    document.querySelector(".bribeBtn").disabled = true;
+  } else {
+    playNextAudio("battle");
+  }
+
   gameState.totalEnemyHp = getReserveEnemyHp();
   gameState.isCombat = true;
   spawnEnemies(gameEnemyWave);

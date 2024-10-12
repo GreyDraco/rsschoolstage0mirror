@@ -33,7 +33,7 @@ export const paramsLocalization = {
   bargain: "Торговля",
 };
 
-export const enemyTypes = ["guard", "knight", "cultist"];
+export const enemyTypes = ["guard", "knight", "cultist", "king"];
 
 export const spriteAnimationData = {
   guard: {
@@ -150,6 +150,44 @@ export const spriteAnimationData = {
       offsetY: 0,
     },
   },
+  king: {
+    run: {
+      width: 1800,
+      height: 225,
+      src: "./assets/sprites/king/Run.png",
+      maxFrames: 8,
+      delay: 120,
+      offsetX: 90,
+      offsetY: 0,
+    },
+    runBack: {
+      width: 1800,
+      height: 225,
+      src: "./assets/sprites/king/RunBack.png",
+      maxFrames: 8,
+      delay: 120,
+      offsetX: 90,
+      offsetY: 0,
+    },
+    attack: {
+      width: 3000,
+      height: 225,
+      src: "./assets/sprites/king/Attack1.png",
+      maxFrames: 12,
+      delay: 80,
+      offsetX: 90,
+      offsetY: 0,
+    },
+    death: {
+      width: 2475,
+      height: 225,
+      src: "./assets/sprites/king/Death.png",
+      maxFrames: 11,
+      delay: 200,
+      offsetX: 90,
+      offsetY: 0,
+    },
+  },
   cultist: {
     run: {
       width: 3000,
@@ -201,7 +239,7 @@ export const spriteAnimationData = {
 
 export const gameParams = {
   cost: BASE_COST,
-  gold: 100,
+  gold: 10000,
   playerLvl: 1,
   discount: 1,
   castleHitCount: 3,
@@ -248,7 +286,7 @@ export const gameState = {
 export const gameEnemyWave = {
   onScreenEnemies: [],
   deadEnemies: [],
-  incomingEnemies: { guard: 0, knight: 0, cultist: 0 },
+  incomingEnemies: { guard: 0, knight: 0, cultist: 0, king: 0 },
 };
 
 export const gameEnemies = {
@@ -283,6 +321,16 @@ export const gameEnemies = {
     stopX: 400,
     spread: 150,
     ...spriteAnimationData.cultist.run,
+  },
+  KING_ENEMIES_PROPS: {
+    velocity: 10,
+    x: CANVAS_WIDTH - 50,
+    y: CANVAS_HEIGHT / 2 + 10,
+    hp: MAX_ENEMY_HP * 100,
+    power: 0.5,
+    stopX: STOP_ENEMY_POS,
+    spread: 0,
+    ...spriteAnimationData.king.run,
   },
 };
 

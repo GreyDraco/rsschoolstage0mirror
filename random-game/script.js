@@ -44,9 +44,9 @@ import toggleVisibleToolbar from "./scripts/helpers/showToolbar.js";
 import { playNextAudio } from "./scripts/helpers/playNextAudio.js";
 import { openStartPopUp } from "./scripts/popUps/startPopUp.js";
 
-window.onload = () => {
+/* window.onload = () => {
   playNextAudio("idle");
-};
+}; */
 
 const checkLvlBtn = document.querySelector(".DEBUG-Lvl");
 const pushEnemyWave = document.querySelector(".DEBUG-wave");
@@ -103,6 +103,7 @@ function addDead() {
     newDeadEnemies.forEach((enemy) => {
       enemy.selectAnimation("death");
       enemy.currentFrame = enemy.maxFrames;
+      checkKingDead(enemy);
     });
     gameEnemyWave.deadEnemies.push(...newDeadEnemies);
   }
@@ -173,6 +174,9 @@ function animate(currentTime) {
         enemy.move(deltaTime, 1);
         enemy.selectAnimation("runBack");
         enemy.display(deltaTime);
+        if (enemy.type === "king") {
+          enemy.velocity = 120;
+        }
       });
       gameEnemyWave.onScreenEnemies = gameEnemyWave.onScreenEnemies.filter(
         (enemy) => enemy.xPos <= CANVAS_WIDTH
@@ -190,7 +194,7 @@ function animate(currentTime) {
     displayHPVal(gameState.currentEnemiesHP, gameState.totalEnemyHp, 780);
     addDead();
   } else {
-    if (!gameState.gameOver) {
+    if (!gameState.gameOver || gameState.isKingDead) {
       dragon.selectAnimation();
     } else {
       if (dragon.currentFrame < 1) {
@@ -201,6 +205,9 @@ function animate(currentTime) {
   if (gameEnemyWave.deadEnemies.length) {
     gameEnemyWave.deadEnemies.forEach((enemy) => {
       enemy.display(deltaTime);
+      if (enemy.type === "king" && enemy.currentFrame < 1) {
+        openEndPopUp();
+      }
       gameEnemyWave.deadEnemies = gameEnemyWave.deadEnemies.filter(
         (enemy) => enemy.currentFrame > 0
       );
@@ -239,6 +246,7 @@ pushEnemyWave.addEventListener("click", () => {
   gameEnemyWave.incomingEnemies.guard = 1;
   gameEnemyWave.incomingEnemies.knight = 1;
   gameEnemyWave.incomingEnemies.cultist = 1;
+  gameEnemyWave.incomingEnemies.king = 1;
 
   startBattle();
 });
@@ -262,6 +270,16 @@ function checkCastleDead() {
   }
 }
 
+function checkKingDead(enemy) {
+  if (enemy.type === "king") {
+    gameState.isCombat = false;
+    toggleVisibleToolbar();
+    playNextAudio("idle");
+    gameState.gameOver = true;
+    gameState.isKingDead = true;
+  }
+}
+
 function animateDragonAttack(deltaTime) {
   if (
     gameEnemyWave.onScreenEnemies.some(
@@ -278,8 +296,8 @@ function animateDragonAttack(deltaTime) {
   }
 }
 
-function spawnDragonFlame() {
+/* function spawnDragonFlame() {
   if (dragon.currentFrame < dragon.maxFrames / 2) {
     flame.currentFrame = flame.maxFrames;
   }
-}
+} */

@@ -1,5 +1,5 @@
 import { MovingCharacter } from "./classes/Sprites.js";
-import { gameEnemies, enemyTypes, gameEnemyWave } from "./consts.js";
+import { gameEnemies, enemyTypes, gameEnemyWave, gameState } from "./consts.js";
 
 export function spawnEnemies() {
   const reserveEnemies = Object.values(gameEnemyWave.incomingEnemies);
@@ -20,10 +20,16 @@ export function spawnEnemies() {
     reserveEnemies[enemySelector] -= 1;
     counter++;
 
-    if (counter === totalEnemyCount) {
+    if (counter === totalEnemyCount || !gameState.isCombat) {
       clearInterval(intervalId);
+      gameEnemyWave.incomingEnemies = {
+        guard: 0,
+        knight: 0,
+        cultist: 0,
+        king: 0,
+      };
     }
-  }, 300);
+  }, 500);
 }
 
 function spawnEnemy(enemySelector, enemyProperties, reserveEnemiesKeys) {
