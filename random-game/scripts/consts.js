@@ -156,7 +156,7 @@ export const spriteAnimationData = {
       height: 225,
       src: "./assets/sprites/king/Run.png",
       maxFrames: 8,
-      delay: 120,
+      delay: 240,
       offsetX: 90,
       offsetY: 0,
     },
@@ -237,9 +237,11 @@ export const spriteAnimationData = {
   },
 };
 
-export const gameParams = {
+//---------------------Starting game params-----------------------------//
+
+export const startingGameParams = {
   cost: BASE_COST,
-  gold: 10000,
+  gold: 100,
   playerLvl: 1,
   discount: 1,
   castleHitCount: 3,
@@ -251,22 +253,10 @@ export const gameParams = {
     lightning: 150,
     bargain: 10,
   },
-  abilities: { fireball: 1, lightning: 1, bargain: 10, princess: 0 },
+  abilities: { fireball: 0, lightning: 0, bargain: 0, princess: 0 },
 };
 
-export const CASTLE_PROPS = {
-  x: 0,
-  y: CANVAS_HEIGHT - 320,
-  width: 270,
-  height: 300,
-  color: "green",
-  hp: gameParams.maxCastleHp,
-  power: 0.1 + Math.round(0.01 * gameParams.playerLvl * 100) / 100,
-  src: "./assets/sprites/castleLvl2.png",
-};
-export const STOP_ENEMY_POS = CASTLE_PROPS.width - 20;
-
-export const gameState = {
+export const startingGameState = {
   gameOver: false,
   isCombat: false,
   isRepairUsed: false,
@@ -283,11 +273,29 @@ export const gameState = {
   completedEvents: [],
 };
 
-export const gameEnemyWave = {
+export const startingEnemyWave = {
   onScreenEnemies: [],
   deadEnemies: [],
   incomingEnemies: { guard: 0, knight: 0, cultist: 0, king: 0 },
 };
+
+export const gameParams = JSON.parse(JSON.stringify(startingGameParams));
+
+export const CASTLE_PROPS = {
+  x: 0,
+  y: CANVAS_HEIGHT - 320,
+  width: 270,
+  height: 300,
+  color: "green",
+  hp: gameParams.maxCastleHp,
+  power: 0.1 + Math.round(0.01 * gameParams.playerLvl * 100) / 100,
+  src: "./assets/sprites/castleLvl2.png",
+};
+export const STOP_ENEMY_POS = CASTLE_PROPS.width - 20;
+
+export const gameState = JSON.parse(JSON.stringify(startingGameState));
+
+export const gameEnemyWave = JSON.parse(JSON.stringify(startingEnemyWave));
 
 export const gameEnemies = {
   GUARD_ENEMIES_PROPS: {
@@ -326,7 +334,7 @@ export const gameEnemies = {
     velocity: 10,
     x: CANVAS_WIDTH - 50,
     y: CANVAS_HEIGHT / 2 + 10,
-    hp: MAX_ENEMY_HP * 100,
+    hp: MAX_ENEMY_HP * 1,
     power: 0.5,
     stopX: STOP_ENEMY_POS,
     spread: 0,
@@ -340,8 +348,6 @@ export const settingsKey = "GrayDracoSettings";
 
 if (localStorage[settingsKey]) {
   Object.assign(gameState, JSON.parse(localStorage.getItem(settingsKey)));
-
-  console.log(gameState);
 }
 
 export const audio = new Audio();

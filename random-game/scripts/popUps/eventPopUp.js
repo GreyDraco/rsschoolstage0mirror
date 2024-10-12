@@ -21,8 +21,6 @@ export function startEvent(id, gameEventsData = events) {
   showPopup();
 
   if (id !== "immediateBattle") {
-    console.log("not im b");
-
     playNextAudio(id);
   }
 

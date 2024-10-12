@@ -19,7 +19,6 @@ mapBtn.addEventListener("click", () => {
   const mapLocations = document.createElement("div");
   mapLocations.classList.add("map-locations");
   popupContent.append(mapLocations);
-  console.log(gameState.completedEvents);
   Object.keys(gameEventsData).forEach((location) => {
     mapLocations.append(addNewLocation(location));
   });
@@ -38,12 +37,12 @@ function addNewLocation(id) {
   const battleBtn = document.createElement("button");
 
   locationDropdown.className = `location-dropdown dropdown-${id}`;
-  if (gameState.completedEvents.includes(id)) {
-    locationDropdown.classList.add("completed");
-  }
   locationBtn.className = `location-btn ${id}`;
   eventBtn.className = `dropdown-content event-btn event-${id}`;
   battleBtn.className = `dropdown-content battle-btn battle-${id}`;
+  if (gameState.completedEvents.includes(id)) {
+    eventBtn.classList.add("completed");
+  }
 
   if (!gameEventsData[id].immediateBattle) {
     battleBtn.style.display = "none";

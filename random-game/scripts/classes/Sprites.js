@@ -131,7 +131,10 @@ export class MovingCharacter extends Character {
     const deltaInSeconds = deltaTime / 1000;
 
     if (this.xPos > this.stopPos) {
-      this.xPos += deltaInSeconds * this.velocity * direction;
+      this.xPos = Math.max(
+        this.xPos + deltaInSeconds * this.velocity * direction,
+        this.stopPos
+      );
     } else {
       if (direction) {
         this.xPos += deltaInSeconds * this.velocity * direction;

@@ -26,7 +26,6 @@ import {
   leaders,
   leadersKey,
   STOP_ENEMY_POS,
-  settingsKey,
 } from "./scripts/consts.js";
 import "./scripts/popUps/repairPopUp.js";
 import "./scripts/popUps/eventPopUp.js";
@@ -132,7 +131,7 @@ function updateEnemyHp(damage) {
 }
 
 function updateCastleHp(damage) {
-  castle.hp -= damage;
+  castle.hp = castle.hp > damage ? castle.hp - damage : 0;
   const currentCastleHPWidth =
     (castle.hp * HP_MAX_WIDTH) / gameParams.maxCastleHp;
   castleHP.width = Math.max(currentCastleHPWidth, 0);
@@ -173,7 +172,6 @@ function animate(currentTime) {
       gameEnemyWave.onScreenEnemies.forEach((enemy) => {
         enemy.move(deltaTime, 1);
         enemy.selectAnimation("runBack");
-        enemy.display(deltaTime);
         if (enemy.type === "king") {
           enemy.velocity = 120;
         }
