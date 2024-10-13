@@ -365,7 +365,7 @@ export const sounds = {
   fireball: "fireball.mp3",
   lightning: "lightning.mp3",
   fireBreath: "FireBreath.mp3",
-  lose: "lose.wav",
+  lose: "lose.mp3",
   win: "win.mp3",
   money: "money.mp3",
   notEnoughMoney: "needgold.mp3",

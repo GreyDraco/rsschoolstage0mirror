@@ -56,7 +56,17 @@ body {
 canvas {
   width: 100%;
   background: aliceblue;
-  margin: 0;
+  /*   margin: 0; */
+  border: 2px solid #2d1606;
+  border-radius: 15px;
+  /*  padding: 10px 20px; */
+
+  /*   text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3); */
+
+  box-shadow: 0px 0px 0px 4px #d49221, 0px 0px 0px 7px #37240f,
+    inset 0px 3px 0px rgba(255, 255, 255, 0.2),
+    inset 0px -3px 0px rgba(0, 0, 0, 0.3);
+  margin: 7px 10px;
 }
 
 .actionMenuContainer {
@@ -159,7 +169,7 @@ canvas {
 
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: space-between;
 }
 
 .rules,
@@ -202,4 +212,22 @@ body:has(.overlay_active) {
 
 .current-gold {
   position: absolute;
+}
+
+.game-logo {
+  height: 150px;
+}
+
+.actionMenuContainer {
+  background: linear-gradient(to bottom, #7a4c2c, #8b5e3c);
+  border: 2px solid #2d1606;
+  border-radius: 15px;
+  padding: 10px 20px;
+
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+
+  box-shadow: 0px 0px 0px 4px #d49221, 0px 0px 0px 7px #37240f,
+    inset 0px 3px 0px rgba(255, 255, 255, 0.2),
+    inset 0px -3px 0px rgba(0, 0, 0, 0.3);
+  margin: 7px 10px;
 }

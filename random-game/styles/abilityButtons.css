@@ -105,8 +105,9 @@
   font-size: 20px;
   /*  border-radius: 10px; */
   /*   position: relative; */
+  /* background: #d49221;
+   background: #825911; */
   background: #d49221;
-  background: #825911;
   color: antiquewhite;
   /*   rotate: 0; */
   border-top-right-radius: 5px;
@@ -151,7 +152,7 @@
   right: 100%;
   top: calc(50% - 15px);
   border-top: 15px solid transparent;
-  border-right: 10px solid #825911;
+  border-right: 10px solid #d49221;
   border-bottom: 15px solid transparent;
 }
 
