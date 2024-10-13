@@ -103,8 +103,8 @@ export const money = new Sprite({
 });
 
 export const playerLvl = new Sprite({
-  x: dragon.xPos + 130,
-  y: dragon.yPos - 20,
+  x: dragon.xPos + 175,
+  y: dragon.yPos,
   width: 20,
   height: 20,
   src: "./assets/icons/star.png",

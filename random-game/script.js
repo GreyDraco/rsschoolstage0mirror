@@ -50,8 +50,8 @@ import { openStartPopUp } from "./scripts/popUps/startPopUp.js";
   playNextAudio("idle");
 }; */
 
-const checkLvlBtn = document.querySelector(".DEBUG-Lvl");
-const pushEnemyWave = document.querySelector(".DEBUG-wave");
+/* const checkLvlBtn = document.querySelector(".DEBUG-Lvl");
+const pushEnemyWave = document.querySelector(".DEBUG-wave"); */
 const bribeCostText = document.querySelector(".bribe-cost");
 //const bribeBtn = document.querySelector(".bribe-cost");
 
@@ -80,7 +80,7 @@ function displayPlayerLvl() {
   playerLvl.display();
   ctx.font = "30px BaseFont";
   ctx.fillStyle = "purple";
-  ctx.fillText(gameParams.playerLvl, dragon.xPos + 157, dragon.yPos - 2);
+  ctx.fillText(gameParams.playerLvl, dragon.xPos + 200, dragon.yPos + 18);
 }
 
 function displayHP() {
@@ -255,16 +255,16 @@ function animate(currentTime) {
 }
 animate(0);
 
-pushEnemyWave.addEventListener("click", () => {
+/* pushEnemyWave.addEventListener("click", () => {
   gameEnemyWave.incomingEnemies.guard = 1;
   gameEnemyWave.incomingEnemies.knight = 1;
   gameEnemyWave.incomingEnemies.cultist = 1;
   gameEnemyWave.incomingEnemies.king = 1;
 
   startBattle();
-});
+}); */
 
-checkLvlBtn.addEventListener("click", () => {
+/* checkLvlBtn.addEventListener("click", () => {
   console.log(
     "player lvl:",
     gameParams.playerLvl,
@@ -272,7 +272,7 @@ checkLvlBtn.addEventListener("click", () => {
     gameParams.abilities.lightning
   );
 });
-
+ */
 function checkCastleDead() {
   if (castle.hp <= 0) {
     gameState.isCombat = false;

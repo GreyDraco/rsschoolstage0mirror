@@ -15,7 +15,7 @@ import { playNextAudio, playSound } from "../helpers/playNextAudio.js";
 import startBattle from "../helpers/startBattle.js";
 import { hidePopup, showPopup } from "./showPopup.js";
 
-const fireEventBtn = document.querySelector(".DEBUG-event");
+/* const fireEventBtn = document.querySelector(".DEBUG-event"); */
 
 export function startEvent(id, gameEventsData = events) {
   showPopup();
@@ -182,10 +182,10 @@ export function startEvent(id, gameEventsData = events) {
   }
 }
 
-fireEventBtn.addEventListener("click", () => {
+/* fireEventBtn.addEventListener("click", () => {
   playSound(sounds.event);
   startEvent("village");
-});
+}); */
 
 function giveRewards(gameEvent) {
   const rewardList = document.createElement("ul");
