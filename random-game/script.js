@@ -39,21 +39,13 @@ import "./scripts/helpers/abilities.js";
 import "./scripts/helpers/showToolbar.js";
 import "./scripts/popUps/settingsPopUp.js";
 import { getEnemyHp } from "./scripts/helpers/calcHp.js";
-import startBattle from "./scripts/helpers/startBattle.js";
 import { hitClosestEnemies } from "./scripts/helpers/hitEnemy.js";
 import { openEndPopUp } from "./scripts/popUps/endPopUp.js";
 import toggleVisibleToolbar from "./scripts/helpers/showToolbar.js";
 import { playNextAudio, playSound } from "./scripts/helpers/playNextAudio.js";
 import { openStartPopUp } from "./scripts/popUps/startPopUp.js";
 
-/* window.onload = () => {
-  playNextAudio("idle");
-}; */
-
-/* const checkLvlBtn = document.querySelector(".DEBUG-Lvl");
-const pushEnemyWave = document.querySelector(".DEBUG-wave"); */
 const bribeCostText = document.querySelector(".bribe-cost");
-//const bribeBtn = document.querySelector(".bribe-cost");
 
 if (localStorage.GrayDracoLeaders) {
   leaders.results = JSON.parse(localStorage.getItem(leadersKey));
@@ -119,12 +111,11 @@ function updateEnemyHp(damage) {
   hitClosestEnemies(damage);
   const enemyHp = getEnemyHp();
   gameState.currentEnemiesHP = Math.floor(enemyHp);
-  //console.log(enemyHp, gameState.totalEnemyHp);
   const bribeCost = Math.floor(enemyHp / 1 + gameParams.abilities.princess);
   bribeCostText.textContent = bribeCost;
 
   const currentEnemHPWidth =
-    (1 - /* getEnemyHp() */ enemyHp / gameState.totalEnemyHp) * HP_MAX_WIDTH;
+    (1 - enemyHp / gameState.totalEnemyHp) * HP_MAX_WIDTH;
   enemiesHP.width = Math.min(currentEnemHPWidth, HP_MAX_WIDTH);
   if (currentEnemHPWidth >= HP_MAX_WIDTH) {
     gameState.isCombat = false;
@@ -255,30 +246,12 @@ function animate(currentTime) {
 }
 animate(0);
 
-/* pushEnemyWave.addEventListener("click", () => {
-  gameEnemyWave.incomingEnemies.guard = 1;
-  gameEnemyWave.incomingEnemies.knight = 1;
-  gameEnemyWave.incomingEnemies.cultist = 1;
-  gameEnemyWave.incomingEnemies.king = 1;
-
-  startBattle();
-}); */
-
-/* checkLvlBtn.addEventListener("click", () => {
-  console.log(
-    "player lvl:",
-    gameParams.playerLvl,
-    "lightning lvl:",
-    gameParams.abilities.lightning
-  );
-});
- */
 function checkCastleDead() {
   if (castle.hp <= 0) {
     gameState.isCombat = false;
-    toggleVisibleToolbar();
     playNextAudio("idle");
     gameState.gameOver = true;
+    toggleVisibleToolbar();
     dragon.selectAnimation("death");
   }
 }
@@ -286,10 +259,10 @@ function checkCastleDead() {
 function checkKingDead(enemy) {
   if (enemy.type === "king") {
     gameState.isCombat = false;
-    toggleVisibleToolbar();
     playNextAudio("idle");
     gameState.gameOver = true;
     gameState.isKingDead = true;
+    toggleVisibleToolbar();
   }
 }
 

@@ -44,7 +44,6 @@ export function openStartPopUp() {
     resetGame();
     playSound(sounds.btn);
     playNextAudio("idle");
-    console.log("playNew");
     audio.currentTime = 0;
     hidePopup();
   });
@@ -52,7 +51,6 @@ export function openStartPopUp() {
   startBtn.addEventListener("click", () => {
     playSound(sounds.btn);
     playNextAudio("idle");
-    console.log("play");
     hidePopup();
   });
   leaderboardBtn.addEventListener("click", () => {

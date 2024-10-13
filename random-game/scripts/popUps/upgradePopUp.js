@@ -226,7 +226,7 @@ function fillUpgradeGameParamsItem(
       }
 
       if (upgrade === "playerLvl") {
-        castle.power = Math.round((castle.power + 0.01) * 100) / 100;
+        castle.power = Math.round((castle.power + 0.02) * 100) / 100;
       }
 
       gameParams.gold -= cost;

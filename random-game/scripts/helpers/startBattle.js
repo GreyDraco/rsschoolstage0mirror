@@ -6,7 +6,7 @@ import toggleVisibleToolbar from "./showToolbar.js";
 
 export default function startBattle() {
   if (gameEnemyWave.incomingEnemies.king) {
-    playNextAudio("kingBattle"); // final boss music
+    playNextAudio("kingBattle");
     document.querySelector(".bribeBtn").disabled = true;
   } else {
     playNextAudio("battle");

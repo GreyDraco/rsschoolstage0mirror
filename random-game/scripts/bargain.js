@@ -69,7 +69,6 @@ export function addBargain(updEnvLayout = () => {}) {
       top: 100500,
       behavior: "smooth",
     });
-    // console.log(1.5 * gameParams.abilities.bargain);
   });
 
   return { bargainBtn, bargainContainer, discountText };

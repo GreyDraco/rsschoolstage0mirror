@@ -139,10 +139,7 @@ function buildRepairPopupLayout() {
   repairButtonsContainer.append(okRepairBtn, fullRepairBtn);
   repairBarContainer.append(repairBar, repairCost, repairHp);
   popupContainer.append(currentGold);
-  popupContent.append(
-    /* currentGold, */ repairBarContainer,
-    repairButtonsContainer
-  );
+  popupContent.append(repairBarContainer, repairButtonsContainer);
   return {
     currentGold,
     fullRepairBtn,

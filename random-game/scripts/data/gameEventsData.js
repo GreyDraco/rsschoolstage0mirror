@@ -187,7 +187,7 @@ export const gameEventsData = {
             varID: "var3w",
             text: "Вы передаете обещанную сумму, и в ответ получаете древние знания о том, как повелевать молниями. К тому же ваш торг оказался удачным: вам удалось сбить цену, сэкономив немало золота. Теперь в ваших руках — сила стихии и ощущение, что сделка была вдвойне выгодной.",
             vars: null,
-            rewards: { playerLvl: 0, abilities: { lightning: 1 }, gold: -7000 },
+            rewards: { playerLvl: 1, abilities: { lightning: 2 }, gold: -7000 },
             img: "./assets/events/cultists/cultists-pay-to-baryga.jpeg",
             check: null,
             battle: null,
@@ -199,7 +199,7 @@ export const gameEventsData = {
             vars: null,
             rewards: {
               playerLvl: 1,
-              abilities: { lightning: 1 },
+              abilities: { lightning: 2 },
               gold: -10000,
             },
             img: "./assets/events/cultists/cultists-pay-to-baryga.jpeg",

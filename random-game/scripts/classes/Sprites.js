@@ -9,13 +9,13 @@ export class Sprite {
     height,
     color,
     src,
-    maxFrames = 1 /* , scale = 1 */,
+    maxFrames = 1,
     delay = 50,
     offsetX = 0,
     offsetY = 0,
   }) {
     this.xPos = x;
-    this.yPos = y /*  - height */;
+    this.yPos = y;
     this.color = color;
     this.width = width;
     this.height = height;
@@ -23,7 +23,6 @@ export class Sprite {
     this.imgSrc = src;
     this.maxFrames = maxFrames;
     this.currentFrame = maxFrames - 1;
-    //  this.scale = scale;
     this.delayCounter = 0;
     this.delay = delay;
     this.offsetX = offsetX;

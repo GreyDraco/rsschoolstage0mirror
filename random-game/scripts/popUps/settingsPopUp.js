@@ -72,22 +72,12 @@ function createVolItem({ name, label, targetAudio }) {
 
   volItem.append(volTitle, volContainer);
 
-  setClickHandlers(
-    volMuteBtn,
-    volBar,
-    name,
-    targetAudio /* audio/sound/undefined */
-  );
+  setClickHandlers(volMuteBtn, volBar, name, targetAudio);
 
   return { volItem, volTitle, volMuteBtn, volBar };
 }
 
-function setClickHandlers(
-  volBtn,
-  volBar,
-  name,
-  targetAudio /* audio/sound/undefined */
-) {
+function setClickHandlers(volBtn, volBar, name, targetAudio) {
   volBtn.addEventListener("click", () => {
     playSound(sounds.btn);
     if (volBtn.classList.contains("mute")) {

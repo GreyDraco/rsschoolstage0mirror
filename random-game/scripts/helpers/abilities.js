@@ -10,7 +10,6 @@ const fireballBtn = document.querySelector(".fireballBtn");
 const bribeBtn = document.querySelector(".bribeBtn");
 
 bribeBtn.addEventListener("click", () => {
-  // playSound(sounds.money);
   const bribeCost = Math.floor(
     getEnemyHp() / 1 + gameParams.abilities.princess
   );
@@ -24,8 +23,6 @@ bribeBtn.addEventListener("click", () => {
   } else {
     playSound(sounds.notEnoughMoney);
     bribeBtn.classList.add("shaked-btn");
-
-    console.log("Need more gold to bribe: ", gameParams.gold, "/", bribeCost);
   }
 });
 
