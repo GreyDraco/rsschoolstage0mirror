@@ -14,9 +14,9 @@ import {
 export const castle = new Character(CASTLE_PROPS);
 
 export const tower = new Sprite({
-  x: castle.yPos - 190,
+  x: castle.yPos - 200,
   y: castle.xPos + 55,
-  width: 83.75,
+  width: 140,
   height: 400,
   src: "./assets/sprites/tower.png",
 });
@@ -87,7 +87,7 @@ export const dragon = new Character({
 export const flame = new Character({
   velocity: 20,
   x: 90,
-  y: CANVAS_HEIGHT - 410,
+  y: CANVAS_HEIGHT - 370,
   stopX: CANVAS_WIDTH,
   spread: 0,
   ...spriteAnimationData.flame,

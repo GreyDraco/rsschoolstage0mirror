@@ -16,8 +16,6 @@ import { playNextAudio, playSound } from "../helpers/playNextAudio.js";
 import startBattle from "../helpers/startBattle.js";
 import { hidePopup, showPopup } from "./showPopup.js";
 
-/* const fireEventBtn = document.querySelector(".DEBUG-event"); */
-
 export function startEvent(id, gameEventsData = events) {
   showPopup();
 
@@ -34,22 +32,15 @@ export function startEvent(id, gameEventsData = events) {
 
   const eventImg = document.createElement("img");
   eventImg.className = "event-img";
-  // eventImg.src = "./assets/PLACEHOLDER.jpeg";
+
   eventImg.alt = `${id}-event-image`;
 
   const eventText = document.createElement("p");
   eventText.className = "event-text";
   const buttonContainer = document.createElement("div");
   buttonContainer.classList.add("event-btn-container");
-  //const dieContainer = document.createElement("div");
-  // const dieMinigame = document.createElement("div");
 
-  // dieContainer.append(dieMinigame);
-  popupContent.append(
-    eventImg,
-    eventText,
-    buttonContainer /* , dieContainer */
-  );
+  popupContent.append(eventImg, eventText, buttonContainer);
 
   const eventName = id;
   let gameEvent = gameEventsData[eventName];
@@ -57,16 +48,12 @@ export function startEvent(id, gameEventsData = events) {
   displayEventFrame();
 
   function displayEventFrame() {
-    //  console.log(gameEvent);
-    // popupContent.scrollTop = 0;
     if (gameEvent?.img) {
-      eventImg.src = gameEvent.img; //|| "./assets/img.jpeg";
+      eventImg.src = gameEvent.img;
     }
-    //eventImg.onload = () => {
-    eventImg.classList.remove("hidden");
-    // };
 
-    // const popupContent = document.querySelector(".popup-content");
+    eventImg.classList.remove("hidden");
+
     popupContent.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -91,10 +78,8 @@ export function startEvent(id, gameEventsData = events) {
           let checkCounter = checkEvent(gameEvent);
           const { bargainContainer, bargainBtn } = addBargain(() => {
             checkCounter += gameParams.discount < 1 ? +1 : 0;
-            console.log("checks complete:", checkCounter, "of", checkCount);
             gameEvent = checkCounter >= checkCount ? vars.varw : vars.varl;
             clearTimeout(timerId);
-            //  eventImg.classList.remove("hidden");
             bargainContainer.classList.add("hidden");
             displayEventFrame();
 
@@ -109,8 +94,6 @@ export function startEvent(id, gameEventsData = events) {
 
           timerId = setTimeout(() => {
             checkCounter = gameParams.discount < 1 ? +1 : 0;
-            console.log(gameParams.discount);
-            console.log("checks complete:", checkCounter, "of", checkCount);
             gameEvent = checkCounter >= checkCount ? vars.varw : vars.varl;
             bargainContainer.classList.add("hidden");
 
@@ -120,8 +103,6 @@ export function startEvent(id, gameEventsData = events) {
           }, 10000);
         } else {
           let checkCounter = checkEvent(gameEvent);
-
-          console.log("checks complete:", checkCounter, "of", checkCount);
           gameEvent = checkCounter >= checkCount ? vars.varw : vars.varl;
           displayEventFrame();
         }
@@ -183,11 +164,6 @@ export function startEvent(id, gameEventsData = events) {
   }
 }
 
-/* fireEventBtn.addEventListener("click", () => {
-  playSound(sounds.event);
-  startEvent("village");
-}); */
-
 function giveRewards(gameEvent) {
   const rewardList = document.createElement("ul");
   rewardList.className = "rewards-list";
@@ -216,11 +192,11 @@ function giveRewards(gameEvent) {
             tower.imgSrc = "./assets/sprites/towerP.png";
             tower.image.src = "./assets/sprites/towerP.png";
           }
-          console.log(gameParams.abilities[key]);
+
           gameParams.abilities[key] += value;
-          console.log(gameParams.abilities[key]);
+
           if (key in gameParams.power) {
-            gameParams.power[key] += valuesPerLvl[key];
+            gameParams.power[key] += valuesPerLvl[key] * value;
           }
           rewardItem.textContent = `Улучшена способность: ${paramsLocalization[key]}`;
           const abilityBtn = document.querySelector(`.${key}Btn`);
@@ -246,18 +222,15 @@ function checkEvent(gameEvent) {
     switch (key) {
       case "die": {
         const comb = Math.floor(Math.random() * DIE_SIZE + 1);
-        //  console.log("die", comb, "vs", value);
         checkCounter += comb >= value ? 1 : 0;
         break;
       }
       case "lvlCheck": {
-        console.log("level:", gameParams.playerLvl, "vs", key, value);
         checkCounter += gameParams.playerLvl > value ? 1 : 0;
         break;
       }
       case "gold": {
         checkCounter++;
-        console.log("gold checked before");
         break;
       }
       default: {

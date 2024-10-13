@@ -10,13 +10,6 @@ import { playSound } from "../helpers/playNextAudio.js";
 import { hidePopup, showPopup } from "./showPopup.js";
 import { openStartPopUp } from "./startPopUp.js";
 
-/* const endGameBtn = document.querySelector(".DEBUG-endGame"); */
-
-/* endGameBtn.addEventListener("click", () => {
-  playSound(sounds.btn);
-  openEndPopUp();
-}); */
-
 function updateLeaders(nameInput, result) {
   if (nameInput.value) {
     result.name = nameInput.value.trim();

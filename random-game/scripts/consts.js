@@ -248,7 +248,7 @@ export const spriteAnimationData = {
 
 export const startingGameParams = {
   cost: BASE_COST,
-  gold: 1000,
+  gold: 2000,
   playerLvl: 1,
   discount: 1,
   castleHitCount: 1,
@@ -256,8 +256,8 @@ export const startingGameParams = {
   maxCastleHp: 1000,
 
   power: {
-    fireball: 0,
-    lightning: 0,
+    fireball: 1,
+    lightning: 1,
     bargain: 0,
   },
   abilities: { fireball: 0, lightning: 0, bargain: 0, princess: 0 },
@@ -344,7 +344,7 @@ export const gameEnemies = {
     velocity: 10,
     x: CANVAS_WIDTH - 50,
     y: CANVAS_HEIGHT / 2 + 10,
-    hp: MAX_ENEMY_HP * 1,
+    hp: MAX_ENEMY_HP * 100,
     power: 0.5,
     stopX: STOP_ENEMY_POS,
     spread: 0,
@@ -363,7 +363,6 @@ if (localStorage[settingsKey]) {
 
 export const audio = new Audio();
 audio.loop = true;
-/* audio.volume = 0.1; */
 audio.volume = gameState.musicVol * gameState.generalVol;
 export const sound = new Audio();
 sound.volume = gameState.soundVol * gameState.generalVol;
