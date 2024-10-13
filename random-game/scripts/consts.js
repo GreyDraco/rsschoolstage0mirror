@@ -243,7 +243,7 @@ export const spriteAnimationData = {
 export const startingGameParams = {
   cost: BASE_COST,
   gold: 10000,
-  playerLvl: 1,
+  playerLvl: 5,
   discount: 1,
   castleHitCount: 3,
   castleRange: 300,

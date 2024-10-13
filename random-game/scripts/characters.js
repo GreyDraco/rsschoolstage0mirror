@@ -13,6 +13,14 @@ import {
 
 export const castle = new Character(CASTLE_PROPS);
 
+export const tower = new Sprite({
+  x: castle.yPos - 190,
+  y: castle.xPos + 55,
+  width: 83.75,
+  height: 400,
+  src: "./assets/sprites/tower.png",
+});
+
 export const castleHP = new Sprite({
   x: HP_CASTLE_POS,
   y: HP_Y_POS,

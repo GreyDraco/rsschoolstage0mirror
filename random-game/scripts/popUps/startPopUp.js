@@ -1,4 +1,4 @@
-import { castle, castleHP, dragon } from "../characters.js";
+import { castle, castleHP, dragon, tower } from "../characters.js";
 import {
   audio,
   CASTLE_PROPS,
@@ -105,4 +105,5 @@ function resetGame() {
   document.querySelector(".bribeBtn").disabled = false;
   document.querySelector(".lightningBtn").classList.remove("unlocked");
   document.querySelector(".fireballBtn").classList.remove("unlocked");
+  tower.src = "/assets/sprites/tower.png";
 }

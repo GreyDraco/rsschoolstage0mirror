@@ -11,6 +11,7 @@ import {
   money,
   playerLvl,
   skybox,
+  tower,
 } from "./scripts/characters.js";
 import {
   CANVAS_HEIGHT,
@@ -158,8 +159,8 @@ function animate(currentTime) {
 
   displayHP();
   displayHPVal(Math.floor(castle.hp), gameParams.maxCastleHp, 90);
-
-  castle.display("green");
+  tower.display();
+  castle.display();
   dragon.display(deltaTime);
 
   if (gameState.isCombat) {

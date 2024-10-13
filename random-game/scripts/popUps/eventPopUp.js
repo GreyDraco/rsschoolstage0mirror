@@ -1,5 +1,5 @@
 import { addBargain } from "../bargain.js";
-import { castle } from "../characters.js";
+import { castle, tower } from "../characters.js";
 import {
   CASTLE_PROPS,
   DIE_SIZE,
@@ -209,6 +209,10 @@ function giveRewards(gameEvent) {
               (CASTLE_PROPS.power + 0.01 * gameParams.playerLvl) * 100
             ) / 100;
         }
+        /* if (key === "princess") {
+          tower.src = "./assets/sprites/towerP.png";
+          console.log(tower);
+        } */
       } else {
         Object.entries(value).forEach(([key, value]) => {
           gameParams.abilities[key] += value;
