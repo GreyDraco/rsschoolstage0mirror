@@ -11,6 +11,23 @@
 
 .footer {
   width: 100%;
+  /*   background: #95a0b0; */
+  background: linear-gradient(to bottom, #7a4c2c, #8b5e3c);
+
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+  /*  box-shadow: inset 0px 6px 11px 0px rgba(255, 255, 255, 0.2); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* 
+  background: linear-gradient(to bottom, #7a4c2c, #8b5e3c); */
+  border-top: 2px solid #2d1606;
+
+  box-shadow: 0px 0px 0px 4px #d49221, 0px 0px 0px 7px #37240f,
+    inset 0px 3px 0px rgba(255, 255, 255, 0.2),
+    inset 0px -3px 0px rgba(0, 0, 0, 0.3);
+  margin-top: 7px;
 }
 
 .footer-container {
@@ -18,8 +35,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 25px;
-  background: #95a0b0;
+  /*   background: #95a0b0; */
   width: 100%;
+  max-width: 1280px;
 }
 
 .footer-rss-logo {
@@ -33,7 +51,7 @@
 }
 
 .footer-rss-logo:hover {
-  filter: drop-shadow(1px 1px 6px #82cfd0);
+  filter: drop-shadow(1px 1px 6px #d49221);
 }
 
 .footer-list {
@@ -43,6 +61,7 @@
   list-style: none;
   padding: 0;
   text-shadow: rgb(200, 200, 200) 1px 0 6px, rgb(255, 255, 255) 1px 0 6px;
+  margin: 10px 0;
 }
 
 .footer-list li {
@@ -60,5 +79,5 @@
 }
 
 .gh-link:hover {
-  filter: drop-shadow(1px 1px 6px #82cfd0);
+  filter: drop-shadow(1px 1px 6px #d49221);
 }

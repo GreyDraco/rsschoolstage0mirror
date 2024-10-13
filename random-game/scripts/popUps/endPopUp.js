@@ -1,20 +1,25 @@
-import { gameParams, gameState, leaders, leadersKey } from "../consts.js";
+import {
+  gameParams,
+  gameState,
+  leaders,
+  leadersKey,
+  sounds,
+} from "../consts.js";
+import { createBtn } from "../helpers/createBtn.js";
+import { playSound } from "../helpers/playNextAudio.js";
 import { hidePopup, showPopup } from "./showPopup.js";
+import { openStartPopUp } from "./startPopUp.js";
 
-const endGameBtn = document.querySelector(".DEBUG-endGame");
-const leaderboardBtn = document.querySelector(".leaderboard-btn");
+/* const endGameBtn = document.querySelector(".DEBUG-endGame"); */
 
-leaderboardBtn.addEventListener("click", () => {
-  openLeaderboard();
-});
-
-endGameBtn.addEventListener("click", () => {
+/* endGameBtn.addEventListener("click", () => {
+  playSound(sounds.btn);
   openEndPopUp();
-});
+}); */
 
 function updateLeaders(nameInput, result) {
   if (nameInput.value) {
-    result.name = nameInput.value;
+    result.name = nameInput.value.trim();
     const currentLeaders = JSON.parse(localStorage.getItem(leadersKey));
     currentLeaders.unshift(result);
     leaders.results = [...currentLeaders];
@@ -44,7 +49,9 @@ function showLeader(resultList, leader = null) {
     resultName.textContent = `${leader.name}`;
     resultLvl.textContent = `${leader.playerLvl}`;
     resultGold.textContent = `${leader.gold}`;
-    resultKing.style.backgroundImage = `url(${leader.kingDead ? "./assets/icons/crown.png" : "./assets/icons/skull.png"})`;
+    resultKing.style.backgroundImage = `url(${
+      leader.kingDead ? "./assets/icons/crown.png" : "./assets/icons/skull.png"
+    })`;
   } else {
     resultName.textContent = "Имя";
     resultLvl.textContent = "Уровень";
@@ -57,7 +64,7 @@ function showLeader(resultList, leader = null) {
   resultList.append(resulItem);
 }
 
-function openLeaderboard() {
+export function openLeaderboard() {
   showPopup();
   const popupContent = document.querySelector(".popup-content");
   popupContent.classList.add("leaderboard-content");
@@ -70,10 +77,19 @@ function openLeaderboard() {
   currentLeaders.forEach((leader) => {
     showLeader(resultList, leader);
   });
-  popupContent.append(resultList);
+
+  const backBtn = createBtn();
+  backBtn.textContent = "Назад";
+  backBtn.addEventListener("click", () => {
+    playSound(sounds.btn);
+    hidePopup();
+    openStartPopUp();
+  });
+  popupContent.append(resultList, backBtn);
 }
 
 export function openEndPopUp() {
+  playSound(gameState.isKingDead ? sounds.win : sounds.lose);
   showPopup();
   const result = {
     name: "",
@@ -87,7 +103,12 @@ export function openEndPopUp() {
 
   const resultTextContainer = document.createElement("div");
   resultTextContainer.classList.add("result-text-container");
-  resultTextContainer.textContent = `Вы ${gameState.isKingDead ? "выиграли!" : "проиграли!"}`;
+  const resultText = document.createElement("p");
+
+  resultText.textContent = `Вы ${
+    gameState.isKingDead ? "выиграли!" : "проиграли!"
+  }`;
+  resultText.className = `result-text ${gameState.isKingDead ? "win" : "lose"}`;
 
   const resultList = document.createElement("ul");
   resultList.classList.add("result-list");
@@ -97,25 +118,30 @@ export function openEndPopUp() {
   resultGold.classList.add("result-item");
 
   resultLvl.textContent = `Ваш уровень: ${gameParams.playerLvl}`;
-  resultGold.textContent = `Ваше накопленное золото: ${gameParams.gold}`;
+  resultGold.textContent = `Накопленное золото: ${gameParams.gold}`;
 
   resultList.append(resultLvl, resultGold);
-  resultTextContainer.append(resultList);
+  resultTextContainer.append(resultText, resultList);
 
-  const saveResultBtn = document.createElement("button");
-  saveResultBtn.className = "save-result-btn";
+  const saveResultBtn = createBtn(["save-result-btn"]);
+  saveResultBtn.disabled = true;
   saveResultBtn.textContent = "Сохранить";
 
   const nameInput = document.createElement("input");
   nameInput.classList.add("name-input");
   nameInput.focus();
   nameInput.placeholder = "Введите Ваше имя";
+
+  nameInput.addEventListener("input", () => {
+    saveResultBtn.disabled = !nameInput.value.trim();
+  });
   nameInput.addEventListener("keyup", (e) => {
     if (e.code === "Enter") {
       updateLeaders(nameInput, result);
     }
   });
   saveResultBtn.addEventListener("click", () => {
+    playSound(sounds.btn);
     updateLeaders(nameInput, result);
   });
   popupContent.append(resultTextContainer, nameInput, saveResultBtn);

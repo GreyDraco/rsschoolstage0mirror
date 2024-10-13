@@ -1,24 +1,55 @@
 import { addBargain } from "../bargain.js";
-import { DIE_SIZE, gameEnemyWave, gameParams, gameState } from "../consts.js";
+import { castle, tower } from "../characters.js";
+import {
+  CASTLE_PROPS,
+  DIE_SIZE,
+  gameEnemyWave,
+  gameParams,
+  gameState,
+  paramsLocalization,
+  sounds,
+  valuesPerLvl,
+} from "../consts.js";
 import { gameEventsData as events } from "../data/gameEventsData.js";
+import { createBtn } from "../helpers/createBtn.js";
+import { playNextAudio, playSound } from "../helpers/playNextAudio.js";
 import startBattle from "../helpers/startBattle.js";
 import { hidePopup, showPopup } from "./showPopup.js";
 
-const fireEventBtn = document.querySelector(".DEBUG-event");
+/* const fireEventBtn = document.querySelector(".DEBUG-event"); */
 
 export function startEvent(id, gameEventsData = events) {
   showPopup();
 
+  if (id !== "immediateBattle") {
+    playNextAudio(id);
+  }
+
   const popupContent = document.querySelector(".popup-content");
+  const popupContainer = document.querySelector(".popup-container");
+  popupContainer.addEventListener("animationend", () => {
+    popupContainer.style.animation = "none";
+  });
   popupContent.classList.add("event-popup");
 
-  const eventText = document.createElement("p");
-  const buttonContainer = document.createElement("div");
-  const dieContainer = document.createElement("div");
-  const dieMinigame = document.createElement("div");
+  const eventImg = document.createElement("img");
+  eventImg.className = "event-img";
+  // eventImg.src = "./assets/PLACEHOLDER.jpeg";
+  eventImg.alt = `${id}-event-image`;
 
-  dieContainer.append(dieMinigame);
-  popupContent.append(eventText, buttonContainer, dieContainer);
+  const eventText = document.createElement("p");
+  eventText.className = "event-text";
+  const buttonContainer = document.createElement("div");
+  buttonContainer.classList.add("event-btn-container");
+  //const dieContainer = document.createElement("div");
+  // const dieMinigame = document.createElement("div");
+
+  // dieContainer.append(dieMinigame);
+  popupContent.append(
+    eventImg,
+    eventText,
+    buttonContainer /* , dieContainer */
+  );
 
   const eventName = id;
   let gameEvent = gameEventsData[eventName];
@@ -26,6 +57,20 @@ export function startEvent(id, gameEventsData = events) {
   displayEventFrame();
 
   function displayEventFrame() {
+    //  console.log(gameEvent);
+    // popupContent.scrollTop = 0;
+    if (gameEvent?.img) {
+      eventImg.src = gameEvent.img; //|| "./assets/img.jpeg";
+    }
+    //eventImg.onload = () => {
+    eventImg.classList.remove("hidden");
+    // };
+
+    // const popupContent = document.querySelector(".popup-content");
+    popupContent.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     eventText.textContent = gameEvent.text;
 
     let vars = gameEvent.vars;
@@ -36,18 +81,20 @@ export function startEvent(id, gameEventsData = events) {
 
       if (gameEvent.check) {
         const checkCount = Object.keys(gameEvent.check).length;
-        if (gameEvent.check.bargain && gameParams.abilities.bargain) {
+        if (
+          gameEvent.check.bargain &&
+          gameParams.abilities.bargain >= gameEvent.check.bargain
+        ) {
+          eventImg.classList.add("hidden");
           let timerId = null;
           gameParams.discount = 1;
           let checkCounter = checkEvent(gameEvent);
-
           const { bargainContainer, bargainBtn } = addBargain(() => {
-            console.log(gameParams.discount);
-            checkCounter = gameParams.discount < 1 ? +1 : 0;
-            console.log(gameParams.discount);
+            checkCounter += gameParams.discount < 1 ? +1 : 0;
             console.log("checks complete:", checkCounter, "of", checkCount);
             gameEvent = checkCounter >= checkCount ? vars.varw : vars.varl;
             clearTimeout(timerId);
+            //  eventImg.classList.remove("hidden");
             bargainContainer.classList.add("hidden");
             displayEventFrame();
 
@@ -57,7 +104,8 @@ export function startEvent(id, gameEventsData = events) {
           });
           bargainBtn.click();
           bargainContainer.classList.remove("hidden");
-          popupContent.append(bargainContainer);
+          eventImg.classList.add("hidden");
+          popupContent.prepend(bargainContainer);
 
           timerId = setTimeout(() => {
             checkCounter = gameParams.discount < 1 ? +1 : 0;
@@ -68,6 +116,7 @@ export function startEvent(id, gameEventsData = events) {
 
             displayEventFrame();
             bargainContainer.remove();
+            eventImg.classList.remove("hidden");
           }, 10000);
         } else {
           let checkCounter = checkEvent(gameEvent);
@@ -78,8 +127,12 @@ export function startEvent(id, gameEventsData = events) {
         }
       } else {
         Object.values(vars).forEach((variant) => {
-          const choiceBtn = document.createElement("button");
-          if (variant?.check?.gold && gameParams.gold - variant.check.gold < 0) {
+          const choiceBtn = createBtn();
+
+          if (
+            variant?.check?.gold &&
+            gameParams.gold - variant.check.gold < 0
+          ) {
             choiceBtn.disabled = true;
           }
           choiceBtn.textContent = variant.varDesc;
@@ -87,15 +140,17 @@ export function startEvent(id, gameEventsData = events) {
           buttonContainer.append(choiceBtn);
 
           choiceBtn.addEventListener("click", () => {
+            playSound(sounds.event);
             gameEvent = variant;
             setTimeout(() => {
+              popupContainer.style.animation = "popup 0.6s";
               displayEventFrame();
             }, 300);
           });
         });
       }
     } else {
-      const okBtn = document.createElement("button");
+      const okBtn = createBtn();
 
       if (gameEvent.rewards) {
         buttonContainer.prepend(giveRewards(gameEvent));
@@ -106,10 +161,17 @@ export function startEvent(id, gameEventsData = events) {
       buttonContainer.append(okBtn);
       eventText.textContent = gameEvent.text;
       okBtn.addEventListener("click", () => {
+        gameState.completedEvents.push(id);
+        playSound(sounds.event);
         if (gameEvent.battle) {
-          gameEnemyWave.incomingEnemies = { ...gameEvent.battle };
+          gameEnemyWave.incomingEnemies = {
+            ...gameEnemyWave.incomingEnemies,
+            ...gameEvent.battle,
+          };
 
           startBattle();
+        } else {
+          playNextAudio("idle");
         }
         hidePopup();
         gameParams.discount = 1;
@@ -121,24 +183,51 @@ export function startEvent(id, gameEventsData = events) {
   }
 }
 
-fireEventBtn.addEventListener("click", () => {
+/* fireEventBtn.addEventListener("click", () => {
+  playSound(sounds.event);
   startEvent("village");
-});
+}); */
 
 function giveRewards(gameEvent) {
   const rewardList = document.createElement("ul");
+  rewardList.className = "rewards-list";
   Object.entries(gameEvent.rewards).forEach(([key, value]) => {
-    if (value !== null) {
+    if (value !== null && value !== 0) {
       const rewardItem = document.createElement("li");
       if (key !== "abilities") {
         const diff = Math.min(gameParams[key], Math.abs(value));
-        gameParams[key] = Math.max(gameParams[key] + value, 0);
-
-        rewardItem.textContent = value > 0 ? `${key}: +${value}` : `${key}: ${-diff}`;
+        gameParams[key] =
+          key === "playerLvl"
+            ? Math.max(gameParams[key] + value, 1)
+            : Math.max(gameParams[key] + value, 0);
+        rewardItem.textContent =
+          value > 0
+            ? `${paramsLocalization[key]}: +${value}`
+            : `${paramsLocalization[key]}: ${-diff}`;
+        if (key === "playerLvl") {
+          castle.power =
+            Math.round(
+              (CASTLE_PROPS.power + 0.01 * gameParams.playerLvl) * 100
+            ) / 100;
+        }
       } else {
         Object.entries(value).forEach(([key, value]) => {
+          if (key === "princess") {
+            tower.imgSrc = "./assets/sprites/towerP.png";
+            tower.image.src = "./assets/sprites/towerP.png";
+          }
+          console.log(gameParams.abilities[key]);
           gameParams.abilities[key] += value;
-          rewardItem.textContent = `ability leveled up: ${key}`;
+          console.log(gameParams.abilities[key]);
+          if (key in gameParams.power) {
+            gameParams.power[key] += valuesPerLvl[key];
+          }
+          rewardItem.textContent = `Улучшена способность: ${paramsLocalization[key]}`;
+          const abilityBtn = document.querySelector(`.${key}Btn`);
+          if (abilityBtn && abilityBtn.disabled) {
+            abilityBtn.disabled = false;
+            abilityBtn.classList.add("unlocked");
+          }
         });
       }
       rewardList.append(rewardItem);
@@ -157,7 +246,7 @@ function checkEvent(gameEvent) {
     switch (key) {
       case "die": {
         const comb = Math.floor(Math.random() * DIE_SIZE + 1);
-        console.log("die", comb, "vs", value);
+        //  console.log("die", comb, "vs", value);
         checkCounter += comb >= value ? 1 : 0;
         break;
       }
@@ -172,7 +261,7 @@ function checkEvent(gameEvent) {
         break;
       }
       default: {
-        console.log("ERR got something else");
+        console.log("Got something else:", `${key}`);
         break;
       }
     }

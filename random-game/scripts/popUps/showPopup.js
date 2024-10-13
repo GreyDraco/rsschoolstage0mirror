@@ -1,3 +1,5 @@
+import { playNextAudio } from "../helpers/playNextAudio.js";
+
 const overlay = document.querySelector(".overlay");
 const body = document.body;
 
@@ -5,31 +7,34 @@ export function showPopup() {
   overlay.innerHTML = "";
 
   overlay.classList.toggle("overlay_active");
-  body.classList.toggle("no-scroll");
 
+  /*   overlay.style.top = `${window.scrollY}px`; */
   const popupContent = document.createElement("div");
   popupContent.classList.add("popup-content");
-
-  const closePopupBtn = document.createElement("button");
-  closePopupBtn.className = "close-popup";
-  closePopupBtn.textContent = "×";
-  closePopupBtn.addEventListener("click", () => {
-    hidePopup();
-  });
 
   const popupContainer = document.createElement("div");
   popupContainer.classList.add("popup-container");
 
-  popupContainer.append(popupContent, closePopupBtn);
+  popupContainer.append(popupContent);
   overlay.append(popupContainer);
+  return { popupContainer, popupContent };
 }
 
 overlay.addEventListener("click", (event) => {
-  if (!event.target.closest(".popup-container")) hidePopup();
+  if (!event.target.closest(".popup-container")) {
+    const popupContent = document.querySelector(".popup-content");
+    if (
+      popupContent &&
+      !popupContent.classList.contains("event-popup") &&
+      !popupContent.classList.contains("end-game")
+    ) {
+      hidePopup();
+      playNextAudio("idle");
+    }
+  }
 });
 
 export function hidePopup() {
   overlay.classList.remove("overlay_active");
-  document.body.classList.remove("no-scroll");
   overlay.innerHTML = "";
 }

@@ -2,19 +2,39 @@
 @import url(./styles/footer.css);
 @import url(./styles/repairPopup.css);
 @import url(./styles/mapDropdown.css);
-@import url(./styles/abilityReload.css);
+@import url(./styles/mapPopUp.css);
+@import url(./styles/abilityButtons.css);
 @import url(./styles/leaderboard.css);
+@import url(./styles/startMenu.css);
+@import url(./styles/upgrade.css);
+@import url(./styles/volume.css);
+@import url(./styles/endPopup.css);
+
+@font-face {
+  font-family: "BaseFont";
+  src: url("./assets/fonts/BeaumarchaisC.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
 
 * {
   box-sizing: border-box;
+  font-family: "BaseFont";
 }
+
 body {
+  font-family: "BaseFont";
+  font-size: 24px;
+  font-weight: 400;
   min-height: 100vh;
   margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background: url(./assets/sprites/bg.png) repeat;
+  gap: 10px;
+  background-size: 300px;
 }
 
 .main {
@@ -32,9 +52,24 @@ body {
 }
 
 canvas {
-  width: 100%;
+  width: 95%;
   background: aliceblue;
-  margin: 0;
+  /*   margin: 0; */
+  border: 2px solid #2d1606;
+  border-radius: 15px;
+  /*  padding: 10px 20px; */
+
+  /*   text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3); */
+
+  box-shadow: 0px 0px 0px 4px #d49221, 0px 0px 0px 7px #37240f,
+    inset 0px 3px 0px rgba(255, 255, 255, 0.2),
+    inset 0px -3px 0px rgba(0, 0, 0, 0.3);
+  margin: 7px 10px;
+
+  /*   height: calc(100vh - 350px);
+  width: 100%;
+  max-width: 100%;
+  min-height: 300px; */
 }
 
 .actionMenuContainer {
@@ -47,4 +82,163 @@ canvas {
 
 .hidden {
   display: none;
+}
+
+/*--------------------------------------------------------------------*/
+.btn {
+  /*   font-family: "BaseFont"; */
+  letter-spacing: 2px;
+  background: linear-gradient(to bottom, #7a4c2c, #8b5e3c);
+  border: 2px solid #2d1606;
+  border-radius: 15px;
+  padding: 10px 20px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+  position: relative;
+  box-shadow: 0px 0px 0px 4px #d49221, 0px 0px 0px 7px #37240f,
+    inset 0px 3px 0px rgba(255, 255, 255, 0.2),
+    inset 0px -3px 0px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn:hover {
+  box-shadow: 0px 0px 0px 4px #d49221, 0px 0px 0px 7px #37240f,
+    inset 0px 4px 0px rgba(255, 255, 255, 0.3),
+    inset 0px -4px 0px rgba(0, 0, 0, 0.4);
+}
+
+.event-btn-container,
+.repair-btns-container {
+  display: flex;
+  align-items: center;
+
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.event-btn-container:has(.rewards-list) {
+  flex-direction: column;
+  /*   gap: 10px; */
+}
+
+.popup-content {
+  padding: 20px 12%;
+}
+
+.btn::before,
+.btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 10px;
+  height: 10px;
+  background: conic-gradient(#d4a259, #ffcc66);
+  border: 2px solid #4d291a;
+}
+
+.btn:before {
+  left: -11px;
+}
+
+.btn:after {
+  right: -11px;
+}
+
+.btn {
+  margin: 7px 10px;
+}
+
+.btn:disabled {
+  pointer-events: none;
+  background: #bfbfbf;
+  box-shadow: 0px 0px 0px 4px #bfbfbf, 0px 0px 0px 7px #3f3f3f,
+    inset 0px 3px 0px rgba(255, 255, 255, 0.2),
+    inset 0px -3px 0px rgba(0, 0, 0, 0.3);
+}
+
+.btn:disabled:before,
+.btn:disabled::after {
+  background: conic-gradient(#cfcdcb, #fdf9f1);
+  border: 2px solid #3f3f3f;
+}
+
+.game-btn-container {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  column-gap: 20px;
+}
+
+.rules,
+.event-text {
+  text-align: justify;
+  margin: 0;
+}
+
+.event-img {
+  position: relative;
+  background-size: contain;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  border: 2px solid #2d1606;
+  box-shadow: 0px 0px 0px 4px #d49221, 0px 0px 0px 7px #37240f,
+    inset 0px 3px 0px rgba(255, 255, 255, 0.2),
+    inset 0px -3px 0px rgba(0, 0, 0, 0.3);
+}
+
+.event-img::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  background-color: #cfcdcb;
+  z-index: 8000;
+}
+
+body:has(.overlay_active) {
+  overflow: hidden;
+}
+
+.rewards-list {
+  margin: 0;
+}
+
+.current-gold {
+  position: absolute;
+}
+
+.game-logo {
+  height: 100px;
+}
+
+.actionMenuContainer {
+  background: linear-gradient(to bottom, #7a4c2c, #8b5e3c);
+  border: 2px solid #2d1606;
+  border-radius: 15px;
+  padding: 10px 20px;
+
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+
+  box-shadow: 0px 0px 0px 4px #d49221, 0px 0px 0px 7px #37240f,
+    inset 0px 3px 0px rgba(255, 255, 255, 0.2),
+    inset 0px -3px 0px rgba(0, 0, 0, 0.3);
+  margin: 7px 10px;
+}
+@media (max-width: 420px) {
+  .game-btn-container {
+    flex-direction: column;
+    justify-content: center;
+  }
 }

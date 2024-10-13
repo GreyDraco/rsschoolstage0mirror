@@ -8,7 +8,7 @@
   background-color: rgba(29, 29, 29, 0.722);
   position: fixed;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: none;
 }
 .overlay_active {
@@ -22,17 +22,15 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: #fafafa;
   align-items: center;
   width: 70vw;
-
-  min-height: 300px;
   border-radius: 9px;
-  gap: 10px;
-  padding: 10px 20px;
+  gap: 0;
+  padding: 0;
 }
 
 .close-popup {
+  display: none;
   position: absolute;
   top: -50px;
   right: -50px;
@@ -44,4 +42,87 @@
 
 .close-popup:hover {
   scale: 0.98;
+}
+
+/*------------------ popUp bg-----------------------*/
+
+.popup-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 750px;
+  width: 70vw;
+  max-height: 80vh;
+  position: relative;
+}
+
+.popup-container::before {
+  content: "";
+  width: 70vw;
+  max-width: 750px;
+  min-height: 70px;
+  background: url(../assets/popUpBackground/scrollTop.png) no-repeat;
+  background-size: 100% 70px;
+}
+
+.popup-container::after {
+  content: "";
+  width: 100%;
+  max-width: 750px;
+  width: 70vw;
+  min-height: 70px;
+  background: url(../assets/popUpBackground/scrollBottom.png) no-repeat;
+  background-size: 100% 70px;
+}
+
+.popup-content {
+  background: url(../assets/popUpBackground/scrollContent.png) repeat-y;
+  background-size: 100% auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 12%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  gap: 20px;
+}
+
+.popup-content::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 20px;
+}
+
+.popup-content::-webkit-scrollbar-track {
+  background: rgb(131, 130, 130);
+  border-radius: 20px;
+}
+
+.popup-content::-webkit-scrollbar-thumb {
+  background-color: #d1802e;
+  border-radius: 20px;
+}
+
+/*---------------------------------------------------*/
+.overlay_active {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+
+.popup-container {
+  animation: popup 0.6s;
+}
+
+@keyframes popup {
+  0% {
+    scale: 0.9;
+    opacity: 0.8;
+  }
+  100% {
+    scale: 1;
+    opacity: 1;
+  }
 }

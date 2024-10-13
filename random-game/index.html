@@ -4,35 +4,58 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
+    <link
+      rel="shortcut icon"
+      href="./assets/icons/favicon.png"
+      type="image/x-icon"
+    />
+    <title>Flames and treasures</title>
   </head>
   <body>
     <main class="main">
+      <div class="game-btn-container">
+        <img src="./assets/icons/game-logo.png" alt="logo" class="game-logo" />
+        <button class="menu-btn btn">Меню</button>
+      </div>
       <canvas id="game">Your browser does not support canvas</canvas>
       <div class="actionMenuContainer civilBar">
-        <button class="button repairBtn">repair</button>
-        <button class="button upgradeBtn">upgrade</button>
-        <button class="button mapBtn">map</button>
+        <button class="button repairBtn ability-btn"></button>
+        <button class="button upgradeBtn ability-btn"></button>
+        <button class="button mapBtn ability-btn"></button>
       </div>
-      <div class="actionMenuContainer combatBar">
-        <button class="button fireballBtn ability-btn"></button>
-        <button class="button lightningBtn ability-btn"></button>
-        <button class="button bribeBtn ability-btn"></button>
+      <div class="actionMenuContainer combatBar hidden">
+        <button class="button fireballBtn ability-btn" disabled></button>
+        <!-- disable -->
+        <button class="button lightningBtn ability-btn" disabled></button>
+        <!-- disable -->
+        <button class="button bribeBtn ability-btn">
+          <span class="bribe-cost">0</span>
+        </button>
       </div>
-      <button class="DEBUG-wave">wave</button>
+      <!--   <button class="DEBUG-wave">wave</button>
       <button class="DEBUG-event">event</button>
       <button class="DEBUG-endGame">endGame</button>
-      <button class="leaderboard-btn">leaderbord</button>
+      <button class="DEBUG-Lvl">DEBUG lvls</button> -->
     </main>
     <footer class="footer">
       <div class="footer-container">
         <ul class="footer-list">
           <li><p>© 2024</p></li>
           <li>
-            <a href="https://github.com/GreyDraco" class="contacts-link"><img class="gh-link" src="./assets/icons/github-logo.png" alt="GreyDraco" height="40px" width="40px" /></a>
+            <a href="https://github.com/GreyDraco" class="contacts-link"
+              ><img
+                class="gh-link"
+                src="./assets/icons/github-logo.png"
+                alt="GreyDraco"
+                height="40"
+                width="40"
+            /></a>
           </li>
         </ul>
-        <a href="https://rs.school/courses/javascript-ru" class="footer-rss-logo"></a>
+        <a
+          href="https://rs.school/courses/javascript-ru"
+          class="footer-rss-logo"
+        ></a>
       </div>
     </footer>
     <div class="overlay"></div>

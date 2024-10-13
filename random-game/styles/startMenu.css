@@ -1,0 +1,11 @@
+.start-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-btn-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
