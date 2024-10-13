@@ -8,6 +8,7 @@ import {
   gameState,
   paramsLocalization,
   sounds,
+  valuesPerLvl,
 } from "../consts.js";
 import { gameEventsData as events } from "../data/gameEventsData.js";
 import { createBtn } from "../helpers/createBtn.js";
@@ -209,13 +210,18 @@ function giveRewards(gameEvent) {
               (CASTLE_PROPS.power + 0.01 * gameParams.playerLvl) * 100
             ) / 100;
         }
-        /* if (key === "princess") {
-          tower.src = "./assets/sprites/towerP.png";
-          console.log(tower);
-        } */
       } else {
         Object.entries(value).forEach(([key, value]) => {
+          if (key === "princess") {
+            tower.imgSrc = "./assets/sprites/towerP.png";
+            tower.image.src = "./assets/sprites/towerP.png";
+          }
+          console.log(gameParams.abilities[key]);
           gameParams.abilities[key] += value;
+          console.log(gameParams.abilities[key]);
+          if (key in gameParams.power) {
+            gameParams.power[key] += valuesPerLvl[key];
+          }
           rewardItem.textContent = `Улучшена способность: ${paramsLocalization[key]}`;
           const abilityBtn = document.querySelector(`.${key}Btn`);
           if (abilityBtn && abilityBtn.disabled) {

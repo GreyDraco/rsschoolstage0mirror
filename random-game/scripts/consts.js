@@ -13,16 +13,22 @@ export const HP_ENEMIES_POS = CANVAS_WIDTH - HP_MAX_WIDTH - HP_CASTLE_POS;
 export const BASE_COST = 0.1; // repair cost
 
 export const upgradeCosts = {
-  playerLvl: 5000,
-  maxCastleHp: 500,
-  castleHitCount: 3000,
-  abilities: { fireball: 7000, lightning: 5000, bargain: 5000 },
+  playerLvl: 500,
+  maxCastleHp: 400,
+  castleHitCount: 1000,
+  abilities: { fireball: 5000, lightning: 3000, bargain: 1000 },
 };
 export const upgradeMax = {
   playerLvl: 10,
   maxCastleHp: 15,
   castleHitCount: 5,
   abilities: { fireball: 5, lightning: 5, bargain: 10 },
+};
+
+export const valuesPerLvl = {
+  fireball: 30,
+  lightning: 150,
+  bargain: 1,
 };
 
 export const paramsLocalization = {
@@ -61,7 +67,7 @@ export const spriteAnimationData = {
       height: 200,
       src: "./assets/sprites/guard/Attack3.png",
       maxFrames: 4,
-      delay: 40,
+      delay: 100,
       offsetX: 90,
       offsetY: -10,
     },
@@ -99,7 +105,7 @@ export const spriteAnimationData = {
       height: 225,
       src: "./assets/sprites/knight/Attack.png",
       maxFrames: 6,
-      delay: 50,
+      delay: 90,
       offsetX: 90,
       offsetY: 0,
     },
@@ -213,7 +219,7 @@ export const spriteAnimationData = {
       height: 375,
       src: "./assets/sprites/cultist/Attack2.png",
       maxFrames: 8,
-      delay: 40,
+      delay: 100,
       offsetX: 90,
       offsetY: 90,
     },
@@ -242,16 +248,16 @@ export const spriteAnimationData = {
 
 export const startingGameParams = {
   cost: BASE_COST,
-  gold: 10000,
-  playerLvl: 5,
+  gold: 1000,
+  playerLvl: 1,
   discount: 1,
-  castleHitCount: 3,
+  castleHitCount: 1,
   castleRange: 300,
-  maxCastleHp: 10000,
+  maxCastleHp: 1000,
 
   power: {
-    fireball: 30,
-    lightning: 150,
+    fireball: 0,
+    lightning: 0,
     bargain: 0,
   },
   abilities: { fireball: 0, lightning: 0, bargain: 0, princess: 0 },
@@ -289,7 +295,7 @@ export const CASTLE_PROPS = {
   height: 300,
   color: "green",
   hp: gameParams.maxCastleHp,
-  power: 0.1 + Math.round(0.01 * gameParams.playerLvl * 100) / 100,
+  power: 0.1 + Math.round(0.03 * gameParams.playerLvl * 100) / 100,
   src: "./assets/sprites/castleLvl2.png",
 };
 export const STOP_ENEMY_POS = CASTLE_PROPS.width - 20;

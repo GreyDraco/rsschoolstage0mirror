@@ -1,5 +1,11 @@
 import { castle } from "../characters.js";
-import { gameParams, sounds, upgradeCosts, upgradeMax } from "../consts.js";
+import {
+  gameParams,
+  sounds,
+  upgradeCosts,
+  upgradeMax,
+  valuesPerLvl,
+} from "../consts.js";
 import { createBtn } from "../helpers/createBtn.js";
 import { playSound } from "../helpers/playNextAudio.js";
 import { hidePopup, showPopup } from "./showPopup.js";
@@ -249,10 +255,10 @@ function updateUpgradeButtonsState(upgradeButtons) {
       : btn.classList.contains("upgrade-maxCastleHp")
       ? { upgrade: "maxCastleHp", valuePerLvl: 1000 }
       : btn.classList.contains("upgrade-fireball")
-      ? { upgrade: "fireball", valuePerLvl: 30 }
+      ? { upgrade: "fireball", valuePerLvl: valuesPerLvl.fireball }
       : btn.classList.contains("upgrade-lightning")
-      ? { upgrade: "lightning", valuePerLvl: 150 }
-      : { upgrade: "bargain", valuePerLvl: 1 };
+      ? { upgrade: "lightning", valuePerLvl: valuesPerLvl.lightning }
+      : { upgrade: "bargain", valuePerLvl: valuesPerLvl.bargain };
 
     let currentLvl =
       gameParams[upgrade] / valuePerLvl ||
