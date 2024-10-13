@@ -1,5 +1,6 @@
 import { castle, castleHP, dragon } from "../characters.js";
 import {
+  audio,
   CASTLE_PROPS,
   gameEnemyWave,
   gameParams,
@@ -43,6 +44,7 @@ export function openStartPopUp() {
     playSound(sounds.btn);
     playNextAudio("idle");
     console.log("playNew");
+    audio.currentTime = 0;
     hidePopup();
   });
 
@@ -54,12 +56,13 @@ export function openStartPopUp() {
   });
   leaderboardBtn.addEventListener("click", () => {
     playSound(sounds.btn);
+    playNextAudio("idle");
     hidePopup();
     openLeaderboard();
   });
   rulesBtn.addEventListener("click", () => {
     playSound(sounds.btn);
-    console.log("Потом будут правила как попап или хз");
+    playNextAudio("idle");
     hidePopup();
     openRules();
   });

@@ -14,7 +14,6 @@ import {
 import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
-  CASTLE_PROPS,
   gameEnemyWave,
   gameParams,
   gameState,
@@ -25,6 +24,8 @@ import {
   HP_Y_POS,
   leaders,
   leadersKey,
+  sound,
+  sounds,
   STOP_ENEMY_POS,
 } from "./scripts/consts.js";
 import "./scripts/popUps/repairPopUp.js";
@@ -40,7 +41,7 @@ import startBattle from "./scripts/helpers/startBattle.js";
 import { hitClosestEnemies } from "./scripts/helpers/hitEnemy.js";
 import { openEndPopUp } from "./scripts/popUps/endPopUp.js";
 import toggleVisibleToolbar from "./scripts/helpers/showToolbar.js";
-import { playNextAudio } from "./scripts/helpers/playNextAudio.js";
+import { playNextAudio, playSound } from "./scripts/helpers/playNextAudio.js";
 import { openStartPopUp } from "./scripts/popUps/startPopUp.js";
 
 /* window.onload = () => {
@@ -203,7 +204,11 @@ function animate(currentTime) {
   if (gameEnemyWave.deadEnemies.length) {
     gameEnemyWave.deadEnemies.forEach((enemy) => {
       enemy.display(deltaTime);
-      if (enemy.type === "king" && enemy.currentFrame < 1) {
+      if (
+        enemy.type === "king" &&
+        enemy.currentFrame < 1 &&
+        !gameEnemyWave.onScreenEnemies.length
+      ) {
         openEndPopUp();
       }
       gameEnemyWave.deadEnemies = gameEnemyWave.deadEnemies.filter(
@@ -220,6 +225,8 @@ function animate(currentTime) {
     if (flame.currentFrame < 1) {
       flame.currentFrame = flame.maxFrames;
       gameState.isFireActive = false;
+      breathActive = false;
+      sound.pause();
     }
   }
 
@@ -278,6 +285,8 @@ function checkKingDead(enemy) {
   }
 }
 
+let breathActive = false;
+
 function animateDragonAttack(deltaTime) {
   if (
     gameEnemyWave.onScreenEnemies.some(
@@ -286,7 +295,9 @@ function animateDragonAttack(deltaTime) {
   ) {
     dragon.selectAnimation("attack");
     dragon.display(deltaTime);
-    if (dragon.currentFrame === 10) {
+    if (dragon.currentFrame === 10 && !breathActive) {
+      breathActive = true;
+      playSound(sounds.fireBreath);
       gameState.isFireActive = true;
     }
   } else {

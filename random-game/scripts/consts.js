@@ -326,8 +326,8 @@ export const gameEnemies = {
     y: CANVAS_HEIGHT / 2,
     hp: MAX_ENEMY_HP * 4,
     power: 0.4,
-    stopX: 400,
-    spread: 150,
+    stopX: STOP_ENEMY_POS - 30,
+    spread: 50,
     ...spriteAnimationData.cultist.run,
   },
   KING_ENEMIES_PROPS: {
@@ -363,6 +363,7 @@ export const sounds = {
   event: "event.mp3",
   fireball: "fireball.mp3",
   lightning: "lightning.mp3",
+  fireBreath: "FireBreath.mp3",
   lose: "lose.wav",
   win: "win.mp3",
   money: "money.mp3",
