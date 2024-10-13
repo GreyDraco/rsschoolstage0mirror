@@ -10,6 +10,7 @@ import {
   lightning,
   money,
   playerLvl,
+  skybox,
 } from "./scripts/characters.js";
 import {
   CANVAS_HEIGHT,
@@ -140,6 +141,7 @@ function updateCastleHp(damage) {
 
 let lastTime = 0;
 displayHP();
+skybox.velocity = 4;
 //------------------------------------------------------<animate>------------------------------------------------
 function animate(currentTime) {
   const deltaTime = currentTime - lastTime;
@@ -147,6 +149,11 @@ function animate(currentTime) {
 
   window.requestAnimationFrame(animate);
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+  skybox.move(deltaTime);
+  if (skybox.xPos < skybox.stopPos) {
+    skybox.xPos = 0;
+  }
   background.display();
 
   displayHP();

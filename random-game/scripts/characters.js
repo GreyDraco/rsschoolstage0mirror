@@ -53,7 +53,20 @@ export const background = new Sprite({
   y: 0,
   width: CANVAS_WIDTH,
   height: CANVAS_HEIGHT,
-  src: "./assets/sprites/background.png",
+  src: "./assets/sprites/backgroundNoSky.png",
+});
+
+export const skybox = new MovingCharacter({
+  velocity: 5,
+  x: 0,
+  y: 0,
+  width: CANVAS_WIDTH * 2,
+  height: CANVAS_HEIGHT,
+  type: "background",
+  stopX: -CANVAS_WIDTH,
+  spread: 0,
+  spreadY: 0,
+  src: "./assets/sprites/skybox.png",
 });
 
 export const dragon = new Character({
@@ -63,7 +76,7 @@ export const dragon = new Character({
   type: "dragon",
 });
 
-export const flame = new MovingCharacter({
+export const flame = new Character({
   velocity: 20,
   x: 90,
   y: CANVAS_HEIGHT - 410,

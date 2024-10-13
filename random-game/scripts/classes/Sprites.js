@@ -82,6 +82,7 @@ export class Character extends Sprite {
     offsetY = 0,
     stopX = STOP_ENEMY_POS,
     spread = 50,
+    spreadY = 50,
     type,
   }) {
     super({
@@ -100,6 +101,7 @@ export class Character extends Sprite {
     this.power = power;
     this.stopX = stopX;
     this.spread = spread;
+    this.spreadY = spread;
     this.type = type;
     this.animationName = "idle";
   }
@@ -124,7 +126,7 @@ export class MovingCharacter extends Character {
     super(props);
     this.velocity = props.velocity + Math.random() * 40;
     this.stopPos = props.stopX + Math.random() * props.spread;
-    this.yPos = this.yPos + Math.random() * 50;
+    this.yPos = this.yPos + Math.random() * props.spreadY;
   }
 
   move(deltaTime, direction = -1) {

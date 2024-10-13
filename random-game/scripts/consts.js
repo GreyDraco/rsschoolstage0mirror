@@ -307,6 +307,7 @@ export const gameEnemies = {
     power: 0.1,
     stopX: STOP_ENEMY_POS,
     spread: 50,
+    spreadY: 50,
     ...spriteAnimationData.guard.run,
   },
 
@@ -318,6 +319,7 @@ export const gameEnemies = {
     power: 0.2,
     stopX: STOP_ENEMY_POS,
     spread: 50,
+    spreadY: 50,
     ...spriteAnimationData.knight.run,
   },
 
@@ -329,6 +331,7 @@ export const gameEnemies = {
     power: 0.4,
     stopX: STOP_ENEMY_POS - 30,
     spread: 50,
+    spreadY: 50,
     ...spriteAnimationData.cultist.run,
   },
   KING_ENEMIES_PROPS: {
@@ -339,6 +342,7 @@ export const gameEnemies = {
     power: 0.5,
     stopX: STOP_ENEMY_POS,
     spread: 0,
+    spreadY: 50,
     ...spriteAnimationData.king.run,
   },
 };
