@@ -304,9 +304,3 @@ function animateDragonAttack(deltaTime) {
     dragon.selectAnimation();
   }
 }
-
-/* function spawnDragonFlame() {
-  if (dragon.currentFrame < dragon.maxFrames / 2) {
-    flame.currentFrame = flame.maxFrames;
-  }
-} */

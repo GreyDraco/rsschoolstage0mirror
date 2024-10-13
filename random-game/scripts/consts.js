@@ -31,6 +31,7 @@ export const paramsLocalization = {
   fireball: "Огненный взрыв",
   lightning: "Удар молнией",
   bargain: "Торговля",
+  princess: "Подкуп врагов стал дешевле",
 };
 
 export const enemyTypes = ["guard", "knight", "cultist", "king"];
@@ -241,7 +242,7 @@ export const spriteAnimationData = {
 
 export const startingGameParams = {
   cost: BASE_COST,
-  gold: 100,
+  gold: 10000,
   playerLvl: 1,
   discount: 1,
   castleHitCount: 3,
@@ -251,7 +252,7 @@ export const startingGameParams = {
   power: {
     fireball: 30,
     lightning: 150,
-    bargain: 10,
+    bargain: 0,
   },
   abilities: { fireball: 0, lightning: 0, bargain: 0, princess: 0 },
 };

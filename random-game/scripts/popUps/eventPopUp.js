@@ -33,7 +33,7 @@ export function startEvent(id, gameEventsData = events) {
 
   const eventImg = document.createElement("img");
   eventImg.className = "event-img";
-  eventImg.src = "./assets/PLACEHOLDER.jpeg";
+  // eventImg.src = "./assets/PLACEHOLDER.jpeg";
   eventImg.alt = `${id}-event-image`;
 
   const eventText = document.createElement("p");
@@ -56,8 +56,15 @@ export function startEvent(id, gameEventsData = events) {
   displayEventFrame();
 
   function displayEventFrame() {
+    //  console.log(gameEvent);
     // popupContent.scrollTop = 0;
+    if (gameEvent?.img) {
+      eventImg.src = gameEvent.img; //|| "./assets/img.jpeg";
+    }
+    //eventImg.onload = () => {
     eventImg.classList.remove("hidden");
+    // };
+
     // const popupContent = document.querySelector(".popup-content");
     popupContent.scrollTo({
       top: 0,
@@ -77,6 +84,7 @@ export function startEvent(id, gameEventsData = events) {
           gameEvent.check.bargain &&
           gameParams.abilities.bargain >= gameEvent.check.bargain
         ) {
+          eventImg.classList.add("hidden");
           let timerId = null;
           gameParams.discount = 1;
           let checkCounter = checkEvent(gameEvent);
@@ -85,6 +93,7 @@ export function startEvent(id, gameEventsData = events) {
             console.log("checks complete:", checkCounter, "of", checkCount);
             gameEvent = checkCounter >= checkCount ? vars.varw : vars.varl;
             clearTimeout(timerId);
+            //  eventImg.classList.remove("hidden");
             bargainContainer.classList.add("hidden");
             displayEventFrame();
 
@@ -107,7 +116,7 @@ export function startEvent(id, gameEventsData = events) {
             displayEventFrame();
             bargainContainer.remove();
             eventImg.classList.remove("hidden");
-          }, 100000);
+          }, 10000);
         } else {
           let checkCounter = checkEvent(gameEvent);
 
@@ -227,7 +236,7 @@ function checkEvent(gameEvent) {
     switch (key) {
       case "die": {
         const comb = Math.floor(Math.random() * DIE_SIZE + 1);
-        console.log("die", comb, "vs", value);
+        //  console.log("die", comb, "vs", value);
         checkCounter += comb >= value ? 1 : 0;
         break;
       }

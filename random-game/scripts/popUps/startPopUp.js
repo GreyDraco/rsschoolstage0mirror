@@ -6,6 +6,7 @@ import {
   gameParams,
   gameState,
   HP_MAX_WIDTH,
+  settingsKey,
   sounds,
   startingEnemyWave,
   startingGameParams,
@@ -93,6 +94,9 @@ function resetGame() {
   Object.assign(gameEnemyWave, JSON.parse(JSON.stringify(startingEnemyWave)));
   Object.assign(gameParams, JSON.parse(JSON.stringify(startingGameParams)));
   Object.assign(gameState, JSON.parse(JSON.stringify(startingGameState)));
+  if (localStorage[settingsKey]) {
+    Object.assign(gameState, JSON.parse(localStorage.getItem(settingsKey)));
+  }
   castle.hp = CASTLE_PROPS.hp;
   castleHP.width = (castle.hp * HP_MAX_WIDTH) / gameParams.maxCastleHp;
   castle.power = CASTLE_PROPS.power;
