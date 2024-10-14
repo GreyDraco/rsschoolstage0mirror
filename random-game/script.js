@@ -112,7 +112,8 @@ function updateEnemyHp(damage) {
   hitClosestEnemies(damage);
   const enemyHp = getEnemyHp();
   gameState.currentEnemiesHP = Math.floor(enemyHp);
-  const bribeCost = Math.floor(enemyHp / 1 + gameParams.abilities.princess);
+  const modifier = 1 + gameParams.abilities.princess;
+  const bribeCost = Math.floor(getEnemyHp() / modifier);
   bribeCostText.textContent = bribeCost;
 
   const currentEnemHPWidth =
