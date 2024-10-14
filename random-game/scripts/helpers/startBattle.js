@@ -1,4 +1,5 @@
-import { gameEnemyWave, gameState } from "../consts.js";
+import { lightning } from "../characters.js";
+import { gameEnemyWave, gameParams, gameState } from "../consts.js";
 import { spawnEnemies } from "../spawnEnemy.js";
 import { getReserveEnemyHp } from "./calcHp.js";
 import { playNextAudio } from "./playNextAudio.js";
@@ -10,6 +11,18 @@ export default function startBattle() {
     document.querySelector(".bribeBtn").disabled = true;
   } else {
     playNextAudio("battle");
+  }
+
+  if (gameParams.abilities.lightning) {
+    const lightningBtn = document.querySelector(".lightningBtn");
+    lightningBtn.classList.remove("reload-lightning");
+    lightningBtn.disabled = false;
+  }
+
+  if (gameParams.abilities.fireball) {
+    const fireballBtn = document.querySelector(".fireballBtn");
+    fireballBtn.classList.remove("reload-fireball");
+    fireballBtn.disabled = false;
   }
 
   gameState.totalEnemyHp = getReserveEnemyHp();

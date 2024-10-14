@@ -26,6 +26,7 @@ export function spawnEnemies() {
         guard: 0,
         knight: 0,
         cultist: 0,
+        archer: 0,
         king: 0,
       };
     }
