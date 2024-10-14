@@ -449,7 +449,7 @@ export const gameEventsData = {
           },
         },
         rewards: null,
-        check: { lvlCheck: 3 },
+        check: { lvlCheck: 2 },
         battle: null,
       },
       var2: {

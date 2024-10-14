@@ -1,4 +1,4 @@
-import { castle, castleHP, dragon, fireball, tower } from "../characters.js";
+import { castle, castleHP, dragon, tower } from "../characters.js";
 import {
   audio,
   CASTLE_PROPS,
@@ -108,4 +108,6 @@ function resetGame() {
   lightningBtn.disabled = true;
   fireballBtn.disabled = true;
   tower.src = "/assets/sprites/tower.png";
+  tower.imgSrc = "/assets/sprites/tower.png";
+  tower.image.src = "/assets/sprites/tower.png";
 }

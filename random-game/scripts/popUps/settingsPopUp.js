@@ -1,4 +1,11 @@
-import { audio, gameState, settingsKey, sound, sounds } from "../consts.js";
+import {
+  audio,
+  fireBreath,
+  gameState,
+  settingsKey,
+  sound,
+  sounds,
+} from "../consts.js";
 import { createBtn } from "../helpers/createBtn.js";
 import { playSound } from "../helpers/playNextAudio.js";
 import { hidePopup, showPopup } from "./showPopup.js";
@@ -98,6 +105,7 @@ function setClickHandlers(volBtn, volBar, name, targetAudio) {
       gameState.generalVol = volBar.value / 100;
       audio.volume = (gameState.musicVol * volBar.value) / 100;
       sound.volume = (gameState.soundVol * volBar.value) / 100;
+      fireBreath.volume = (gameState.soundVol * volBar.value) / 100;
     }
   });
   volBar.addEventListener("change", () => {
@@ -120,6 +128,7 @@ function setClickHandlers(volBtn, volBar, name, targetAudio) {
 
       audio.volume = gameState.musicVol * currentVolume;
       sound.volume = gameState.soundVol * currentVolume;
+      fireBreath.volume = gameState.soundVol * currentVolume;
     }
   });
 }

@@ -16,6 +16,7 @@ import {
 import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
+  fireBreath,
   gameEnemyWave,
   gameParams,
   gameState,
@@ -225,7 +226,7 @@ function animate(currentTime) {
       flame.currentFrame = flame.maxFrames;
       gameState.isFireActive = false;
       breathActive = false;
-      sound.pause();
+      fireBreath.pause();
     }
   }
 
@@ -278,7 +279,7 @@ function animateDragonAttack(deltaTime) {
     dragon.display(deltaTime);
     if (dragon.currentFrame === 10 && !breathActive) {
       breathActive = true;
-      playSound(sounds.fireBreath);
+      playSound(sounds.fireBreath, fireBreath);
       gameState.isFireActive = true;
     }
   } else {
