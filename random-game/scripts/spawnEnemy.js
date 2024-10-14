@@ -39,6 +39,7 @@ function spawnEnemy(enemySelector, enemyProperties, reserveEnemiesKeys) {
     color: getRandomColorWithOpacity(),
     type: enemyTypes[enemySelector],
   });
+  enemy.hp = enemy.hp * gameState.difficulty;
   gameEnemyWave.onScreenEnemies.push(enemy);
   gameEnemyWave.incomingEnemies[reserveEnemiesKeys[enemySelector]] -= 1;
 }

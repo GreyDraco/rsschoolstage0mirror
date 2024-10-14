@@ -43,13 +43,51 @@ export function openSettingsPopup() {
         generalVol: gameState.generalVol,
         musicVol: gameState.musicVol,
         soundVol: gameState.soundVol,
+        difficulty: gameState.difficulty,
       })
     );
     hidePopup();
     openStartPopUp();
   });
 
-  popupContent.append(musicVolItem, soundVolItem, generalVolItem, saveBtn);
+  popupContent.append(
+    musicVolItem,
+    soundVolItem,
+    generalVolItem,
+    createDifficultyItem().diffItem,
+    saveBtn
+  );
+}
+
+function createDifficultyItem() {
+  const diffItem = document.createElement("div");
+  diffItem.className = `vol-item difficulty-item ${
+    gameState.isCombat ? "locked" : ""
+  }`;
+  const diffTitle = document.createElement("p");
+  diffTitle.className = `vol-title difficulty-title`;
+  diffTitle.textContent = "Сложность";
+
+  const diffBar = document.createElement("input");
+  diffBar.className = `volume-input difficulty-input`;
+  diffBar.type = "range";
+  diffBar.step = 0.1;
+  diffBar.min = 0.2;
+  diffBar.max = 1;
+
+  diffBar.value = gameState.difficulty;
+  diffBar.addEventListener("change", () => {
+    playSound(sounds.btn);
+    gameState.difficulty = diffBar.value;
+  });
+
+  const diffContainer = document.createElement("div");
+  diffContainer.className = `vol-container difficulty-container`;
+  diffContainer.append(diffBar);
+
+  diffItem.append(diffTitle, diffContainer);
+
+  return { diffItem, diffTitle, diffBar };
 }
 
 function createVolItem({ name, label, targetAudio }) {
