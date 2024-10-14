@@ -218,6 +218,11 @@ function fillUpgradeGameParamsItem(
         abilityPower += valuePerLvl;
         gameParams.abilities[abilityKey]++;
         gameParams.power[abilityKey] = abilityPower;
+        const abilityBtn = document.querySelector(`.${abilityKey}Btn`);
+        if (abilityBtn && abilityBtn.disabled) {
+          abilityBtn.disabled = false;
+          abilityBtn.classList.add("unlocked");
+        }
       }
 
       if (upgrade === "maxCastleHp") {

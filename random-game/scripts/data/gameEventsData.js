@@ -445,7 +445,7 @@ export const gameEventsData = {
             vars: null,
             rewards: null,
             check: null,
-            battle: { guard: 14, knight: 10, archer: 5 },
+            battle: { guard: 10, knight: 5, archer: 5 },
           },
         },
         rewards: null,
