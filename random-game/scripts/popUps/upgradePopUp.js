@@ -160,7 +160,6 @@ function addUpgradeItem(upgradeList, upgradeButtons, upgrade) {
       break;
     }
     default: {
-      console.log("got some unexpected upgrade: ", upgrade);
     }
   }
   upgradeItemBtn.append(upgradeCurrentLvl);

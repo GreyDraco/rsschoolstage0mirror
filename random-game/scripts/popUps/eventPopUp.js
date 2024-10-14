@@ -234,7 +234,6 @@ function checkEvent(gameEvent) {
         break;
       }
       default: {
-        console.log("Got something else:", `${key}`);
         break;
       }
     }

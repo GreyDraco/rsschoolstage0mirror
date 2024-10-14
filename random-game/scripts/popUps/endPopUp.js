@@ -20,8 +20,6 @@ function updateLeaders(nameInput, result) {
     localStorage.setItem(leadersKey, JSON.stringify(currentLeaders));
     hidePopup();
     openLeaderboard();
-  } else {
-    console.log("empty");
   }
 }
 

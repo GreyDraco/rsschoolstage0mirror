@@ -35,7 +35,7 @@ lightningBtn.addEventListener("click", () => {
   lightningBtn.disabled = true;
   gameState.isLightningActive = true;
   lightningBtn.classList.add("reload-lightning");
-  lightning.xPos = hitStrongest(gameParams.power.lightning);
+  lightning.xPos = hitStrongest(gameParams.power.lightning) - 28;
 });
 
 lightningBtn.addEventListener("animationend", () => {

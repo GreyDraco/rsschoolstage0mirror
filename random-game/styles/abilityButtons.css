@@ -94,7 +94,6 @@
 }
 
 .bribe-cost {
-  /* z-index: -1; */
   position: absolute;
   background-color: #8e5f3c97;
   padding: 2px 5px;
@@ -103,30 +102,19 @@
   bottom: -3px;
   left: 53px;
   font-size: 20px;
-  /*  border-radius: 10px; */
-  /*   position: relative; */
-  /* background: #d49221;
-   background: #825911; */
   background: #d49221;
   color: antiquewhite;
-  /*   rotate: 0; */
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   min-width: 65px;
 
-  /*   border: 3px solid #d2c106; */
-
   height: 30px;
   width: fit-content;
-  /*   margin: 35px 20px 0 0; */
-  /*   background: #B1BA5C;
-  position: relative; */
   display: block;
   line-height: 25px;
 }
 
 .bribe-cost::before {
-  /* z-index: 20; */
   position: absolute;
   content: "";
   width: 17px;

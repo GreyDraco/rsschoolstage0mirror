@@ -40,7 +40,7 @@ export const paramsLocalization = {
   princess: "Подкуп врагов стал дешевле",
 };
 
-export const enemyTypes = ["guard", "knight", "cultist", "king"];
+export const enemyTypes = ["guard", "knight", "cultist", "archer", "king"];
 
 export const spriteAnimationData = {
   guard: {
@@ -233,6 +233,44 @@ export const spriteAnimationData = {
       offsetY: 90,
     },
   },
+  archer: {
+    run: {
+      width: 1200,
+      height: 150,
+      src: "./assets/sprites/archer/Run.png",
+      maxFrames: 8,
+      delay: 70,
+      offsetX: 90,
+      offsetY: -35,
+    },
+    runBack: {
+      width: 1200,
+      height: 150,
+      src: "./assets/sprites/archer/RunBack.png",
+      maxFrames: 8,
+      delay: 70,
+      offsetX: 90,
+      offsetY: -35,
+    },
+    attack: {
+      width: 900,
+      height: 150,
+      src: "./assets/sprites/archer/Attack.png",
+      maxFrames: 6,
+      delay: 100,
+      offsetX: 90,
+      offsetY: -35,
+    },
+    death: {
+      width: 1500,
+      height: 150,
+      src: "./assets/sprites/archer/Death.png",
+      maxFrames: 10,
+      delay: 80,
+      offsetX: 90,
+      offsetY: -35,
+    },
+  },
   flame: {
     width: 14800,
     height: 420,
@@ -256,8 +294,8 @@ export const startingGameParams = {
   maxCastleHp: 1000,
 
   power: {
-    fireball: 1,
-    lightning: 1,
+    fireball: 0,
+    lightning: 0,
     bargain: 0,
   },
   abilities: { fireball: 0, lightning: 0, bargain: 0, princess: 0 },
@@ -283,7 +321,7 @@ export const startingGameState = {
 export const startingEnemyWave = {
   onScreenEnemies: [],
   deadEnemies: [],
-  incomingEnemies: { guard: 0, knight: 0, cultist: 0, king: 0 },
+  incomingEnemies: { guard: 0, knight: 0, cultist: 0, archer: 0, king: 0 },
 };
 
 export const gameParams = JSON.parse(JSON.stringify(startingGameParams));
@@ -339,6 +377,17 @@ export const gameEnemies = {
     spread: 50,
     spreadY: 50,
     ...spriteAnimationData.cultist.run,
+  },
+  ARCHER_ENEMIES_PROPS: {
+    velocity: 120,
+    x: CANVAS_WIDTH - 50,
+    y: CANVAS_HEIGHT / 2,
+    hp: MAX_ENEMY_HP,
+    power: 0.1,
+    stopX: STOP_ENEMY_POS + 250,
+    spread: 50,
+    spreadY: 50,
+    ...spriteAnimationData.archer.run,
   },
   KING_ENEMIES_PROPS: {
     velocity: 10,
