@@ -100,14 +100,17 @@ function resetGame() {
   castle.power = CASTLE_PROPS.power;
   dragon.selectAnimation("idle");
   toggleVisibleToolbar();
+
+  document.querySelector(".bribeBtn").disabled = false;
+
   const lightningBtn = document.querySelector(".lightningBtn");
   const fireballBtn = document.querySelector(".fireballBtn");
-  document.querySelector(".bribeBtn").disabled = false;
+
   lightningBtn.classList.remove("unlocked");
   fireballBtn.classList.remove("unlocked");
   lightningBtn.disabled = true;
   fireballBtn.disabled = true;
-  tower.src = "/assets/sprites/tower.png";
-  tower.imgSrc = "/assets/sprites/tower.png";
-  tower.image.src = "/assets/sprites/tower.png";
+  tower.src = "./assets/sprites/tower.png";
+  tower.imgSrc = "./assets/sprites/tower.png";
+  tower.image.src = "./assets/sprites/tower.png";
 }
