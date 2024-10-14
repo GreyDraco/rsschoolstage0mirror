@@ -108,6 +108,8 @@ function resetGame() {
 
   lightningBtn.classList.remove("unlocked");
   fireballBtn.classList.remove("unlocked");
+  lightningBtn.classList.remove("reload-lightning");
+  fireballBtn.classList.remove("reload-fireball");
   lightningBtn.disabled = true;
   fireballBtn.disabled = true;
   tower.src = "./assets/sprites/tower.png";
