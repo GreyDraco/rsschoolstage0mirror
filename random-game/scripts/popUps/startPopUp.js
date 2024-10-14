@@ -1,4 +1,4 @@
-import { castle, castleHP, dragon, tower } from "../characters.js";
+import { castle, castleHP, dragon, fireball, tower } from "../characters.js";
 import {
   audio,
   CASTLE_PROPS,
@@ -100,8 +100,12 @@ function resetGame() {
   castle.power = CASTLE_PROPS.power;
   dragon.selectAnimation("idle");
   toggleVisibleToolbar();
+  const lightningBtn = document.querySelector(".lightningBtn");
+  const fireballBtn = document.querySelector(".fireballBtn");
   document.querySelector(".bribeBtn").disabled = false;
-  document.querySelector(".lightningBtn").classList.remove("unlocked");
-  document.querySelector(".fireballBtn").classList.remove("unlocked");
+  lightningBtn.classList.remove("unlocked");
+  fireballBtn.classList.remove("unlocked");
+  lightningBtn.disabled = true;
+  fireballBtn.disabled = true;
   tower.src = "/assets/sprites/tower.png";
 }
