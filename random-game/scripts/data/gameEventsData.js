@@ -408,7 +408,7 @@ export const gameEventsData = {
                     img: "./assets/events/city2/city2-cultists-accept.jpeg",
                     rewards: {
                       playerLvl: 1,
-                      abilities: { fireball: 1 },
+                      abilities: { fireball: 2 },
                       gold: 0,
                     },
                     check: null,

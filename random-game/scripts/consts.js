@@ -1,6 +1,6 @@
 export const CANVAS_WIDTH = 1000;
 export const CANVAS_HEIGHT = 500;
-export const MAX_ENEMY_HP = 50;
+export const MAX_ENEMY_HP = 45;
 
 export const DIE_SIZE = 5;
 
@@ -26,7 +26,7 @@ export const upgradeMax = {
 };
 
 export const valuesPerLvl = {
-  fireball: 30,
+  fireball: 40,
   lightning: 150,
   bargain: 1,
 };
