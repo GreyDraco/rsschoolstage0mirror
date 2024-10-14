@@ -111,7 +111,7 @@ export class Character extends Sprite {
       this.width = spriteAnimationData[this.type][name].width;
       this.height = spriteAnimationData[this.type][name].height;
       this.maxFrames = spriteAnimationData[this.type][name].maxFrames;
-      this.currentFrame = this.maxFrames;
+      this.currentFrame = this.maxFrames - 1;
       this.delay = spriteAnimationData[this.type][name].delay;
       this.offsetX = spriteAnimationData[this.type][name].offsetX;
       this.offsetY = spriteAnimationData[this.type][name].offsetY;
