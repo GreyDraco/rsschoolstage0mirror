@@ -13,9 +13,9 @@ export function playNextAudio(id = "idle") {
   }
 }
 
-export function playSound(soundName = sounds.btn) {
-  sound.pause();
-  sound.currentTime = 0;
-  sound.src = `./assets/sounds/${soundName}`;
-  sound.play();
+export function playSound(soundName = sounds.btn, track = sound) {
+  track.pause();
+  track.currentTime = 0;
+  track.src = `./assets/sounds/${soundName}`;
+  track.play();
 }

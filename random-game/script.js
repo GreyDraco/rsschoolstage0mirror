@@ -16,6 +16,7 @@ import {
 import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
+  fireBreath,
   gameEnemyWave,
   gameParams,
   gameState,
@@ -111,7 +112,8 @@ function updateEnemyHp(damage) {
   hitClosestEnemies(damage);
   const enemyHp = getEnemyHp();
   gameState.currentEnemiesHP = Math.floor(enemyHp);
-  const bribeCost = Math.floor(enemyHp / 1 + gameParams.abilities.princess);
+  const modifier = 1 + gameParams.abilities.princess;
+  const bribeCost = Math.floor(getEnemyHp() / modifier);
   bribeCostText.textContent = bribeCost;
 
   const currentEnemHPWidth =
@@ -225,7 +227,7 @@ function animate(currentTime) {
       flame.currentFrame = flame.maxFrames;
       gameState.isFireActive = false;
       breathActive = false;
-      sound.pause();
+      fireBreath.pause();
     }
   }
 
@@ -278,7 +280,7 @@ function animateDragonAttack(deltaTime) {
     dragon.display(deltaTime);
     if (dragon.currentFrame === 10 && !breathActive) {
       breathActive = true;
-      playSound(sounds.fireBreath);
+      playSound(sounds.fireBreath, fireBreath);
       gameState.isFireActive = true;
     }
   } else {

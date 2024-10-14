@@ -10,9 +10,8 @@ const fireballBtn = document.querySelector(".fireballBtn");
 const bribeBtn = document.querySelector(".bribeBtn");
 
 bribeBtn.addEventListener("click", () => {
-  const bribeCost = Math.floor(
-    getEnemyHp() / 1 + gameParams.abilities.princess
-  );
+  const modifier = 1 + gameParams.abilities.princess;
+  const bribeCost = Math.floor(getEnemyHp() / modifier);
 
   if (gameParams.gold >= bribeCost) {
     playSound(sounds.money);

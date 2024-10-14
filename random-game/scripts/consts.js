@@ -416,6 +416,9 @@ audio.volume = gameState.musicVol * gameState.generalVol;
 export const sound = new Audio();
 sound.volume = gameState.soundVol * gameState.generalVol;
 
+export const fireBreath = new Audio();
+fireBreath.volume = gameState.soundVol * gameState.generalVol;
+
 export const sounds = {
   btn: "btn.mp3",
   battle: "battle.mp3",
