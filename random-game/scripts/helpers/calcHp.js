@@ -1,11 +1,12 @@
-import { gameEnemies, gameEnemyWave } from "../consts.js";
+import { gameEnemies, gameEnemyWave, gameState } from "../consts.js";
 
 export function getReserveEnemyHp() {
   let totalHp = 0;
   const reserveEnemies = Object.values(gameEnemyWave.incomingEnemies);
   const enemyType = Object.keys(gameEnemies);
   for (let i = 0; i < reserveEnemies.length; i++) {
-    totalHp += reserveEnemies[i] * gameEnemies[enemyType[i]].hp;
+    totalHp +=
+      reserveEnemies[i] * gameEnemies[enemyType[i]].hp * gameState.difficulty;
   }
   return totalHp;
 }

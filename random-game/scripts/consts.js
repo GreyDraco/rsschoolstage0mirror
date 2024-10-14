@@ -1,6 +1,6 @@
 export const CANVAS_WIDTH = 1000;
 export const CANVAS_HEIGHT = 500;
-export const MAX_ENEMY_HP = 45;
+export const MAX_ENEMY_HP = 100;
 
 export const DIE_SIZE = 5;
 
@@ -14,7 +14,7 @@ export const BASE_COST = 0.1; // repair cost
 
 export const upgradeCosts = {
   playerLvl: 500,
-  maxCastleHp: 400,
+  maxCastleHp: 300,
   castleHitCount: 1000,
   abilities: { fireball: 5000, lightning: 3000, bargain: 1000 },
 };
@@ -315,6 +315,7 @@ export const startingGameState = {
   generalVol: 1,
   musicVol: 1,
   soundVol: 1,
+  difficulty: 0.5,
   completedEvents: [],
 };
 
